@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CalendarModel, DateRange, TimeRange } from '@/entities/calendar';
 import { CertApi } from '@/entities/certification';
@@ -19,7 +19,6 @@ import {
 } from '@/shared/ui/Form';
 import { AssentP, AssentA } from "@/pages/ui/main";
 
-
 const fields = [
   'department',
   'contact_name',
@@ -30,7 +29,7 @@ const fields = [
 
 const zodSchema = createSchema(fields);
 
-const Consultations = () => {
+const Dismissal = () => {
   const {
     control,
     formState: { errors },
@@ -49,7 +48,7 @@ const Consultations = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<ICert> = (vals: unknown) => {
+  const onSubmit = (vals: unknown) => {
     const mutationValues = vals as CertCreationDto;
     const dateTime = time.split(':');
     const date = new Date(startDate);
@@ -79,7 +78,7 @@ const Consultations = () => {
   return (
     <>
       <Form submitFn={onSubmit}>
-        <DepartmentsDropdown />
+        {/* <DepartmentsDropdown /> */}
         <FormControl
           field={'contact_name' as FieldsKey}
           error={errors['contact_name']?.message || ''}
@@ -152,4 +151,4 @@ const Consultations = () => {
   );
 };
 
-export default Consultations;
+export default Dismissal;

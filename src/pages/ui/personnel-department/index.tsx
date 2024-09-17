@@ -3,7 +3,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
-import { CertApi } from "@/entities/certification";
+import {
+  CertificationDropdown,
+  // CertificationModel,
+  CertApi,
+} from "@/entities/certification";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { DepartmentsDropdown, DepartmentsModel } from "@/entities/departments";
 import { isMobile } from "@/shared/lib";
@@ -21,6 +25,7 @@ import { AssentP, AssentA } from "@/pages/ui/main";
 
 const fields = [
   "department",
+  "type",
   "contact_name",
   "email",
   "phone",
@@ -29,7 +34,7 @@ const fields = [
 
 const zodSchema = createSchema(fields);
 
-const EmploymentContract = () => {
+const Transfer = () => {
   const {
     control,
     formState: { errors },
@@ -79,6 +84,32 @@ const EmploymentContract = () => {
     <>
       <Form submitFn={onSubmit}>
         <DepartmentsDropdown />
+        <CertificationDropdown />
+        <FormControl
+          field={"type" as FieldsKey}
+          error={errors["type"]?.message || ""}
+          control={control}
+          render={({ field }) => (
+            <FormField
+              fieldValue={"type" as FieldsKey}
+              error={errors["type"]?.message || ""}
+              field={field}
+            />
+          )}
+        />
+        {/* вид обращения */}
+        {/* <FormControl
+          field={"type" as FieldsKey}
+          error={errors["type"]?.message || ""}
+          control={control}
+          render={({ field }) => (
+            <FormField
+              fieldValue={"type" as FieldsKey}
+              error={errors["type"]?.message || ""}
+              field={field}
+            />
+          )}
+        /> */}
         <FormControl
           field={"contact_name" as FieldsKey}
           error={errors["contact_name"]?.message || ""}
@@ -151,4 +182,4 @@ const EmploymentContract = () => {
   );
 };
 
-export default EmploymentContract;
+export default Transfer;

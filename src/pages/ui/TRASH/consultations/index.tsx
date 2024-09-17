@@ -1,14 +1,14 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
-import { CertApi } from "@/entities/certification";
-import { CertCreationDto } from "@/entities/certification/model/types.ts";
-import { DepartmentsDropdown, DepartmentsModel } from "@/entities/departments";
-import { isMobile } from "@/shared/lib";
-import { ICert } from "@/shared/types";
-import { Flex, Modal, SubmitButton } from "@/shared/ui";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { CalendarModel, DateRange, TimeRange } from '@/entities/calendar';
+import { CertApi } from '@/entities/certification';
+import { CertCreationDto } from '@/entities/certification/model/types.ts';
+import { DepartmentsDropdown, DepartmentsModel } from '@/entities/departments';
+import { isMobile } from '@/shared/lib';
+import { ICert } from '@/shared/types';
+import { Flex, Modal, SubmitButton } from '@/shared/ui';
 import {
   createSchema,
   FieldsKey,
@@ -16,20 +16,21 @@ import {
   FormControl,
   FormDateTimeField,
   FormField,
-} from "@/shared/ui/Form";
+} from '@/shared/ui/Form';
 import { AssentP, AssentA } from "@/pages/ui/main";
 
+
 const fields = [
-  "department",
-  "contact_name",
-  "email",
-  "phone",
-  "date",
+  'department',
+  'contact_name',
+  'email',
+  'phone',
+  'date',
 ] as FieldsKey[];
 
 const zodSchema = createSchema(fields);
 
-const Vacation = () => {
+const Consultations = () => {
   const {
     control,
     formState: { errors },
@@ -48,16 +49,16 @@ const Vacation = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const onSubmit = (vals: unknown) => {
+  const onSubmit: SubmitHandler<ICert> = (vals: unknown) => {
     const mutationValues = vals as CertCreationDto;
-    const dateTime = time.split(":");
+    const dateTime = time.split(':');
     const date = new Date(startDate);
     const dateWithTime = new Date(
-      date.setHours(+dateTime[0], +dateTime[1]) - 60 * 60 * 1000
+      date.setHours(+dateTime[0], +dateTime[1]) - 60 * 60 * 1000,
     );
 
-    mutationValues["date"] = dateWithTime.toJSON();
-    mutationValues["department"] = departmentFilter.id;
+    mutationValues['date'] = dateWithTime.toJSON();
+    mutationValues['department'] = departmentFilter.id;
 
     mutate(mutationValues, {
       onSuccess: () => {
@@ -66,10 +67,10 @@ const Vacation = () => {
         resetDateTime();
         clearDepartment();
         reset({
-          contact_name: "",
-          phone: "",
-          email: "",
-          date: "",
+          contact_name: '',
+          phone: '',
+          email: '',
+          date: '',
         });
       },
     });
@@ -78,45 +79,45 @@ const Vacation = () => {
   return (
     <>
       <Form submitFn={onSubmit}>
-        <DepartmentsDropdown />
+        {/* <DepartmentsDropdown /> */}
         <FormControl
-          field={"contact_name" as FieldsKey}
-          error={errors["contact_name"]?.message || ""}
+          field={'contact_name' as FieldsKey}
+          error={errors['contact_name']?.message || ''}
           control={control}
           render={({ field }) => (
             <FormField
-              fieldValue={"contact_name" as FieldsKey}
-              error={errors["contact_name"]?.message || ""}
+              fieldValue={'contact_name' as FieldsKey}
+              error={errors['contact_name']?.message || ''}
               field={field}
             />
           )}
         />
         <Flex
-          $direction={isMobile ? "column" : "row"}
+          $direction={isMobile ? 'column' : 'row'}
           $gap={15}
           $justify="space-between"
           $align="flex-start"
         >
           <FormControl
-            field={"email" as FieldsKey}
-            error={errors["email"]?.message || ""}
+            field={'email' as FieldsKey}
+            error={errors['email']?.message || ''}
             control={control}
             render={({ field }) => (
               <FormField
-                fieldValue={"email" as FieldsKey}
-                error={errors["email"]?.message || ""}
+                fieldValue={'email' as FieldsKey}
+                error={errors['email']?.message || ''}
                 field={field}
               />
             )}
           />
           <FormControl
-            field={"phone" as FieldsKey}
-            error={errors["phone"]?.message || ""}
+            field={'phone' as FieldsKey}
+            error={errors['phone']?.message || ''}
             control={control}
             render={({ field }) => (
               <FormField
-                fieldValue={"phone" as FieldsKey}
-                error={errors["phone"]?.message || ""}
+                fieldValue={'phone' as FieldsKey}
+                error={errors['phone']?.message || ''}
                 field={field}
               />
             )}
@@ -151,4 +152,4 @@ const Vacation = () => {
   );
 };
 
-export default Vacation;
+export default Consultations;

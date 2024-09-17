@@ -15,7 +15,7 @@ const SelectContainer = styled.div`
 `;
 
 export const DepartmentsDropdown: FC<DepartmentsDropdownParams> = ({
-  label = 'Подразделение',
+  label = 'Ваше подразделение',
   ...props
 }) => {
   const { filter, setFilter, clearFilter } =

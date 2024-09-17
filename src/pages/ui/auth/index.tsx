@@ -46,7 +46,7 @@ const Auth = () => {
 
   const handleClick = (role: Roles) => {
     login(role);
-    navigate(Routes.REQUESTS);
+    navigate(Routes.MAIN);
   };
 
   return (

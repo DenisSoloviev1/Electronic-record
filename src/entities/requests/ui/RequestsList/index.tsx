@@ -6,7 +6,7 @@ export const RequestsList = ({ children }: PropsWithChildren) => {
   return (
     <Container>
       <Typography variant="h3" paragraph sx={{ marginBottom: 8 }}>
-        Выберите департамент
+        Выберите подразделение
       </Typography>
       <ul>{children}</ul>
     </Container>

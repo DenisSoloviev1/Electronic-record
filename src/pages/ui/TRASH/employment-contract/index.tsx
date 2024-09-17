@@ -1,32 +1,26 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
-import {
-  CertApi,
-  CertificationDropdown,
-  CertificationModel,
-} from "@/entities/certification";
+import { CertApi } from "@/entities/certification";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
-import { DepartmentsModel } from "@/entities/departments";
+import { DepartmentsDropdown, DepartmentsModel } from "@/entities/departments";
 import { isMobile } from "@/shared/lib";
 import { ICert } from "@/shared/types";
 import { Flex, Modal, SubmitButton } from "@/shared/ui";
 import {
   createSchema,
+  FieldsKey,
+  Form,
   FormControl,
   FormDateTimeField,
   FormField,
-  Form,
-  FieldsKey,
 } from "@/shared/ui/Form";
 import { AssentP, AssentA } from "@/pages/ui/main";
 
-
 const fields = [
   "department",
-  "type",
   "contact_name",
   "email",
   "phone",
@@ -35,18 +29,15 @@ const fields = [
 
 const zodSchema = createSchema(fields);
 
-const Certificates = () => {
+const EmploymentContract = () => {
   const {
     control,
     formState: { errors },
-    handleSubmit,
     reset,
   } = useForm<ICert>({
     resolver: zodResolver(zodSchema),
   });
   const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore();
-  const { filter: typeFilter, clearFilter: clearType } =
-    CertificationModel.useCertificationStore();
   const { filter: departmentFilter, clearFilter: clearDepartment } =
     DepartmentsModel.useDepartmentsStore();
 
@@ -57,7 +48,7 @@ const Certificates = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<ICert> = (vals: unknown) => {
+  const onSubmit = (vals: unknown) => {
     const mutationValues = vals as CertCreationDto;
     const dateTime = time.split(":");
     const date = new Date(startDate);
@@ -66,7 +57,6 @@ const Certificates = () => {
     );
 
     mutationValues["date"] = dateWithTime.toJSON();
-    mutationValues["type"] = typeFilter.id;
     mutationValues["department"] = departmentFilter.id;
 
     mutate(mutationValues, {
@@ -74,7 +64,6 @@ const Certificates = () => {
         setIsOpen(true);
         setTimeout(() => setIsOpen(false), 3000);
         resetDateTime();
-        clearType();
         clearDepartment();
         reset({
           contact_name: "",
@@ -88,11 +77,10 @@ const Certificates = () => {
 
   return (
     <>
-      <Form submitFn={handleSubmit(onSubmit)}>
-        <CertificationDropdown />
+      <Form submitFn={onSubmit}>
+        {/* <DepartmentsDropdown /> */}
         <FormControl
           field={"contact_name" as FieldsKey}
-          rules={{ required: true }}
           error={errors["contact_name"]?.message || ""}
           control={control}
           render={({ field }) => (
@@ -111,7 +99,6 @@ const Certificates = () => {
         >
           <FormControl
             field={"email" as FieldsKey}
-            rules={{ required: true }}
             error={errors["email"]?.message || ""}
             control={control}
             render={({ field }) => (
@@ -124,7 +111,6 @@ const Certificates = () => {
           />
           <FormControl
             field={"phone" as FieldsKey}
-            rules={{ required: true }}
             error={errors["phone"]?.message || ""}
             control={control}
             render={({ field }) => (
@@ -165,4 +151,4 @@ const Certificates = () => {
   );
 };
 
-export default Certificates;
+export default EmploymentContract;

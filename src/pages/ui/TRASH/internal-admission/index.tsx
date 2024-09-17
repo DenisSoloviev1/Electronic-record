@@ -78,7 +78,7 @@ const InternalAdmission = () => {
   return (
     <>
       <Form submitFn={onSubmit}>
-        <DepartmentsDropdown />
+        {/* <DepartmentsDropdown /> */}
         <FormControl
           field={"contact_name" as FieldsKey}
           error={errors["contact_name"]?.message || ""}

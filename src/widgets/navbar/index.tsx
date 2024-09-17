@@ -31,7 +31,7 @@ export const NavBar = memo(() => {
           direction="ltr"
         />
       </Stack>
-      <PlainText>Выберите подразделение:</PlainText>
+      <PlainText>Выберите подразделениe:</PlainText>
       <nav>
         <ul>
           {menuItems.map((link) => (

@@ -1,5 +1,5 @@
-import { NavLink as BaseNavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink as BaseNavLink } from "react-router-dom";
+import styled from "styled-components";
 
 export const PlainText = styled.p`
   color: #38424f;
@@ -22,9 +22,11 @@ export const NavBarContainer = styled.div`
 
 export const NavLink = styled(BaseNavLink)`
   display: inline-block;
-  margin-top: 1.4em;
+  margin-top: 1em;
   width: 100%;
+  max-width: 480px;
   border-radius: 0.75rem;
+  border: 1px solid #38424f;
   background: #fff;
   padding: 1em 2.5em;
 
@@ -33,7 +35,14 @@ export const NavLink = styled(BaseNavLink)`
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.01125rem;
+  transition: all ease 0.5s;
 
+  &:hover {
+    border: 1px solid #fff;
+    background: #11519c;
+    color: #fff;
+  }
+    
   &.active {
     background: #11519c;
     color: #fff;

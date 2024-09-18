@@ -2,7 +2,7 @@ import { Box, Skeleton } from '@mui/material';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { Image } from '@/pages/ui/auth/style.ts';
-import { ImageContainer } from '@/pages/ui/type-of-requests/style.ts';
+import { ImageContainer } from '@/pages/ui/TRASH/type-of-requests/style';
 import { AuthModel } from '@/entities/auth';
 import {
   ListItem,

@@ -83,8 +83,9 @@ const Transfer = () => {
   return (
     <>
       <Form submitFn={onSubmit}>
-        <DepartmentsDropdown />
-        <CertificationDropdown />
+        {/* <DepartmentsDropdown /> */}
+        <p>Ваше подразделениe</p>
+        <p>Типы заявок</p>
         <FormControl
           field={"type" as FieldsKey}
           error={errors["type"]?.message || ""}
@@ -98,18 +99,7 @@ const Transfer = () => {
           )}
         />
         {/* вид обращения */}
-        {/* <FormControl
-          field={"type" as FieldsKey}
-          error={errors["type"]?.message || ""}
-          control={control}
-          render={({ field }) => (
-            <FormField
-              fieldValue={"type" as FieldsKey}
-              error={errors["type"]?.message || ""}
-              field={field}
-            />
-          )}
-        /> */}
+        
         <FormControl
           field={"contact_name" as FieldsKey}
           error={errors["contact_name"]?.message || ""}

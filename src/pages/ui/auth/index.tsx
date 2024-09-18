@@ -94,7 +94,8 @@ const Auth = () => {
                 direction="rtl"
               />
               <Badge
-                disabled={true}
+                // disabled={true}
+                onClick={() => handleClick('Студент')}
                 label="студент"
                 icon={
                   <IconChevronRight
@@ -106,7 +107,8 @@ const Auth = () => {
                 direction="rtl"
               />
               <Badge
-                disabled={true}
+                // disabled={true}
+                onClick={() => handleClick('Соискатель')}
                 label="соискатель"
                 icon={
                   <IconChevronRight

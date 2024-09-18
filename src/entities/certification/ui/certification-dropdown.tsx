@@ -81,7 +81,7 @@ export const CertificationDropdown = () => {
     <SelectContainer>
       <Select
         id="cert-types"
-        label="Вид справки"
+        label="Тип заявки"
         options={certs}
         onChange={handleChange}
         inputValue={filter.name}

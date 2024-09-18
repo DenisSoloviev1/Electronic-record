@@ -19,6 +19,7 @@ export const NavBar = memo(() => {
       <Stack spacing={3} mb={6} alignItems="center" direction="row">
         <GoBackBtn />
         <Badge
+          not_style={true}
           isAuth={true}
           label={role}
           icon={

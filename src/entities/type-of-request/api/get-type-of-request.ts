@@ -12,18 +12,18 @@ type GetTypeOfRequestsParams = {
   search?: string;
 };
 
-type GetDepartmentsQueryKey = [
+type GetTypeOfRequestsQueryKey = [
   QueryReqName.getTypeOfRequest,
   GetTypeOfRequestsParams,
 ];
 
-export const getDepartments: QueryFunction<
+export const getTypeOfRequests: QueryFunction<
 TypeOfRequestsDto,
-  GetDepartmentsQueryKey
+  GetTypeOfRequestsQueryKey
 > = async ({ queryKey }) => {
   const { limit, offset, search } = queryKey[1];
   try {
-    const res = await api.departmentsApi.departmentsList(limit, offset, search);
+    const res = await api.typesOfRequestsApi.typesOfRequestsList(limit, offset, search);
 
     if (checkStatus(res.status)) {
       return res.data as TypeOfRequestsDto;

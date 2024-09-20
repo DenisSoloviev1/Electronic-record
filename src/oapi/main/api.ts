@@ -307,7 +307,7 @@ export const DepartmentsApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         departmentsList: async (limit?: number, offset?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/types-of-requests/`;
+            const localVarPath = `/api/departments/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

@@ -33,7 +33,7 @@ class Api {
   authApi: AuthApi;
   departmentsApi: DepartmentsApi;
   requestsApi: RequestsApi;
-  typesOfRequests: TypesOfRequestsApi;
+  typesOfRequestsApi: TypesOfRequestsApi;
 
   constructor(basePath: string) {
     this.instance = axios.create({
@@ -44,7 +44,7 @@ class Api {
       },
     });
 
-    this.typesOfRequests = new TypesOfRequestsApi(
+    this.typesOfRequestsApi = new TypesOfRequestsApi(
       undefined,
       basePath,
       this.instance,

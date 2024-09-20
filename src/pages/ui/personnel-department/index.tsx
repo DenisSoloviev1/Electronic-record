@@ -147,9 +147,8 @@ const Transfer = () => {
 
         <AssentP>
           <label>
-            <input type="checkbox" />
-            &nbsp;Нажимая кнопку "Зарегистрироваться", Вы даёте свое &nbsp;
-            <AssentA href="https://nastavnikprof.donstu.ru/personal.html?from=autorization&type=register">
+            Нажимая кнопку "Отправить", Вы даёте свое &nbsp;
+            <AssentA href="/public/Согласие-на-обработку.pdf" download>
               Согласие на обработку персональных данных
             </AssentA>
             &nbsp;в соответствии с Федеральным Законом №152-ФЗ от 27.07.2006 "О

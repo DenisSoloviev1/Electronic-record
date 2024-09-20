@@ -16,7 +16,7 @@ const initStore: InitStore = {
   },
 };
 
-export const useDepartmentsStore = create<IStore>((set) => ({
+export const useTypeOfRequestsStore = create<IStore>((set) => ({
   ...initStore,
 
   setFilter: (filter: OptionStruct) => set(() => ({ filter: filter })),

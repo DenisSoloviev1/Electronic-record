@@ -19,10 +19,10 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   ...props
 }) => {
   const { filter, setFilter, clearFilter } =
-  TypeOfRequestsModel.useDepartmentsStore();
-  const { data: departments } = useQuery({
+  TypeOfRequestsModel.useTypeOfRequestsStore();
+  const { data: typeOfRequest } = useQuery({
     queryKey: [TypeOfRequestsApi.QueryReqName.getTypeOfRequest, {}],
-    queryFn: TypeOfRequestsApi.getDepartments,
+    queryFn: TypeOfRequestsApi.getTypeOfRequests,
     refetchOnWindowFocus: false,
   });
 
@@ -51,8 +51,8 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
         inputValue={filter.name}
         value={filter.name || null}
         label={label}
-        id="select-departments"
-        options={departments?.results || []}
+        id="select-type-of-request"
+        options={typeOfRequest?.results || []}
         {...props}
       />
     </SelectContainer>

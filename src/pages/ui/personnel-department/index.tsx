@@ -3,11 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
-import {
-  // CertificationDropdown,
-  // CertificationModel,
-  CertApi,
-} from "@/entities/certification";
+import { CertApi } from "@/entities/certification";
 import { TypeOfRequestDropdown } from "@/entities/type-of-request";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { DepartmentsDropdown, DepartmentsModel } from "@/entities/departments";
@@ -34,22 +30,6 @@ const fields = [
 ] as FieldsKey[];
 
 const zodSchema = createSchema(fields);
-
-let get = false;
-
-async function showCards() {
-  if (get === false) {
-    try {
-      const response = await fetch(
-        "http://185.195.24.47:7101/api/types-of-requests/"
-      );
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("error");
-    }
-  }
-}
 
 const Transfer = () => {
   const {
@@ -182,10 +162,6 @@ const Transfer = () => {
           loading={isPending}
           disabled={isPending}
         />
-
-        <button onClick={showCards} type="button">
-          получить
-        </button>
       </Form>
       <Modal isOpen={isOpen} />
     </>

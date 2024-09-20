@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { IconUser } from '@tabler/icons-react';
 import { memo } from 'react';
 
-import { NavBarContainer, NavLink, PlainText } from '@/widgets/navbar/style';
+import { NavBarContainer, NavLink, PlainText, TextMessage } from '@/widgets/navbar/style';
 
 import { AuthModel } from '@/entities/auth';
 
@@ -40,6 +40,9 @@ export const NavBar = memo(() => {
               {link.label}
             </NavLink>
           ))}
+          <TextMessage>Скоро здесь будут другие подразделения</TextMessage>
+
+          
         </ul>
       </nav>
     </NavBarContainer>

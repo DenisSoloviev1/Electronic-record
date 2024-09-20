@@ -42,7 +42,7 @@ export const NavLink = styled(BaseNavLink)`
     background: #11519c;
     color: #fff;
   }
-    
+
   &.active {
     background: #11519c;
     color: #fff;
@@ -50,5 +50,17 @@ export const NavLink = styled(BaseNavLink)`
 
   @media (max-width: 550px) {
     font-size: 0.8rem;
+  }
+`;
+
+export const TextMessage = styled.p`
+  color: #38424f;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.0125rem;
+  margin-top: 2rem;
+
+  @media (max-width: 550px) {
+    font-size: 1.125rem;
   }
 `;

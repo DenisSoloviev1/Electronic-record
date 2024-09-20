@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
 import {
-  CertificationDropdown,
+  // CertificationDropdown,
   // CertificationModel,
   CertApi,
 } from "@/entities/certification";
+import { TypeOfRequestDropdown } from "@/entities/type-of-request";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { DepartmentsDropdown, DepartmentsModel } from "@/entities/departments";
 import { isMobile } from "@/shared/lib";
@@ -33,6 +34,22 @@ const fields = [
 ] as FieldsKey[];
 
 const zodSchema = createSchema(fields);
+
+let get = false;
+
+async function showCards() {
+  if (get === false) {
+    try {
+      const response = await fetch(
+        "http://185.195.24.47:7101/api/types-of-requests/"
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("error");
+    }
+  }
+}
 
 const Transfer = () => {
   const {
@@ -83,9 +100,9 @@ const Transfer = () => {
   return (
     <>
       <Form submitFn={onSubmit}>
-        {/* <DepartmentsDropdown /> */}
-        <p>Ваше подразделениe</p>
-        <p>Типы заявок</p>
+        <DepartmentsDropdown />
+        <TypeOfRequestDropdown />
+
         <FormControl
           field={"type" as FieldsKey}
           error={errors["type"]?.message || ""}
@@ -98,8 +115,7 @@ const Transfer = () => {
             />
           )}
         />
-        {/* вид обращения */}
-        
+
         <FormControl
           field={"contact_name" as FieldsKey}
           error={errors["contact_name"]?.message || ""}
@@ -166,6 +182,10 @@ const Transfer = () => {
           loading={isPending}
           disabled={isPending}
         />
+
+        <button onClick={showCards} type="button">
+          получить
+        </button>
       </Form>
       <Modal isOpen={isOpen} />
     </>

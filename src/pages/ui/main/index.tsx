@@ -19,7 +19,6 @@ export const AssentA = styled.a`
   }
 `;
 
-
 const Main = () => {
   return <Image src="/main.png" alt="main" />;
 };

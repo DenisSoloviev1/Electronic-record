@@ -21,24 +21,24 @@ import {
 import { AssentP, AssentA } from "@/pages/ui/main";
 
 const fields = [
-  "department",
-  "type",
   "contact_name",
   "email",
   "phone",
   "date",
-] as FieldsKey[];
+] as FieldsKey[]; // Добавляем только нужные поля
 
 const zodSchema = createSchema(fields);
 
 const Transfer = () => {
   const {
     control,
-    formState: { errors },
+    formState: { errors }, // Подключаем ошибки формы
+    handleSubmit, // Убедитесь, что используется handleSubmit для валидации
     reset,
   } = useForm<ICert>({
-    resolver: zodResolver(zodSchema),
+    resolver: zodResolver(zodSchema), // Используем zodResolver для схемы
   });
+
   const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore();
   const { filter: departmentFilter, clearFilter: clearDepartment } =
     DepartmentsModel.useDepartmentsStore();
@@ -79,35 +79,23 @@ const Transfer = () => {
 
   return (
     <>
-      <Form submitFn={onSubmit}>
+      <Form submitFn={handleSubmit(onSubmit)}> 
         <DepartmentsDropdown />
         <TypeOfRequestDropdown />
 
         <FormControl
-          field={"type" as FieldsKey}
-          error={errors["type"]?.message || ""}
+          field={"contact_name" as FieldsKey}
+          error={errors["contact_name"]?.message || ""} 
           control={control}
           render={({ field }) => (
             <FormField
-              fieldValue={"type" as FieldsKey}
-              error={errors["type"]?.message || ""}
+              fieldValue={"contact_name" as FieldsKey}
+              error={errors["contact_name"]?.message || ""} 
               field={field}
             />
           )}
         />
 
-        <FormControl
-          field={"contact_name" as FieldsKey}
-          error={errors["contact_name"]?.message || ""}
-          control={control}
-          render={({ field }) => (
-            <FormField
-              fieldValue={"contact_name" as FieldsKey}
-              error={errors["contact_name"]?.message || ""}
-              field={field}
-            />
-          )}
-        />
         <Flex
           $direction={isMobile ? "column" : "row"}
           $gap={15}
@@ -116,24 +104,25 @@ const Transfer = () => {
         >
           <FormControl
             field={"email" as FieldsKey}
-            error={errors["email"]?.message || ""}
+            error={errors["email"]?.message || ""} 
             control={control}
             render={({ field }) => (
               <FormField
                 fieldValue={"email" as FieldsKey}
-                error={errors["email"]?.message || ""}
+                error={errors["email"]?.message || ""} 
                 field={field}
               />
             )}
           />
+
           <FormControl
             field={"phone" as FieldsKey}
-            error={errors["phone"]?.message || ""}
+            error={errors["phone"]?.message || ""} 
             control={control}
             render={({ field }) => (
               <FormField
                 fieldValue={"phone" as FieldsKey}
-                error={errors["phone"]?.message || ""}
+                error={errors["phone"]?.message || ""} 
                 field={field}
               />
             )}

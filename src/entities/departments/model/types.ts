@@ -1,4 +1,4 @@
-import { TypeOfRequestRead, PaginatedTypeOfRequestReadList } from '@/oapi/main';
+import {  DepartmentRead, PaginatedDepartmentReadList } from '@/oapi/main';
 
-export type TypeOfRequestsDto = PaginatedTypeOfRequestReadList;
-export type TypeOfRequestsList = TypeOfRequestRead;
+export type  DepartmentsDto = PaginatedDepartmentReadList;
+export type  DepartmentsList =  DepartmentRead;

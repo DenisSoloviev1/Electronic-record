@@ -29,6 +29,13 @@ export const SubmitBtn = styled.button<{ $disabled?: boolean }>`
   background: ${(props) =>
     props.$disabled ? '#F1F4F9' : 'rgba(255, 255, 255, 0.2)'};
   cursor: ${(props) => (props.$disabled ? 'not-allowed' : 'pointer')};
+  transition: all 0.3s ease;
+
+  &:hover{
+  border: 1px solid #11519c;}
+  &:focus{
+  border: 1px solid #d2dae3;
+}
 
   @media (max-width: 550px) {
     width: 100%;

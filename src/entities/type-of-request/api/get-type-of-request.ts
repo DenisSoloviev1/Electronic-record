@@ -1,5 +1,5 @@
 import { QueryFunction } from 'react-query';
-import { TypeOfRequestsDto } from '@/entities/departments/model/types.ts';
+import { TypeOfRequestsDto } from '@/entities/type-of-request/model/types.ts';
 import { api, checkStatus } from '@/shared/config';
 
 export enum QueryReqName {

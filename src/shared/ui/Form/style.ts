@@ -7,7 +7,7 @@ export const FormItem = styled.div`
 
 export const Error = styled.p`
   color: #e44444;
-  margin-top: 15px;
+  margin-top: 8px;
   font-size: 0.75rem;
   font-weight: 600;
 `;

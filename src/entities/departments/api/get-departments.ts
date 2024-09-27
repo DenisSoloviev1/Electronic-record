@@ -1,5 +1,5 @@
 import { QueryFunction } from 'react-query';
-import { DepatmentsDto } from '@/entities/departments/model/types.ts';
+import { DepartmentsDto } from '@/entities/departments/model/types.ts';
 import { api, checkStatus } from '@/shared/config';
 
 export enum QueryReqName {
@@ -18,7 +18,7 @@ type GetDepartmentsQueryKey = [
 ];
 
 export const getDepartments: QueryFunction<
-  DepatmentsDto,
+  DepartmentsDto,
   GetDepartmentsQueryKey
 > = async ({ queryKey }) => {
   const { limit, offset, search } = queryKey[1];
@@ -26,7 +26,7 @@ export const getDepartments: QueryFunction<
     const res = await api.departmentsApi.departmentsList(limit, offset, search);
 
     if (checkStatus(res.status)) {
-      return res.data as DepatmentsDto;
+      return res.data as DepartmentsDto;
     }
 
     return {};

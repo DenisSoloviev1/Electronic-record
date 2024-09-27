@@ -3,7 +3,7 @@ export const getDaysInMonth = (date: Date) => {
   const month = date.getMonth();
   // год
   const year = date.getFullYear();
-  // дней в месяцк
+  // дней в месяц
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   const days = [];

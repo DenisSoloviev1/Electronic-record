@@ -1,13 +1,13 @@
-import { Stack } from '@mui/material';
-import { ReactNode, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Stack } from "@mui/material";
+import { ReactNode, memo } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Aside, Box, Btn } from '@/widgets/layout/style';
-import { mainTitle, Routes } from '@/shared/constants';
-import { isMobile } from '@/shared/lib';
-import { Cross, Flex } from '@/shared/ui';
+import { Aside, Box, Btn } from "@/widgets/layout/style";
+import { mainTitle, Routes } from "@/shared/constants";
+import { isMobile } from "@/shared/lib";
+import { Cross, Flex } from "@/shared/ui";
 
-import { NavBar } from '../navbar';
+import { NavBar } from "../navbar";
 
 export const Layout = memo(({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -16,7 +16,10 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
   const isMain = window.location.pathname === Routes.MAIN;
 
   return (
-    <Stack direction="row" justifyContent="space-between">
+    <Stack
+      direction={isMobile ? "column" : "row"}
+      justifyContent="space-between"
+    >
       {isMobile ? (
         <>
           {isMain && (
@@ -29,7 +32,7 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
               <Flex
                 $justify="space-between"
                 $align="center"
-                style={{ marginBottom: '2em' }}
+                style={{ marginBottom: "2em" }}
               >
                 <h4>{mainTitle[window.location.pathname]}</h4>
 
@@ -47,7 +50,7 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
             <NavBar />
           </Aside>
 
-          <Box $bg={isMain ? 'transparent' : '#fff'}>{children}</Box>
+          <Box $bg={isMain ? "transparent" : "#fff"}>{children}</Box>
         </>
       )}
     </Stack>

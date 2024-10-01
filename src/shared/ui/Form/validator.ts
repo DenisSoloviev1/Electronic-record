@@ -42,14 +42,6 @@ const validateEmail = (val: FieldsKey) =>
     message: "Не является e-mail",
   });
 
-// Валидация даты в формате дд.мм.гггг
-// const validateDate = (val: FieldsKey) =>
-//   validator
-//     .string(getRequiredError(val))
-//     .regex(/^\d{2}\.\d{2}\.\d{4}$/, {
-//       message: "Дата должна быть в формате дд.мм.гггг",
-//     });
-
 // Создание схемы валидации для полей
 export const createSchema = (fields: FieldsKey[]) => {
   const validatorFields = fields.map((field) => {

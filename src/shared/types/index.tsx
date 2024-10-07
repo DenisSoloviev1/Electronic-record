@@ -38,7 +38,8 @@ export interface ICert {
   email: string;
   phone: string;
   date: Date | string;
-  department: number;
+  division: number;
+  typeOfRequest: number;
   type: number;
 }
 

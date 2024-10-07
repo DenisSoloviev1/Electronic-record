@@ -32,7 +32,7 @@ export const NavBar = memo(() => {
           direction="ltr"
         />
       </Stack>
-      <PlainText>Выберите подразделениe:</PlainText>
+      <PlainText>Выберите отдел:</PlainText>
       <nav>
         <ul>
           {menuItems.map((link) => (
@@ -40,7 +40,7 @@ export const NavBar = memo(() => {
               {link.label}
             </NavLink>
           ))}
-          <TextMessage>Скоро здесь будут другие подразделения...</TextMessage>
+          <TextMessage>Скоро здесь будут другие ведомства...</TextMessage>
 
           
         </ul>

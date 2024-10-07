@@ -52,8 +52,6 @@ export const createSchema = (fields: FieldsKey[]) => {
         return { [field]: validateEmail(field) };
       case "phone":
         return { [field]: validatePhone(field) };
-      // case "date":
-      //   return { [field]: validateDate(field) };
       default:
         break;
     }

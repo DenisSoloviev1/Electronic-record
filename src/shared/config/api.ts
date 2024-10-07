@@ -12,6 +12,7 @@ import { basePath } from '@/shared/config/params.ts';
 import {
   AuthApi,
   DepartmentsApi,
+  DivisionsApi,
   RequestsApi,
   TypesOfRequestsApi,
   UsersApi,
@@ -32,6 +33,7 @@ class Api {
   usersApi: UsersApi;
   authApi: AuthApi;
   departmentsApi: DepartmentsApi;
+  divisionsApi: DivisionsApi;
   requestsApi: RequestsApi;
   typesOfRequestsApi: TypesOfRequestsApi;
 
@@ -53,6 +55,11 @@ class Api {
     this.authApi = new AuthApi(undefined, basePath, this.instance);
     this.requestsApi = new RequestsApi(undefined, basePath, this.instance);
     this.departmentsApi = new DepartmentsApi(
+      undefined,
+      basePath,
+      this.instance,
+    );
+    this.divisionsApi = new DivisionsApi(
       undefined,
       basePath,
       this.instance,

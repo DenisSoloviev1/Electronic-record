@@ -1,23 +1,26 @@
-import { zodResolver } from "@hookform/resolvers/zod"; 
-import { useState } from "react"; 
-import { useForm } from "react-hook-form"; 
-import { useMutation } from "react-query"; 
-import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar"; 
-import { CertApi } from "@/entities/certification"; 
-import { TypeOfRequestDropdown, TypeOfRequestsModel } from "@/entities/type-of-request"; 
-import { CertCreationDto } from "@/entities/certification/model/types.ts"; 
-import { DepartmentsDropdown, DepartmentsModel } from "@/entities/departments"; 
-import { isMobile } from "@/shared/lib"; 
-import { ICert } from "@/shared/types"; 
-import { Flex, Modal, SubmitButton } from "@/shared/ui"; 
-import { 
-  createSchema, 
-  FieldsKey, 
-  Form, 
-  FormControl, 
-  FormDateTimeField, 
-  FormField, 
-} from "@/shared/ui/Form"; 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
+import {
+  TypeOfRequestDropdown,
+  TypeOfRequestsModel,
+} from "@/entities/type-of-request";
+import { DivisionsDropdown, DivisionsModel } from "@/entities/divisions";
+import { isMobile } from "@/shared/lib";
+import { CertApi } from "@/entities/certification";
+import { ICert } from "@/shared/types";
+import { CertCreationDto } from "@/entities/certification/model/types.ts";
+import { Flex, Modal, SubmitButton } from "@/shared/ui";
+import {
+  createSchema,
+  FieldsKey,
+  Form,
+  FormControl,
+  FormDateTimeField,
+  FormField,
+} from "@/shared/ui/Form";
 import { AssentP, AssentA } from "@/pages/ui/main";
 
 const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
@@ -37,15 +40,10 @@ const PersonnelDepartment = () => {
   });
 
   const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore(); // Для проверки даты и времени
-  const { filter: departmentFilter, clearFilter: clearDepartment } =
-    DepartmentsModel.useDepartmentsStore(); // Для проверки департамента
-    const { filter: typeOfRequestFilter, clearFilter: clearTypeOfRequest } = 
+  const { filter: divisionFilter, clearFilter: clearDivision } =
+    DivisionsModel.useDivisionsStore(); // Для проверки подразделения
+  const { filter: typeOfRequestFilter, clearFilter: clearTypeOfRequest } =
     TypeOfRequestsModel.useTypeOfRequestsStore(); // Для проверки типа обращения
-
-  const { isLoading: isPending, mutate } = useMutation({
-    mutationKey: [CertApi.QueryReqName.createCert],
-    mutationFn: CertApi.createCert,
-  });
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -62,7 +60,7 @@ const PersonnelDepartment = () => {
       return false;
     }
 
-    if (!departmentFilter?.id) {
+    if (!divisionFilter?.id) {
       setErrorMessage("Пожалуйста, выберите ваше подразделение.");
       return false;
     }
@@ -79,14 +77,18 @@ const PersonnelDepartment = () => {
     return true;
   };
 
-  const onSubmit = (vals: unknown) => {
-    // Проверяем все поля формы, перед тем как продолжить
+  const { isLoading: isPending, mutate } = useMutation({
+    mutationKey: [CertApi.QueryReqName.createCert],
+    mutationFn: CertApi.createCert,
+  });
+
+  // Функция отправки данных на сервер
+  const onSubmit: SubmitHandler<ICert> = (vals: unknown) => {
     if (!validateForm()) {
       return; // Если форма невалидна, не продолжаем выполнение
     }
 
     const mutationValues = vals as CertCreationDto;
-
     const dateTime = time.split(":");
     const date = new Date(startDate);
     const dateWithTime = new Date(
@@ -94,14 +96,41 @@ const PersonnelDepartment = () => {
     );
 
     mutationValues["date"] = dateWithTime.toJSON();
-    mutationValues["department"] = departmentFilter.id;
+    mutationValues["division"] = divisionFilter.id;
+    mutationValues["typeOfRequest"] = typeOfRequestFilter.id;
+    mutationValues["department"] = 8;
+
+    // Форматируем номер телефона
+    if (phone) {
+      // Удаляем все символы, кроме цифр
+      const cleanPhone = phone.replace(/\D/g, "");
+      // Если номер начинается с '7', заменяем на '8'
+      if (cleanPhone.startsWith("7")) {
+        mutationValues["phone"] = "8" + cleanPhone.slice(1);
+      } else if (cleanPhone.startsWith("8")) {
+        mutationValues["phone"] = cleanPhone; // Номер уже начинается с 8
+      } else {
+        mutationValues["phone"] = cleanPhone; // Номер не начинается с 7 или 8
+      }
+
+      // Проверяем длину номера
+      if (
+        mutationValues["phone"].length < 8 ||
+        mutationValues["phone"].length > 14
+      ) {
+        setErrorMessage("Телефон должен содержать от 8 до 14 цифр.");
+        return; // Возвращаемся, чтобы предотвратить отправку
+      }
+    } else {
+      mutationValues["phone"] = null;
+    }
 
     mutate(mutationValues, {
       onSuccess: () => {
         setIsOpen(true);
         setTimeout(() => setIsOpen(false), 3000);
         resetDateTime();
-        clearDepartment();
+        clearDivision();
         clearTypeOfRequest();
         reset({
           contact_name: "",
@@ -109,7 +138,7 @@ const PersonnelDepartment = () => {
           email: "",
           date: "",
         });
-        setErrorMessage(""); // Сбрасываем сообщение об ошибке при успешной отправке
+        setErrorMessage("");
       },
     });
   };
@@ -117,7 +146,7 @@ const PersonnelDepartment = () => {
   return (
     <>
       <Form submitFn={handleSubmit(onSubmit)}>
-        <DepartmentsDropdown />
+        <DivisionsDropdown />
         <TypeOfRequestDropdown />
 
         <FormControl
@@ -184,13 +213,20 @@ const PersonnelDepartment = () => {
 
         <SubmitButton
           label="Отправить"
-          loading={isPending}
-          disabled={isPending}
+          loading={isPending} // Отображаем индикатор загрузки при отправке
+          disabled={isPending} // Дизактивируем кнопку во время загрузки
         />
-        
+
         {/* Показываем сообщение об ошибке, если форма невалидна */}
         {errorMessage && (
-          <div style={{ color: "#e44444", marginTop: "0.5rem", fontWeight: "600", fontSize: "0.75rem"}}>
+          <div
+            style={{
+              color: "#e44444",
+              marginTop: "0.5rem",
+              fontWeight: "600",
+              fontSize: "0.75rem",
+            }}
+          >
             {errorMessage}
           </div>
         )}

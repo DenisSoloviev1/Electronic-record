@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { Select } from '@/shared/ui';
 import { OptionStruct } from '@/shared/ui/Select';
-import { DepartmentsApi, DepartmentsModel } from '..';
+import { DivisionsApi, DivisionsModel } from '..';
 
-interface DepartmentsDropdownParams {
+interface DivisionsDropdownParams {
   label?: string;
 }
 
@@ -14,15 +14,15 @@ const SelectContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-export const DepartmentsDropdown: FC<DepartmentsDropdownParams> = ({
-  label = 'Подразделения',
+export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
+  label = 'Ваше подразделение',
   ...props
 }) => {
   const { filter, setFilter, clearFilter } =
-    DepartmentsModel.useDepartmentsStore();
-  const { data: departments } = useQuery({
-    queryKey: [DepartmentsApi.QueryReqName.getDepartments, {}],
-    queryFn: DepartmentsApi.getDepartments,
+    DivisionsModel.useDivisionsStore();
+  const { data: divisions } = useQuery({
+    queryKey: [DivisionsApi.QueryReqName.getDivisions, {}],
+    queryFn: DivisionsApi.getDivisions,
     refetchOnWindowFocus: false,
   });
 
@@ -51,8 +51,8 @@ export const DepartmentsDropdown: FC<DepartmentsDropdownParams> = ({
         inputValue={filter.name}
         value={filter.name || null}
         label={label}
-        id="select-departments"
-        options={departments?.results || []}
+        id="select-divisions"
+        options={divisions?.results || []}
         {...props}
       />
     </SelectContainer>

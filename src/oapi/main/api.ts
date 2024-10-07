@@ -89,6 +89,57 @@ export interface PaginatedDepartmentReadList {
 /**
  * 
  * @export
+ * @interface DivisionRead
+ */
+export interface DivisionRead {
+    /**
+     * 
+     * @type {number}
+     * @memberof DivisionRead
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DivisionRead
+     */
+    'name': string;
+}
+
+/**
+ * 
+ * @export
+ * @interface PaginatedDivisionReadList
+ */
+export interface PaginatedDivisionReadList {
+    /**
+     * 
+     * @type {number}
+     * @memberof PaginatedDivisionReadList
+     */
+    'count'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedDivisionReadList
+     */
+    'next'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PaginatedDivisionReadList
+     */
+    'previous'?: string | null;
+    /**
+     * 
+     * @type {Array<DivisionRead>}
+     * @memberof PaginatedDivisionReadList
+     */
+    'results'?: Array<DivisionRead>;
+}
+/**
+ * 
+ * @export
  * @interface PaginatedTypeOfRequestReadList
  */
 export interface PaginatedTypeOfRequestReadList {
@@ -152,13 +203,19 @@ export interface RequestCreate {
      * @type {number}
      * @memberof RequestCreate
      */
-    'department'?: number | null;
+    'division': number | null;
     /**
      * 
      * @type {number}
      * @memberof RequestCreate
      */
-    'typeOfRequest'?: number | null;
+    'department': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof RequestCreate
+     */
+    'typeOfRequest': number | null;
     /**
      * 
      * @type {number}
@@ -422,6 +479,128 @@ export class DepartmentsApi extends BaseAPI {
         return DepartmentsApiFp(this.configuration).departmentsList(limit, offset, search, options).then((request) => request(this.axios, this.basePath));
     }
 }
+
+
+
+/**
+ * DivisionsApi - axios parameter creator
+ * @export
+ */
+export const DivisionsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {number} [limit] Number of results to return per page.
+         * @param {number} [offset] The initial index from which to return the results.
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        divisionsList: async (limit?: number, offset?: number, search?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/divisions/`;
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication basicAuth required
+            setBasicAuthToObject(localVarRequestOptions, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    };
+};
+
+/**
+ * DivisionsApi - functional programming interface
+ * @export
+ */
+export const DivisionsApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = DivisionsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {number} [limit] Number of results to return per page.
+         * @param {number} [offset] The initial index from which to return the results.
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async divisionsList(limit?: number, offset?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedDivisionReadList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.divisionsList(limit, offset, search, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DivisionsApi.divisionsList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    };
+};
+
+/**
+ * DivisionsApi - factory interface
+ * @export
+ */
+export const DivisionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DivisionsApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {number} [limit] Number of results to return per page.
+         * @param {number} [offset] The initial index from which to return the results.
+         * @param {string} [search] A search term.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        divisionsList(limit?: number, offset?: number, search?: string, options?: any): AxiosPromise<PaginatedDivisionReadList> {
+            return localVarFp.divisionsList(limit, offset, search, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DivisionsApi - object-oriented interface
+ * @export
+ * @class DivisionsApi
+ * @extends {BaseAPI}
+ */
+export class DivisionsApi extends BaseAPI {
+    /**
+     * 
+     * @param {number} [limit] Number of results to return per page.
+     * @param {number} [offset] The initial index from which to return the results.
+     * @param {string} [search] A search term.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DivisionsApi
+     */
+    public divisionsList(limit?: number, offset?: number, search?: string, options?: RawAxiosRequestConfig) {
+        return DivisionsApiFp(this.configuration).divisionsList(limit, offset, search, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 
 

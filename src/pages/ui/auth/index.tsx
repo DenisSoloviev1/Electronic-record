@@ -83,7 +83,7 @@ const Auth = () => {
               <H4>Кто вы?</H4>
               <Badge
                 onClick={() => handleClick('Работник')}
-                label="сотрудник"
+                label="работник"
                 icon={
                   <IconChevronRight
                     color="#fff"

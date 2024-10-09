@@ -97,7 +97,7 @@ const PersonnelDepartment = () => {
 
     mutationValues["date"] = dateWithTime.toJSON();
     mutationValues["division"] = divisionFilter.id;
-    mutationValues["typeOfRequest"] = typeOfRequestFilter.id;
+    mutationValues["type"] = typeOfRequestFilter.id;
     mutationValues["department"] = 8;
 
     // Форматируем номер телефона

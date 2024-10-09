@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Time = styled.div`
   position: absolute;
@@ -48,9 +48,12 @@ export const TimeItem = styled.li`
   border-bottom: 1px solid #d2dae3;
   cursor: pointer;
   list-style-type: none;
+  padding: 1rem 0.5rem;
+  transition: all 0.1s ease;
 
-  margin-bottom: 1em;
-  padding-bottom: 1em;
+  &:hover{
+  background-color: #c3d3e7;
+  border-radius: 0.5rem;}
 
   &:last-child {
     padding-bottom: 0;
@@ -62,7 +65,14 @@ export const TimeItem = styled.li`
 export const TimeList = styled.ul`
   max-height: 290px;
   height: 100%;
-  overflow: hidden;
-
+  overflow-y: auto;
   scroll-behavior: smooth;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
 `;

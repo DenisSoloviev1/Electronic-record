@@ -20,7 +20,8 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
 }) => {
   const { filter, setFilter, clearFilter } =
   TypeOfRequestsModel.useTypeOfRequestsStore();
-  const { data: typeOfRequest } = useQuery({
+
+  const { data: typeOfRequest, isLoading, isError  } = useQuery({
     queryKey: [TypeOfRequestsApi.QueryReqName.getTypeOfRequest, {}],
     queryFn: TypeOfRequestsApi.getTypeOfRequests,
     refetchOnWindowFocus: false,
@@ -34,25 +35,33 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
       | null,
     reason: AutocompleteChangeReason,
   ) => {
-    if (newValue && typeof newValue !== 'string' && !Array.isArray(newValue)) {
-      if (reason === 'clear') {
-        clearFilter();
-      } else {
-        setFilter({ id: newValue.id, name: newValue.name });
-      }
+    if (reason === 'clear') {
+      clearFilter();
+    } else if (newValue && typeof newValue !== 'string' && !Array.isArray(newValue)) {
+      setFilter({ id: newValue.id, name: newValue.name });
     }
   };
+
+  let selectOptions: OptionStruct[] = [];
+  
+  if (isLoading) {
+    selectOptions = [{ id: -1, name: 'Загрузка данных...' }]; // Используем -1 для загрузки
+  } else if (isError) {
+    selectOptions = [{ id: -2, name: 'Ошибка загрузки данных' }]; // Используем -2 для ошибки
+  } else if (typeOfRequest?.results) {
+    selectOptions = typeOfRequest.results;
+  }
 
   return (
     <SelectContainer>
       <Select
         multiple={false}
         onChange={handleChange}
-        inputValue={filter.name}
-        value={filter.name || null}
+        inputValue={filter.name || ''}
+        value={selectOptions.find(option => option.name === filter.name) || null}
         label={label}
         id="select-type-of-request"
-        options={typeOfRequest?.results || []}
+        options={selectOptions}
         {...props}
       />
     </SelectContainer>

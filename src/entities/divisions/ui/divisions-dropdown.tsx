@@ -38,13 +38,12 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
     }
   };
 
-  // Формируем опции для выпадающего списка в зависимости от статуса загрузки
   let selectOptions: OptionStruct[] = [];
   
   if (isLoading) {
-    selectOptions = [{ id: -1, name: 'Загрузка данных...' }]; // Используем -1 для загрузки
+    selectOptions = [{ id: -1, name: 'Загрузка данных...' }]; 
   } else if (isError) {
-    selectOptions = [{ id: -2, name: 'Ошибка загрузки данных' }]; // Используем -2 для ошибки
+    selectOptions = [{ id: -2, name: 'Ошибка загрузки данных' }]; 
   } else if (divisions?.results) {
     selectOptions = divisions.results;
   }
@@ -54,11 +53,11 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
       <Select
         multiple={false}
         onChange={handleChange}
-        inputValue={filter.name || ''} // Используем значение фильтра или пустую строку
-        value={selectOptions.find(option => option.name === filter.name) || null} // Передаем объект, соответствующий выбранному элементу
+        inputValue={filter.name || ''} 
+        value={selectOptions.find(option => option.name === filter.name) || null} 
         label={label}
         id="select-divisions"
-        options={selectOptions} // Опции меняются в зависимости от состояния загрузки
+        options={selectOptions} 
         {...props}
       />
     </SelectContainer>

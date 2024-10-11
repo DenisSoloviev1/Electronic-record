@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthModel } from '@/entities/auth';
 import { Routes } from '@/shared/constants';
 import { isMobile } from '@/shared/lib';
-import { Roles } from '@/shared/types';
+import { Roles, RolesDict } from '@/shared/types';
 import { Badge } from '@/shared/ui';
 import { Container, ContainerFluid, H1, H4, Image } from './style';
 
@@ -22,32 +22,22 @@ const Auth = () => {
     },
   });
 
-  // const { data } = useQuery({
-  //   queryKey: [QueryReqName.authByDSTU, { code: 'dsfdsfsd' }],
-  //   queryFn: authByDSTU,
-  //   refetchOnWindowFocus: false,
-  // });
-
-  // const firstRender = useRef(true);
-  //
-  // useEffect(() => {
-  //   if (firstRender.current) {
-  //     window.location.href = `https://stud.sssu.ru/WebApp/#/Authorize?client_id=724363&redirect_uri=http://localhost:5173/`;
-  //   }
-  //
-  //   firstRender.current = false;
-  //   return () => {
-  //     firstRender.current = true;
-  //   };
-  // }, []);
-
   const { login } = AuthModel.useAuthStore();
   const navigate = useNavigate();
 
-  const handleClick = (role: Roles) => {
-    login(role);
-    navigate(Routes.MAIN);
+  const handleClick = (roleLabel: string) => {
+    const role = (Object.keys(RolesDict) as Array<keyof typeof RolesDict>).find(
+      (key) => RolesDict[key] === roleLabel
+    ) as Roles;
+
+    if (role) {
+      login(role); 
+      navigate(Routes.MAIN); 
+    } else {
+      console.error('Неизвестная роль:', roleLabel);
+    }
   };
+  
 
   return (
     <ContainerFluid>
@@ -94,7 +84,6 @@ const Auth = () => {
                 direction="rtl"
               />
               <Badge
-                // disabled={true}
                 onClick={() => handleClick('Студент')}
                 label="студент"
                 icon={
@@ -107,7 +96,6 @@ const Auth = () => {
                 direction="rtl"
               />
               <Badge
-                // disabled={true}
                 onClick={() => handleClick('Соискатель')}
                 label="соискатель"
                 icon={

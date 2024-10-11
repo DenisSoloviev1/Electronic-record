@@ -7,7 +7,7 @@ export const InputField = styled(TextField)`
   }
 
   & .MuiInputBase-root {
-    border-radius: 0.75rem;
+    border-radius: 16px;
   }
 
   input {

@@ -1,45 +1,29 @@
 import { Routes } from '@/shared/constants';
 
-type Menu = {
+export interface Menu {
   id: number;
-  path: Routes;
+  path: string;
   label: string;
-};
+  allowedRoles: string[]; 
+}
 
 export const menuItems: Menu[] = [
   {
     id: 1,
-    path: Routes.PERSONNEL_DEPARTMENT,
+    path: Routes.EMPLOYEE,
     label: 'Отдел кадров',
+    allowedRoles: ['EMPLOYEE']
   },
-  // {
-  //   id: 2,
-  //   path: Routes.TRANSFER,
-  //   label: 'Перевод',
-  // },
-  // {
-  //   id: 3,
-  //   path: Routes.DISTRICT,
-  //   label: 'Увольнение',
-  // },
-  // {
-  //   id: 4,
-  //   path: Routes.VACATION,
-  //   label: 'Отпуск',
-  // },
-  // {
-  //   id: 5,
-  //   path: Routes.CONSULTATION,
-  //   label: 'Консультации',
-  // },
-  // {
-  //   id: 6,
-  //   path: Routes.EMPLOYMENT_CONTRACT,
-  //   label: 'Продление трудового договора',
-  // },
-  // {
-  //   id: 7,
-  //   path: Routes.INTERNAL_ADMISSION,
-  //   label: 'Прием по внутреннему совметистельству',
-  // },
+  {
+    id: 2,
+    path: Routes.STUDENT,
+    label: 'Отдел по работе с обучающимися',
+    allowedRoles: ['STUDENT'] 
+  },
+  {
+    id: 3,
+    path: Routes.APPLICANT,
+    label: 'Управление кадров',
+    allowedRoles: ['APPLICANT']
+  },
 ];

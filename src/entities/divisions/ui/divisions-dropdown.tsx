@@ -1,10 +1,14 @@
-import { AutocompleteChangeReason } from '@mui/material';
-import { FC, SyntheticEvent } from 'react';
-import { useQuery } from 'react-query';
-import styled from 'styled-components';
-import { Select } from '@/shared/ui';
-import { OptionStruct } from '@/shared/ui/Select';
-import { DivisionsApi, DivisionsModel } from '..';
+import {
+  Autocomplete,
+  AutocompleteChangeReason,
+  TextField,
+  Paper,
+} from "@mui/material";
+import { FC, SyntheticEvent, useState } from "react";
+import { useQuery } from "react-query";
+import styled from "styled-components";
+import { DivisionsApi, DivisionsModel } from "..";
+import { OptionStruct } from "@/shared/ui/Select";
 
 interface DivisionsDropdownParams {
   label?: string;
@@ -12,15 +16,22 @@ interface DivisionsDropdownParams {
 
 const SelectContainer = styled.div`
   margin-bottom: 20px;
+  border-radius: 16px; 
+  background-color: #f1f4f9;
 `;
 
 export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
-  label = 'Ваше подразделение',
+  label = "Ваше подразделение",
   ...props
 }) => {
   const { filter, setFilter, clearFilter } = DivisionsModel.useDivisionsStore();
-  
-  const { data: divisions, isLoading, isError } = useQuery({
+  const [inputValue, setInputValue] = useState(filter.name || "");
+
+  const {
+    data: divisions,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: [DivisionsApi.QueryReqName.getDivisions, {}],
     queryFn: DivisionsApi.getDivisions,
     refetchOnWindowFocus: false,
@@ -28,36 +39,61 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
 
   const handleChange = (
     _: SyntheticEvent,
-    newValue: NonNullable<OptionStruct | string> | (string | OptionStruct)[] | null,
-    reason: AutocompleteChangeReason,
+    newValue: OptionStruct | null,
+    reason: AutocompleteChangeReason
   ) => {
-    if (reason === 'clear') {
+    if (reason === "clear") {
       clearFilter();
-    } else if (newValue && typeof newValue !== 'string' && !Array.isArray(newValue)) {
+      setInputValue("");
+    } else if (newValue) {
       setFilter({ id: newValue.id, name: newValue.name });
     }
   };
 
   let selectOptions: OptionStruct[] = [];
-  
+
   if (isLoading) {
-    selectOptions = [{ id: -1, name: 'Загрузка данных...' }]; 
+    selectOptions = [{ id: -1, name: "Загрузка данных..." }];
   } else if (isError) {
-    selectOptions = [{ id: -2, name: 'Ошибка загрузки данных' }]; 
+    selectOptions = [{ id: -2, name: "Ошибка загрузки данных" }];
   } else if (divisions?.results) {
     selectOptions = divisions.results;
   }
 
   return (
     <SelectContainer>
-      <Select
+      <Autocomplete
         multiple={false}
+        options={selectOptions}
+        getOptionLabel={(option) => option.name}
+        value={
+          selectOptions.find((option) => option.name === filter.name) || null
+        }
+        inputValue={inputValue}
+        onInputChange={(_, newInputValue) => setInputValue(newInputValue)} 
         onChange={handleChange}
-        inputValue={filter.name || ''} 
-        value={selectOptions.find(option => option.name === filter.name) || null} 
-        label={label}
-        id="select-divisions"
-        options={selectOptions} 
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        noOptionsText={
+          isLoading
+            ? "Загрузка данных..."
+            : isError
+              ? "Ошибка загрузки данных"
+              : "Нет данных"
+        }
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={label}
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              sx: { borderRadius: "16px" }, 
+            }}
+          />
+        )}
+        PaperComponent={(props) => (
+          <Paper {...props} style={{ borderRadius: "16px" }} /> 
+        )}
         {...props}
       />
     </SelectContainer>

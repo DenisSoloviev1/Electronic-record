@@ -3,8 +3,9 @@ type mainT = {
 };
 
 export const mainTitle: mainT = {
-  "/personnel-department": "Отдел кадров",
-
+"/employee": "Работник",
+"/student": "Студент",
+"/applicant": "Соискатель",
 
   // пока нахуй не надо
   // "/transfer": "Перевод",
@@ -17,7 +18,9 @@ export const mainTitle: mainT = {
 
 export enum Routes {
   MAIN = "/main",
-  PERSONNEL_DEPARTMENT = "/personnel-department",
+  EMPLOYEE = "/employee",
+  STUDENT = "/student",
+  APPLICANT = "/applicant",
 
 
   // пока нахуй не надо

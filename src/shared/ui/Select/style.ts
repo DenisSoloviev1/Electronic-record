@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 import styled from 'styled-components';
 
+// Стили для иконки (при необходимости)
 export const Icon = styled.div`
   position: absolute;
   right: 10px;
@@ -18,28 +19,25 @@ export const Icon = styled.div`
   align-items: center;
 `;
 
+// Стили для Autocomplete
 export const Autocomplete = styled(AutocompleteBase)`
   background-color: #f1f4f9;
-  border-radius: 1rem;
+  border-radius: 16px; 
 
   & .MuiPaper-root {
+    border-radius: 16px; 
     box-shadow: none;
-    border-radius: 1rem;
     background-color: transparent;
   }
 
-  & .MuiAutocomplete-popupIndicator {
-    transform: none;
-  }
-
   & .MuiAutocomplete-inputRoot {
-    border-radius: 1rem;
+    border-radius: 16px;
   }
 `;
 
 export const Paper = styled(Ppr)`
   & .MuiPaper-root {
-    border-radius: 1rem;
+    border-radius: 16px;
     max-height: 300px;
     box-shadow: none;
     border: none;
@@ -50,7 +48,7 @@ export const Paper = styled(Ppr)`
 export const List = styled.ul`
   margin-top: 15px;
   background-color: #f1f4f9;
-  border-radius: 1rem;
+  border-radius: 16px; 
   padding: 1rem 0;
   width: 580px;
   max-height: 300px;

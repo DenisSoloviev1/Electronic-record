@@ -24,16 +24,15 @@ import {
 import { AssentP, AssentA } from "@/pages/ui/main";
 
 const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
-
 const zodSchema = createSchema(fields);
 
-const PersonnelDepartment = () => {
+const Applicant = () => {
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-    watch, // Следим за полями формы
+    watch, 
   } = useForm<ICert>({
     resolver: zodResolver(zodSchema),
     mode: "onSubmit",
@@ -213,11 +212,10 @@ const PersonnelDepartment = () => {
 
         <SubmitButton
           label="Отправить"
-          loading={isPending} // Отображаем индикатор загрузки при отправке
-          disabled={isPending} // Дизактивируем кнопку во время загрузки
+          loading={isPending} 
+          disabled={isPending} 
         />
 
-        {/* Показываем сообщение об ошибке, если форма невалидна */}
         {errorMessage && (
           <div
             style={{
@@ -237,4 +235,5 @@ const PersonnelDepartment = () => {
   );
 };
 
-export default PersonnelDepartment;
+export default Applicant;
+

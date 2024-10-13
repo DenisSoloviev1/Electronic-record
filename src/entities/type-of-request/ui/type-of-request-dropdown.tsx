@@ -12,6 +12,7 @@ import { OptionStruct } from "@/shared/ui/Select";
 
 interface TypeOfRequestDropdownParams {
   label?: string;
+  role: string;
 }
 
 const SelectContainer = styled.div`
@@ -19,9 +20,9 @@ const SelectContainer = styled.div`
   border-radius: 16px; // Закругление контейнера
   background-color: #f1f4f9;
 `;
-
 export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   label = "Тип заявки",
+  role,
   ...props
 }) => {
   const { filter, setFilter, clearFilter } =

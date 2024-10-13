@@ -9,7 +9,8 @@ import {
 } from "@/entities/type-of-request";
 import { isMobile } from "@/shared/lib";
 import { CertApi } from "@/entities/certification";
-import { ICert } from "@/shared/types";
+import { ICert, RolesDict } from "@/shared/types";
+import { AuthModel } from '@/entities/auth';
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { Flex, Modal, SubmitButton } from "@/shared/ui";
 import {
@@ -27,6 +28,8 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Employee = () => {
+  const role = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict; 
+
   const {
     control,
     formState: { errors },
@@ -90,7 +93,7 @@ const Employee = () => {
 
     mutationValues["date"] = dateWithTime.toJSON();
     mutationValues["type"] = typeOfRequestFilter.id;
-    mutationValues["department"] = 8;
+    mutationValues["department"] = 11;
 
     // Форматируем номер телефона
     if (phone) {
@@ -137,7 +140,7 @@ const Employee = () => {
   return (
     <>
       <Form submitFn={handleSubmit(onSubmit)}>
-        <TypeOfRequestDropdown />
+        <TypeOfRequestDropdown role={role}/>
 
         <FormControl
           field={"contact_name" as FieldsKey}

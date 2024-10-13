@@ -10,7 +10,8 @@ import {
 import { DivisionsDropdown, DivisionsModel } from "@/entities/divisions";
 import { isMobile } from "@/shared/lib";
 import { CertApi } from "@/entities/certification";
-import { ICert } from "@/shared/types";
+import { ICert, RolesDict } from "@/shared/types";
+import { AuthModel } from "@/entities/auth";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { Flex, Modal, SubmitButton } from "@/shared/ui";
 import {
@@ -28,12 +29,16 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Student = () => {
+  const role = AuthModel.useAuthStore(
+    (state) => state.role
+  ) as keyof typeof RolesDict;
+
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-    watch, 
+    watch,
   } = useForm<ICert>({
     resolver: zodResolver(zodSchema),
     mode: "onSubmit",
@@ -98,7 +103,7 @@ const Student = () => {
     mutationValues["date"] = dateWithTime.toJSON();
     mutationValues["division"] = divisionFilter.id;
     mutationValues["type"] = typeOfRequestFilter.id;
-    mutationValues["department"] = 8;
+    mutationValues["department"] = 10;
 
     // Форматируем номер телефона
     if (phone) {
@@ -147,7 +152,7 @@ const Student = () => {
     <>
       <Form submitFn={handleSubmit(onSubmit)}>
         <DivisionsDropdown />
-        <TypeOfRequestDropdown />
+        <TypeOfRequestDropdown role={role}/>
 
         <FormControl
           field={"contact_name" as FieldsKey}
@@ -213,8 +218,8 @@ const Student = () => {
 
         <SubmitButton
           label="Отправить"
-          loading={isPending} 
-          disabled={isPending} 
+          loading={isPending}
+          disabled={isPending}
         />
 
         {errorMessage && (

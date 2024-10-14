@@ -7,35 +7,39 @@ import {
 import { FC, SyntheticEvent, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { TypeOfRequestsApi, TypeOfRequestsModel } from "..";
+import { getTypeOfRequests, QueryReqName } from "@/entities/type-of-request/api";
+import { TypeOfRequestsModel } from "..";
 import { OptionStruct } from "@/shared/ui/Select";
+import { AuthModel } from "@/entities/auth";
+import { RolesDict } from '@/shared/types';
 
 interface TypeOfRequestDropdownParams {
   label?: string;
-  role: string;
 }
 
 const SelectContainer = styled.div`
   margin-bottom: 20px;
-  border-radius: 16px; // Закругление контейнера
+  border-radius: 16px;
   background-color: #f1f4f9;
 `;
+
 export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   label = "Тип заявки",
-  role,
   ...props
 }) => {
   const { filter, setFilter, clearFilter } =
     TypeOfRequestsModel.useTypeOfRequestsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
+  const roleKey = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict;
+  const role = RolesDict[roleKey]; 
 
   const {
     data: typeOfRequest,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: [TypeOfRequestsApi.QueryReqName.getTypeOfRequest, {}],
-    queryFn: TypeOfRequestsApi.getTypeOfRequests,
+    queryKey: [QueryReqName.getTypeOfRequest, { limit: 10, offset: 0, search: '', role }], // Передаем роль в запрос
+    queryFn: getTypeOfRequests,
     refetchOnWindowFocus: false,
   });
 
@@ -46,7 +50,7 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   ) => {
     if (reason === "clear") {
       clearFilter();
-      setInputValue(""); // Очистить поле ввода
+      setInputValue("");
     } else if (newValue) {
       setFilter({ id: newValue.id, name: newValue.name });
     }
@@ -72,15 +76,15 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
           selectOptions.find((option) => option.name === filter.name) || null
         }
         inputValue={inputValue}
-        onInputChange={(_, newInputValue) => setInputValue(newInputValue)} // Обновляем значение поля ввода
+        onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
         onChange={handleChange}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         noOptionsText={
           isLoading
             ? "Загрузка данных..."
             : isError
-              ? "Ошибка загрузки данных"
-              : "Нет данных"
+            ? "Ошибка загрузки данных"
+            : "Нет данных"
         }
         renderInput={(params) => (
           <TextField
@@ -89,12 +93,12 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
             variant="outlined"
             InputProps={{
               ...params.InputProps,
-              sx: { borderRadius: "16px" }, // Закругление поля ввода через sx
+              sx: { borderRadius: "16px" },
             }}
           />
         )}
         PaperComponent={(props) => (
-          <Paper {...props} style={{ borderRadius: "16px" }} /> // Закругление выпадающего списка
+          <Paper {...props} style={{ borderRadius: "16px" }} />
         )}
         {...props}
       />

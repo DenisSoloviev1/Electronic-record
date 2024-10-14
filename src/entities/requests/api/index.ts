@@ -25,14 +25,13 @@ export const getRequestTypesList: QueryFunction<
   const { roles, limit, offset, search } = queryKey[1];
 
   try {
-    const { data } = await api.typesOfRequests.typesOfRequestsList(
+    const { data } = await api.typesOfRequestsApi.typesOfRequestsList(
       limit,
       offset,
       search,
-      {
-        params: { roles },
-      },
+      roles 
     );
+    
 
     return data;
   } catch (e) {

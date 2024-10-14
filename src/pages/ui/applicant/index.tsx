@@ -9,8 +9,7 @@ import {
 } from "@/entities/type-of-request";
 import { isMobile } from "@/shared/lib";
 import { CertApi } from "@/entities/certification";
-import { ICert, RolesDict } from "@/shared/types";
-import { AuthModel } from '@/entities/auth';
+import { ICert } from "@/shared/types";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { Flex, Modal, SubmitButton } from "@/shared/ui";
 import {
@@ -28,7 +27,6 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Employee = () => {
-  const role = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict; 
 
   const {
     control,
@@ -140,7 +138,7 @@ const Employee = () => {
   return (
     <>
       <Form submitFn={handleSubmit(onSubmit)}>
-        <TypeOfRequestDropdown role={role}/>
+        <TypeOfRequestDropdown/>
 
         <FormControl
           field={"contact_name" as FieldsKey}

@@ -10,6 +10,7 @@ type GetDivisionsParams = {
   limit?: number;
   offset?: number;
   search?: string;
+  role: string;
 };
 
 type GetDivisionsQueryKey = [
@@ -21,9 +22,9 @@ export const getDivisions: QueryFunction<
   DivisionsDto,
   GetDivisionsQueryKey
 > = async ({ queryKey }) => {
-  const { limit, offset, search } = queryKey[1];
+  const { limit, offset, search, role } = queryKey[1];
   try {
-    const res = await api.divisionsApi.divisionsList(limit, offset, search);
+    const res = await api.divisionsApi.divisionsList(limit, offset, search, role);
 
     if (checkStatus(res.status)) {
       return res.data as DivisionsDto;

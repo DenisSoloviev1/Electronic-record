@@ -7,7 +7,10 @@ import {
 import { FC, SyntheticEvent, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { DivisionsApi, DivisionsModel } from "..";
+import { getDivisions, QueryReqName } from "@/entities/divisions/api";
+import { DivisionsModel } from "..";
+import { AuthModel } from "@/entities/auth";
+import { RolesDict } from '@/shared/types';
 import { OptionStruct } from "@/shared/ui/Select";
 
 interface DivisionsDropdownParams {
@@ -26,14 +29,16 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
 }) => {
   const { filter, setFilter, clearFilter } = DivisionsModel.useDivisionsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
+  const roleKey = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict;
+  const role = RolesDict[roleKey]; 
 
   const {
     data: divisions,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: [DivisionsApi.QueryReqName.getDivisions, {}],
-    queryFn: DivisionsApi.getDivisions,
+    queryKey: [QueryReqName.getDivisions, { limit: 10, offset: 0, search: '', role }], // Передаем роль в запрос
+    queryFn: getDivisions,
     refetchOnWindowFocus: false,
   });
 

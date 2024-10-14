@@ -10,8 +10,7 @@ import {
 import { DivisionsDropdown, DivisionsModel } from "@/entities/divisions";
 import { isMobile } from "@/shared/lib";
 import { CertApi } from "@/entities/certification";
-import { ICert, RolesDict } from "@/shared/types";
-import { AuthModel } from "@/entities/auth";
+import { ICert } from "@/shared/types";
 import { CertCreationDto } from "@/entities/certification/model/types.ts";
 import { Flex, Modal, SubmitButton } from "@/shared/ui";
 import {
@@ -29,9 +28,6 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Student = () => {
-  const role = AuthModel.useAuthStore(
-    (state) => state.role
-  ) as keyof typeof RolesDict;
 
   const {
     control,
@@ -152,7 +148,7 @@ const Student = () => {
     <>
       <Form submitFn={handleSubmit(onSubmit)}>
         <DivisionsDropdown />
-        <TypeOfRequestDropdown role={role}/>
+        <TypeOfRequestDropdown/>
 
         <FormControl
           field={"contact_name" as FieldsKey}

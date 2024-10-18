@@ -21,7 +21,7 @@ import {
   FormDateTimeField,
   FormField,
 } from "@/shared/ui/Form";
-import { AssentP, AssentA } from "@/pages/ui/main";
+import { AssentP, Link } from "@/pages/ui/main";
 
 const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 
@@ -204,9 +204,9 @@ const Student = () => {
         <AssentP>
           <label>
             Нажимая кнопку "Отправить", Вы даёте свое &nbsp;
-            <AssentA href="/public/Согласие-на-обработку.pdf" download>
+            <Link href="/public/Согласие-на-обработку.pdf" download>
               Согласие на обработку персональных данных
-            </AssentA>
+            </Link>
             &nbsp;в соответствии с Федеральным Законом №152-ФЗ от 27.07.2006 "О
             персональных данных".
           </label>

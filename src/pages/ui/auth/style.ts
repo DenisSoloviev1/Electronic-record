@@ -40,7 +40,7 @@ export const H4 = styled.h4`
 `;
 
 export const Image = styled.img`
-  object-fit: cover;
+object-fit: cover;
 
   @media (max-width: 1000px) {
     display: none;

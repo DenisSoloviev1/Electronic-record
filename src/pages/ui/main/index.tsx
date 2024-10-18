@@ -7,16 +7,16 @@ const Image = styled.img`
 `;
 
 export const AssentP = styled.p`
-// margin-top: -2rem;
-  // margin-bottom: 2rem;
   margin: 2rem 0;
 `;
 
-export const AssentA = styled.a`
+export const Link = styled.a`
+  width: fit-content;
   color: #007bff;
   text-decoration: none;
 
   &:hover {
+    cursor: pointer;
     text-decoration: underline;
   }
 `;

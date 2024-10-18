@@ -1,28 +1,28 @@
-import { lazy } from 'react';
-import { Routes } from '@/shared/constants';
-import { IRoute, RolesDict } from '@/shared/types';
+import { lazy } from "react";
+import { Routes } from "@/shared/constants";
+import { IRoute, RolesDict } from "@/shared/types";
 
 export const routes: IRoute[] = [
   {
     id: 0,
-    path: '/',
-    component: lazy(() => import('../ui/auth')),
+    path: "/",
+    component: lazy(() => import("../ui/auth")),
     isPublic: true,
     roles: [RolesDict.APPLICANT, RolesDict.EMPLOYEE, RolesDict.STUDENT],
     withLayout: false,
   },
   {
     id: 1,
-    path: Routes.MAIN,
-    component: lazy(() => import('../ui/main')),
+    path: Routes.LOGIN,
+    component: lazy(() => import("../ui/login")),
     isPublic: false,
-    roles: [RolesDict.APPLICANT, RolesDict.EMPLOYEE, RolesDict.STUDENT],
-    withLayout: true,
+    roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
+    withLayout: false,
   },
   {
     id: 2,
-    path: Routes.LOGIN,
-    component: lazy(() => import('../ui/login')),
+    path: Routes.MAIN,
+    component: lazy(() => import("../ui/main")),
     isPublic: false,
     roles: [RolesDict.APPLICANT, RolesDict.EMPLOYEE, RolesDict.STUDENT],
     withLayout: true,
@@ -30,7 +30,7 @@ export const routes: IRoute[] = [
   {
     id: 3,
     path: Routes.EMPLOYEE,
-    component: lazy(() => import('../ui/employee')),
+    component: lazy(() => import("../ui/employee")),
     isPublic: false,
     roles: [RolesDict.EMPLOYEE],
     withLayout: true,
@@ -38,7 +38,7 @@ export const routes: IRoute[] = [
   {
     id: 4,
     path: Routes.STUDENT,
-    component: lazy(() => import('../ui/student')),
+    component: lazy(() => import("../ui/student")),
     isPublic: false,
     roles: [RolesDict.STUDENT],
     withLayout: true,
@@ -46,7 +46,7 @@ export const routes: IRoute[] = [
   {
     id: 5,
     path: Routes.APPLICANT,
-    component: lazy(() => import('../ui/applicant')),
+    component: lazy(() => import("../ui/applicant")),
     isPublic: false,
     roles: [RolesDict.APPLICANT],
     withLayout: true,

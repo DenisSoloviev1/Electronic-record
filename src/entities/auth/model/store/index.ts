@@ -3,7 +3,7 @@ import { Roles } from '@/shared/types';
 
 interface IAuthState {
   isAuth: boolean;
-  role: Roles;
+  role: Roles | string;
   login: (roleName: Roles) => void;
 }
 

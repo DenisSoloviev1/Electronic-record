@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { getDivisions, QueryReqName } from "@/entities/divisions/api";
 import { DivisionsModel } from "..";
 import { AuthModel } from "@/entities/auth";
-import { RolesDict } from '@/shared/types';
+import { RolesDict } from "@/shared/types";
 import { OptionStruct } from "@/shared/ui/Select";
 
 interface DivisionsDropdownParams {
@@ -19,7 +19,7 @@ interface DivisionsDropdownParams {
 
 const SelectContainer = styled.div`
   margin-bottom: 20px;
-  border-radius: 16px; 
+  border-radius: 16px;
   background-color: #f1f4f9;
 `;
 
@@ -29,15 +29,20 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
 }) => {
   const { filter, setFilter, clearFilter } = DivisionsModel.useDivisionsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
-  const roleKey = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict;
-  const role = RolesDict[roleKey]; 
+  const roleKey = AuthModel.useAuthStore(
+    (state) => state.role
+  ) as keyof typeof RolesDict;
+  const role = RolesDict[roleKey];
 
   const {
     data: divisions,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: [QueryReqName.getDivisions, { limit: 10, offset: 0, search: '', role }], // Передаем роль в запрос
+    queryKey: [
+      QueryReqName.getDivisions,
+      { limit: 10, offset: 0, search: "", role },
+    ], // Передаем роль в запрос
     queryFn: getDivisions,
     refetchOnWindowFocus: false,
   });
@@ -64,7 +69,6 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
   } else if (divisions?.results) {
     selectOptions = divisions.results;
   }
-
   return (
     <SelectContainer>
       <Autocomplete
@@ -75,7 +79,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
           selectOptions.find((option) => option.name === filter.name) || null
         }
         inputValue={inputValue}
-        onInputChange={(_, newInputValue) => setInputValue(newInputValue)} 
+        onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
         onChange={handleChange}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         noOptionsText={
@@ -88,16 +92,18 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
         renderInput={(params) => (
           <TextField
             {...params}
-            label={label}
+            label={
+              label && role === "Студент" ? (label = "Ваш факультет") : label
+            }
             variant="outlined"
             InputProps={{
               ...params.InputProps,
-              sx: { borderRadius: "16px" }, 
+              sx: { borderRadius: "16px" },
             }}
           />
         )}
         PaperComponent={(props) => (
-          <Paper {...props} style={{ borderRadius: "16px" }} /> 
+          <Paper {...props} style={{ borderRadius: "16px" }} />
         )}
         {...props}
       />

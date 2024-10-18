@@ -1,13 +1,13 @@
-import { ComponentType, FC } from 'react';
-import { Navigate } from 'react-router-dom';
-import { Layout } from '@/widgets/layout';
-import { AuthModel } from '@/entities/auth';
-import { Roles } from '@/shared/types';
+import { ComponentType, FC } from "react";
+import { Layout } from "@/widgets/layout";
+import { AuthModel } from "@/entities/auth";
+import { Roles } from "@/shared/types";
+import Login from "@/pages/ui/login";
 
 interface IPrivateRoute {
   element: ComponentType;
   isPublic: boolean;
-  roles: Roles[];
+  roles: Roles[]; // Массив ключей, таких как 'EMPLOYEE', 'STUDENT', 'APPLICANT'
   withLayout: boolean;
 }
 
@@ -19,13 +19,18 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
 }) => {
   const { isAuth, role } = AuthModel.useAuthStore((state) => state);
 
-  if (isPublic) return <RouteComponent />;
-
-  if (!isAuth && !role && !roles.includes(role)) {
-    return <Navigate to="/" replace={true} />;
+  // Проверка, является ли страница публичной
+  if (isPublic) {
+    return <RouteComponent />;
   }
 
-  if (withLayout) {
+  // Проверка, авторизован ли пользователь
+  if (!isAuth) {
+    return <Login />;
+  }
+
+  // Проверка роли "Соискатель"
+  if (role === "APPLICANT") {
     return (
       <Layout>
         <RouteComponent />
@@ -33,5 +38,16 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
     );
   }
 
-  return <RouteComponent />;
+  // Проверка разрешенных ролей
+  if (roles.includes(role as Roles)) {
+    return withLayout ? (
+      <Layout>
+        <RouteComponent />
+      </Layout>
+    ) : (
+      <RouteComponent />
+    );
+  }
+
+  return <Login />;
 };

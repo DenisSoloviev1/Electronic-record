@@ -32,12 +32,14 @@ const Auth = () => {
 
     if (role) {
       login(role); 
-      if(role === RolesDict.APPLICANT){
-        navigate(Routes.MAIN); 
-      }
-      else{
-        navigate(Routes.LOGIN); 
-      }
+      navigate(Routes.MAIN); 
+
+      // if(role === RolesDict.APPLICANT){
+      //   navigate(Routes.MAIN); 
+      // }
+      // else{
+      //   navigate(Routes.LOGIN); 
+      // }
     } else {
       console.error('Неизвестная роль:', roleLabel);
     }

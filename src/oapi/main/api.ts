@@ -204,7 +204,7 @@ export interface RequestCreate {
      * @type {number}
      * @memberof RequestCreate
      */
-    'division': number | null;
+    'division'?: number | null;
     /**
      * 
      * @type {number}
@@ -613,179 +613,179 @@ export class DivisionsApi extends BaseAPI {
 
 
 
-/**
- * RequestsApi - axios parameter creator
- * @export
- */
-export const RequestsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        requestsBusyRetrieve: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/requests/busy/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
+// /**
+//  * RequestsApi - axios parameter creator
+//  * @export
+//  */
+// export const RequestsApiAxiosParamCreator = function (configuration?: Configuration) {
+//     return {
+//         /**
+//          * 
+//          * @param {*} [options] Override http request option.
+//          * @throws {RequiredError}
+//          */
+//         requestsBusyRetrieve: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+//             const localVarPath = `/api/requests/busy/`;
+//             // use dummy base URL string because the URL constructor only accepts absolute URLs.
+//             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+//             let baseOptions;
+//             if (configuration) {
+//                 baseOptions = configuration.baseOptions;
+//             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+//             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+//             const localVarHeaderParameter = {} as any;
+//             const localVarQueryParameter = {} as any;
 
-            // authentication basicAuth required
-            // http basic authentication required
-            setBasicAuthToObject(localVarRequestOptions, configuration)
+//             // authentication basicAuth required
+//             // http basic authentication required
+//             setBasicAuthToObject(localVarRequestOptions, configuration)
 
-            // authentication cookieAuth required
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {RequestCreate} requestCreate 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        requestsCreate: async (requestCreate: RequestCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'requestCreate' is not null or undefined
-            assertParamExists('requestsCreate', 'requestCreate', requestCreate)
-            const localVarPath = `/api/requests/`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication basicAuth required
-            // http basic authentication required
-            setBasicAuthToObject(localVarRequestOptions, configuration)
-
-            // authentication cookieAuth required
+//             // authentication cookieAuth required
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
+//             setSearchParams(localVarUrlObj, localVarQueryParameter);
+//             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+//             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(requestCreate, localVarRequestOptions, configuration)
+//             return {
+//                 url: toPathString(localVarUrlObj),
+//                 options: localVarRequestOptions,
+//             };
+//         },
+//         /**
+//          * 
+//          * @param {RequestCreate} requestCreate 
+//          * @param {*} [options] Override http request option.
+//          * @throws {RequiredError}
+//          */
+//         requestsCreate: async (requestCreate: RequestCreate, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+//             // verify required parameter 'requestCreate' is not null or undefined
+//             assertParamExists('requestsCreate', 'requestCreate', requestCreate)
+//             const localVarPath = `/api/requests/`;
+//             // use dummy base URL string because the URL constructor only accepts absolute URLs.
+//             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+//             let baseOptions;
+//             if (configuration) {
+//                 baseOptions = configuration.baseOptions;
+//             }
 
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
+//             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+//             const localVarHeaderParameter = {} as any;
+//             const localVarQueryParameter = {} as any;
 
-/**
- * RequestsApi - functional programming interface
- * @export
- */
-export const RequestsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = RequestsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async requestsBusyRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RequestCreate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.requestsBusyRetrieve(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RequestsApi.requestsBusyRetrieve']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {RequestCreate} requestCreate 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RequestCreate>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.requestsCreate(requestCreate, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['RequestsApi.requestsCreate']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
+//             // authentication basicAuth required
+//             // http basic authentication required
+//             setBasicAuthToObject(localVarRequestOptions, configuration)
 
-/**
- * RequestsApi - factory interface
- * @export
- */
-export const RequestsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = RequestsApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        requestsBusyRetrieve(options?: any): AxiosPromise<RequestCreate> {
-            return localVarFp.requestsBusyRetrieve(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {RequestCreate} requestCreate 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        requestsCreate(requestCreate: RequestCreate, options?: any): AxiosPromise<RequestCreate> {
-            return localVarFp.requestsCreate(requestCreate, options).then((request) => request(axios, basePath));
-        },
-    };
-};
+//             // authentication cookieAuth required
 
-/**
- * RequestsApi - object-oriented interface
- * @export
- * @class RequestsApi
- * @extends {BaseAPI}
- */
-export class RequestsApi extends BaseAPI {
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RequestsApi
-     */
-    public requestsBusyRetrieve(options?: RawAxiosRequestConfig) {
-        return RequestsApiFp(this.configuration).requestsBusyRetrieve(options).then((request) => request(this.axios, this.basePath));
-    }
 
-    /**
-     * 
-     * @param {RequestCreate} requestCreate 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof RequestsApi
-     */
-    public requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig) {
-        return RequestsApiFp(this.configuration).requestsCreate(requestCreate, options).then((request) => request(this.axios, this.basePath));
-    }
-}
+    
+//             localVarHeaderParameter['Content-Type'] = 'application/json';
+
+//             setSearchParams(localVarUrlObj, localVarQueryParameter);
+//             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+//             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+//             localVarRequestOptions.data = serializeDataIfNeeded(requestCreate, localVarRequestOptions, configuration)
+
+//             return {
+//                 url: toPathString(localVarUrlObj),
+//                 options: localVarRequestOptions,
+//             };
+//         },
+//     }
+// };
+
+// /**
+//  * RequestsApi - functional programming interface
+//  * @export
+//  */
+// export const RequestsApiFp = function(configuration?: Configuration) {
+//     const localVarAxiosParamCreator = RequestsApiAxiosParamCreator(configuration)
+//     return {
+//         /**
+//          * 
+//          * @param {*} [options] Override http request option.
+//          * @throws {RequiredError}
+//          */
+//         async requestsBusyRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RequestCreate>> {
+//             const localVarAxiosArgs = await localVarAxiosParamCreator.requestsBusyRetrieve(options);
+//             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+//             const localVarOperationServerBasePath = operationServerMap['RequestsApi.requestsBusyRetrieve']?.[localVarOperationServerIndex]?.url;
+//             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+//         },
+//         /**
+//          * 
+//          * @param {RequestCreate} requestCreate 
+//          * @param {*} [options] Override http request option.
+//          * @throws {RequiredError}
+//          */
+//         async requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RequestCreate>> {
+//             const localVarAxiosArgs = await localVarAxiosParamCreator.requestsCreate(requestCreate, options);
+//             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+//             const localVarOperationServerBasePath = operationServerMap['RequestsApi.requestsCreate']?.[localVarOperationServerIndex]?.url;
+//             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+//         },
+//     }
+// };
+
+// /**
+//  * RequestsApi - factory interface
+//  * @export
+//  */
+// export const RequestsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+//     const localVarFp = RequestsApiFp(configuration)
+//     return {
+//         /**
+//          * 
+//          * @param {*} [options] Override http request option.
+//          * @throws {RequiredError}
+//          */
+//         requestsBusyRetrieve(options?: any): AxiosPromise<RequestCreate> {
+//             return localVarFp.requestsBusyRetrieve(options).then((request) => request(axios, basePath));
+//         },
+//         /**
+//          * 
+//          * @param {RequestCreate} requestCreate 
+//          * @param {*} [options] Override http request option.
+//          * @throws {RequiredError}
+//          */
+//         requestsCreate(requestCreate: RequestCreate, options?: any): AxiosPromise<RequestCreate> {
+//             return localVarFp.requestsCreate(requestCreate, options).then((request) => request(axios, basePath));
+//         },
+//     };
+// };
+
+// /**
+//  * RequestsApi - object-oriented interface
+//  * @export
+//  * @class RequestsApi
+//  * @extends {BaseAPI}
+//  */
+// export class RequestsApi extends BaseAPI {
+//     /**
+//      * 
+//      * @param {*} [options] Override http request option.
+//      * @throws {RequiredError}
+//      * @memberof RequestsApi
+//      */
+//     public requestsBusyRetrieve(options?: RawAxiosRequestConfig) {
+//         return RequestsApiFp(this.configuration).requestsBusyRetrieve(options).then((request) => request(this.axios, this.basePath));
+//     }
+
+//     /**
+//      * 
+//      * @param {RequestCreate} requestCreate 
+//      * @param {*} [options] Override http request option.
+//      * @throws {RequiredError}
+//      * @memberof RequestsApi
+//      */
+//     public requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig) {
+//         return RequestsApiFp(this.configuration).requestsCreate(requestCreate, options).then((request) => request(this.axios, this.basePath));
+//     }
+// }
 
 
 

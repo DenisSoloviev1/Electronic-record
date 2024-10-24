@@ -39,8 +39,6 @@ export const TimeAction = styled.button`
 
 export const TimeItem = styled.li`
   color: #38424f;
-
-  text-align: center;
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.3rem;
@@ -51,9 +49,10 @@ export const TimeItem = styled.li`
   padding: 1rem 0.5rem;
   transition: all 0.1s ease;
 
-  &:hover{
-  background-color: #c3d3e7;
-  border-radius: 0.5rem;}
+  &:hover {
+    background-color: #c3d3e7;
+    border-radius: 0.5rem;
+  }
 
   &:last-child {
     padding-bottom: 0;

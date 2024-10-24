@@ -1,45 +1,35 @@
 import { memo, useCallback } from 'react';
-import { useQuery } from 'react-query';
 import { useHandleDateTimeRangeChange } from '@/entities/calendar/ui/ranges/helper.ts';
 import { formatDate, isMobile } from '@/shared/lib';
 import { Input } from '@/shared/ui';
-import { CalendarApi, CalendarModel } from '../../';
+import { CalendarModel } from '../../';
 import { Calendar } from '../calendar.tsx';
 
 export const DateRange = memo(() => {
-  const { startDate, setStartDate, setReciptDate } =
-    CalendarModel.useCalendarStore();
+  // Работа с состоянием даты через CalendarModel
+  const { startDate, setStartDate } = CalendarModel.useCalendarStore();
 
-  useQuery({
-    queryKey: [CalendarApi.QueryReqName.checkTimeApi],
-    queryFn: CalendarApi.checkTimeApi,
-    refetchOnWindowFocus: false,
-    onSuccess: (_data) => {
-      if (_data) {
-        setReciptDate(_data.date);
-      }
-    },
-  });
-
+  // Взаимодействие с выпадающим списком выбора даты
   const { isShown, rootRef, setIsShown } = useHandleDateTimeRangeChange();
 
+  // Обработчик клика, который запоминает выбранную дату
   const handleClick = useCallback((date: Date | string) => {
-    setStartDate(date);
-    setIsShown(false);
-  }, []);
+    setStartDate(date); // Устанавливаем дату в состояние
+    setIsShown(false);  // Скрываем календарь после выбора даты
+  }, [setStartDate, setIsShown]);
 
   return (
     <div style={{ width: isMobile ? '100%' : 'auto' }} ref={rootRef}>
       <Input
-        onClick={() => setIsShown((prev) => !prev)}
+        onClick={() => setIsShown((prev) => !prev)} // Показать или скрыть календарь
         label="Дата приема"
         placeholder="_ _._ _._ _"
-        value={startDate === '' ? '' : formatDate(startDate)}
+        value={startDate === '' ? '' : formatDate(startDate)} // Форматирование даты
         fullWidth={isMobile}
-        inputProps={{ readOnly: true }}
+        inputProps={{ readOnly: true }} // Поле только для чтения, выбор через календарь
       />
 
-      {isShown && <Calendar onClick={handleClick} />}
+      {isShown && <Calendar onClick={handleClick} />} {/* Показать календарь при необходимости */}
     </div>
   );
 });

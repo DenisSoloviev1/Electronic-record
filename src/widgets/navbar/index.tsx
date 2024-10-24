@@ -54,8 +54,8 @@ export const NavBar = memo(() => {
                 {link.label}
               </NavLink>
             ))}
-          <TextMessage>Скоро здесь будут другие ведомства...</TextMessage>
         </ul>
+        <TextMessage>Скоро здесь будут другие ведомства...</TextMessage>
       </nav>
     </NavBarContainer>
   );

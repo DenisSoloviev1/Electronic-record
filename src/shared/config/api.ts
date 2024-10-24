@@ -13,7 +13,7 @@ import {
   AuthApi,
   DepartmentsApi,
   DivisionsApi,
-  RequestsApi,
+  // RequestsApi,
   TypesOfRequestsApi,
   UsersApi,
 } from '@/oapi/main';
@@ -34,7 +34,7 @@ class Api {
   authApi: AuthApi;
   departmentsApi: DepartmentsApi;
   divisionsApi: DivisionsApi;
-  requestsApi: RequestsApi;
+  // requestsApi: RequestsApi;
   typesOfRequestsApi: TypesOfRequestsApi;
 
   constructor(basePath: string) {
@@ -53,7 +53,7 @@ class Api {
     );
     this.usersApi = new UsersApi(undefined, basePath, this.instance);
     this.authApi = new AuthApi(undefined, basePath, this.instance);
-    this.requestsApi = new RequestsApi(undefined, basePath, this.instance);
+    // this.requestsApi = new RequestsApi(undefined, basePath, this.instance);
     this.departmentsApi = new DepartmentsApi(
       undefined,
       basePath,

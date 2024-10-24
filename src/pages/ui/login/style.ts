@@ -19,7 +19,7 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1em;
+  margin: 10px 5px 0;
   width: 100%;
   max-width: 300px;
   border-radius: 0.75rem;

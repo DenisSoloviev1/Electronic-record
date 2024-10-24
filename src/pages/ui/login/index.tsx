@@ -1,48 +1,85 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthSvg, LogoDSTU } from "@/shared/ui/Icon"; // Ваш SVG логотип
 import { Container, Text, Button, Wrapper } from "./style";
 import { Link } from "@/pages/ui/main";
 
-interface AuthRequest {
-  username: string;
-  phone: string;
-  email: string;
+interface LoginRequest {
+  role: string;
   division: string;
-  post: string;
+  username: string;
+  email: string;
+  phone: string;
 }
 
 const Login = () => {
-  const API_URL = "https://api.example.com/login"; // Замените на URL вашего API
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState<LoginRequest | null>(null);
+  
+  const handleLogin = () => {
+    const clientId = "724363";
+    const redirectUri = encodeURIComponent("https://example.com/callback");
+    const state = "Ert2q5Z";
+    const loginUrl = `https://edu.donstu.ru/WebApp/#/Authorize?client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
-  const handleLogin = async () => {
-    const userData: AuthRequest = {
-      username: "your_username", // Замените на реальное значение или получите его динамически
-      phone: "your_phone", // Замените на реальное значение или получите его динамически
-      email: "your_email", // Замените на реальное значение или получите его динамически
-      division: "your_division", // Замените на реальное значение или получите его динамически
-      post: "your_post", // Замените на реальное значение или получите его динамически
-    };
+    window.open(loginUrl, "_blank", "width=500,height=600");
+  };
 
+  const fetchUserData = async (accessToken: string) => {
     try {
-      const response = await axios.post(API_URL, userData);
-      const { token } = response.data; // Получаем токен из ответа
-      // Здесь можно сохранить токен в localStorage или sessionStorage
-      localStorage.setItem("authToken", token);
+      const response = await axios.get<LoginRequest>("/api/user/data", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setUserInfo(response.data); // Сохраняем данные о пользователе в состоянии
+      console.log("Данные пользователя получены:", response.data);
 
-      // Перенаправляем пользователя на другой сайт для авторизации
-      window.location.href = "https://external-website.com/auth"; // Замените на URL вашего внешнего сайта
+      // Теперь отправляем данные для авторизации
+      await authorizeUser(response.data, accessToken);
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errorMessage =
-          error.response.data.message || "Ошибка авторизации";
-        console.error(errorMessage); // Выводим сообщение об ошибке
-      } else {
-        console.error("Неизвестная ошибка при авторизации");
-      }
+      console.error("Ошибка при получении данных пользователя:", error);
     }
   };
+
+  const authorizeUser = async (userData: LoginRequest, accessToken: string) => {
+    try {
+      const response = await axios.post("/api/auth/login", userData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("Авторизация успешна:", response.data);
+      // Перенаправляем пользователя на защищенную страницу
+      navigate("/protected"); // Замените на ваш защищённый маршрут
+    } catch (error) {
+      console.error("Ошибка при авторизации пользователя:", error);
+    }
+  };
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const code = query.get("code");
+    const state = query.get("state");
+
+    if (code) {
+      // Отправляем код на сервер для обмена на access_token
+      axios
+        .post("/api/auth/oauth/token", { code, state })
+        .then((response) => {
+          const { access_token } = response.data;
+          // Сохраняем токен в localStorage
+          localStorage.setItem("loginToken", access_token);
+
+          // Запрашиваем данные пользователя
+          fetchUserData(access_token);
+        })
+        .catch((error) => {
+          console.error("Ошибка при обмене кода на токен:", error);
+        });
+    }
+  }, [navigate]);
 
   return (
     <Wrapper>

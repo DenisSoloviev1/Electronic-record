@@ -23,7 +23,7 @@ export const menuItems: Menu[] = [
   {
     id: 3,
     path: Routes.APPLICANT,
-    label: 'Управление кадров',
+    label: 'Отдел по подбору персонала',
     allowedRoles: ['APPLICANT']
   },
 ];

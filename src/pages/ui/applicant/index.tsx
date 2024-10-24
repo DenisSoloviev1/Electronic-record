@@ -91,6 +91,8 @@ const Applicant = () => {
     mutationValues["date"] = dateWithTime.toJSON();
     mutationValues["type"] = typeOfRequestFilter.id;
     mutationValues["department"] = 11;
+    mutationValues["division"] = 6;//для корректной работы соискателя
+
 
     // Форматируем номер телефона
     if (phone) {

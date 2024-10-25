@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
+import { useChekTimeApiStore } from "@/entities/calendar/model";
 import {
   TypeOfRequestDropdown,
   TypeOfRequestsModel,
@@ -28,7 +29,6 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Student = () => {
-
   const {
     control,
     formState: { errors },
@@ -40,6 +40,8 @@ const Student = () => {
     mode: "onSubmit",
   });
 
+  const { setDepartment, setDivision, setType, setDateRequest } =
+    useChekTimeApiStore();
   const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore(); // Для проверки даты и времени
   const { filter: divisionFilter, clearFilter: clearDivision } =
     DivisionsModel.useDivisionsStore(); // Для проверки подразделения
@@ -78,6 +80,18 @@ const Student = () => {
     return true;
   };
 
+  useEffect(() => {
+    if (divisionFilter?.id && typeOfRequestFilter?.id && startDate) {
+      const date = new Date(startDate);
+      const formattedDate = date.toISOString().split("T")[0]; // "2071-09-24"
+
+      setDepartment(10);
+      setDivision(divisionFilter.id);
+      setType(typeOfRequestFilter.id);
+      setDateRequest(formattedDate);
+    }
+  }, [divisionFilter, typeOfRequestFilter, startDate]);
+
   const { isLoading: isPending, mutate } = useMutation({
     mutationKey: [CertApi.QueryReqName.createCert],
     mutationFn: CertApi.createCert,
@@ -96,10 +110,10 @@ const Student = () => {
       date.setHours(+dateTime[0], +dateTime[1]) - 60 * 60 * 1000
     );
 
-    mutationValues["date"] = dateWithTime.toJSON();
+    mutationValues["department"] = 10;
     mutationValues["division"] = divisionFilter.id;
     mutationValues["type"] = typeOfRequestFilter.id;
-    mutationValues["department"] = 10;
+    mutationValues["date"] = dateWithTime.toJSON();
 
     // Форматируем номер телефона
     if (phone) {
@@ -148,7 +162,7 @@ const Student = () => {
     <>
       <Form submitFn={handleSubmit(onSubmit)}>
         <DivisionsDropdown />
-        <TypeOfRequestDropdown/>
+        <TypeOfRequestDropdown />
 
         <FormControl
           field={"contact_name" as FieldsKey}

@@ -1,12 +1,15 @@
-import { memo, useEffect, useRef, useState } from 'react';
-import { checkTimeApi } from '../../api/index.ts';
-import { useHandleDateTimeRangeChange } from '@/entities/calendar/ui/ranges/helper.ts';
-import { isMobile } from '@/shared/lib';
-import { ArrowDown, ArrowUp, Input } from '@/shared/ui';
-import { CalendarModel } from '../../index.ts';
-import { Time, TimeAction, TimeItem, TimeList } from './style';
+import { memo, useEffect, useRef, useState } from "react";
+import { checkTimeApi } from "../../api/index.ts";
+import { useHandleDateTimeRangeChange } from "@/entities/calendar/ui/ranges/helper.ts";
+import { isMobile } from "@/shared/lib";
+import { ArrowDown, ArrowUp, Input } from "@/shared/ui";
+import { CalendarModel } from "../../index.ts";
+import { Time, TimeAction, TimeItem, TimeList } from "./style";
+import { useChekTimeApiStore } from "../../model/index.ts";
 
 export const TimeRange = memo(() => {
+  const { params } = useChekTimeApiStore();
+
   const { time, setTime } = CalendarModel.useCalendarStore((state) => state);
   const listRef = useRef<HTMLUListElement>(null);
   const [availableTime, setAvailableTime] = useState<string[]>([]); // Хранение доступного времени
@@ -27,7 +30,7 @@ export const TimeRange = memo(() => {
   // Вызов API при монтировании компонента
   useEffect(() => {
     const fetchAvailableTime = async () => {
-      const timeData = await checkTimeApi(); // Ожидание ответа от API
+      const timeData = await checkTimeApi(params); // Ожидание ответа от API
       if (timeData) {
         setAvailableTime(timeData); // Установка данных времени в состояние
       }
@@ -36,7 +39,7 @@ export const TimeRange = memo(() => {
   }, []); // Пустой массив зависимостей для вызова только при монтировании
 
   return (
-    <div style={{ width: isMobile ? '100%' : 'auto' }} ref={rootRef}>
+    <div style={{ width: isMobile ? "100%" : "auto" }} ref={rootRef}>
       <Input
         label="Время"
         fullWidth={isMobile}
@@ -60,7 +63,7 @@ export const TimeRange = memo(() => {
                 </TimeItem>
               ))
             ) : (
-              <TimeItem>всё занято</TimeItem>
+              <TimeItem>пусто</TimeItem>
             )}
           </TimeList>
 
@@ -72,7 +75,6 @@ export const TimeRange = memo(() => {
     </div>
   );
 });
-
 
 // import { memo, useRef } from 'react';
 

@@ -1,21 +1,23 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
-export const checkTimeApi = async () => {
+interface CheckTimeApiProps {
+  department: number;
+  division: number;
+  type: number;
+  date_request: string;
+}
+
+export const checkTimeApi = async (params: CheckTimeApiProps) => {
   try {
-    const params = {
-      department: 11,
-      division: 6,
-      type: 5,
-      date_request: "2071-09-24T15:16:22Z",
-    };
-    console.log(params);
-
-    // Указываем данные напрямую в теле запроса для корректного формата JSON
-    const res = await axios.post("http://185.195.24.47:7001/api/list-time/", params, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await axios.post(
+      "http://185.195.24.47:7001/api/list-time/",
+      params,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (res.status === 200) {
       return res.data; // Возвращаем доступное время
@@ -24,7 +26,6 @@ export const checkTimeApi = async () => {
       return [];
     }
   } catch (error) {
-    // Проверка, что ошибка является AxiosError
     if (axios.isAxiosError(error)) {
       console.error(
         "Ошибка при запросе доступного времени:",

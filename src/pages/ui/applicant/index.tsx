@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { CalendarModel, DateRange, TimeRange } from "@/entities/calendar";
+import { useChekTimeApiStore } from "@/entities/calendar/model";
 import {
   TypeOfRequestDropdown,
   TypeOfRequestsModel,
@@ -26,7 +27,6 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Applicant = () => {
-
   const {
     control,
     formState: { errors },
@@ -38,6 +38,7 @@ const Applicant = () => {
     mode: "onSubmit",
   });
 
+  const { setDepartment, setDivision, setType, setDateRequest } = useChekTimeApiStore();
   const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore(); // Для проверки даты и времени
   const { filter: typeOfRequestFilter, clearFilter: clearTypeOfRequest } =
     TypeOfRequestsModel.useTypeOfRequestsStore(); // Для проверки типа обращения
@@ -70,6 +71,19 @@ const Applicant = () => {
     return true;
   };
 
+  useEffect(() => {
+    if (typeOfRequestFilter?.id && startDate) {
+      const date = new Date(startDate);
+      const formattedDate = date.toISOString().split("T")[0];
+
+      setDepartment(11);
+      setDivision(6);
+      setType(typeOfRequestFilter.id);
+      setDateRequest(formattedDate);
+
+    }
+  }, [typeOfRequestFilter, startDate]);
+
   const { isLoading: isPending, mutate } = useMutation({
     mutationKey: [CertApi.QueryReqName.createCert],
     mutationFn: CertApi.createCert,
@@ -88,11 +102,10 @@ const Applicant = () => {
       date.setHours(+dateTime[0], +dateTime[1]) - 60 * 60 * 1000
     );
 
-    mutationValues["date"] = dateWithTime.toJSON();
-    mutationValues["type"] = typeOfRequestFilter.id;
     mutationValues["department"] = 11;
-    mutationValues["division"] = 6;//для корректной работы соискателя
-
+    mutationValues["division"] = 6;    //для корректной работы соискателя
+    mutationValues["type"] = typeOfRequestFilter.id;
+    mutationValues["date"] = dateWithTime.toJSON();
 
     // Форматируем номер телефона
     if (phone) {

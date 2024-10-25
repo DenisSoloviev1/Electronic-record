@@ -54,11 +54,11 @@ export const TimeItem = styled.li`
     border-radius: 0.5rem;
   }
 
-  &:last-child {
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border: none;
-  }
+  // &:last-child {
+  //   padding-bottom: 0;
+  //   margin-bottom: 0;
+  //   border: none;
+  // }
 `;
 
 export const TimeList = styled.ul`

@@ -82,6 +82,7 @@ const Employee = () => {
   useEffect(() => {
     if (divisionFilter?.id && typeOfRequestFilter?.id && startDate) {
       const date = new Date(startDate);
+      date.setDate(date.getDate() + 1);
       const formattedDate = date.toISOString().split("T")[0];
 
       setDepartment(8);

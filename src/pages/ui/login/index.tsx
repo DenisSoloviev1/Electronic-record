@@ -33,8 +33,7 @@ const Login = () => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      setUserInfo(response.data); // Сохраняем данные о пользователе в состоянии
-      console.log("Данные пользователя получены:", response.data);
+      setUserInfo(response.data); 
 
       // Теперь отправляем данные для авторизации
       await authorizeUser(response.data, accessToken);

@@ -11,10 +11,6 @@ import { RolesDict } from '@/shared/types';
 export const NavBar = memo(() => {
   const role = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict; 
 
-  // // Отладка роли
-  // console.log('menuItems:', menuItems);
-  // console.log('Текущая роль:', role);
-
   if (!role) {
     return (
       <NavBarContainer>

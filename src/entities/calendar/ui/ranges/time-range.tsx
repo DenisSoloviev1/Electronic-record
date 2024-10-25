@@ -36,7 +36,7 @@ export const TimeRange = memo(() => {
       }
     };
     fetchAvailableTime();
-  }, []); // Пустой массив зависимостей для вызова только при монтировании
+  }, [params]); // Пустой массив зависимостей для вызова только при монтировании
 
   return (
     <div style={{ width: isMobile ? "100%" : "auto" }} ref={rootRef}>

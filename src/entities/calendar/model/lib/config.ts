@@ -3,7 +3,7 @@ type monthType = {
 };
 
 export const monthes: monthType = {
-  0: 'Январбь',
+  0: 'Январь',
   1: 'Февраль',
   2: 'Март',
   3: 'Апрель',

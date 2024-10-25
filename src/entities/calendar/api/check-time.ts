@@ -9,9 +9,12 @@ export const checkTimeApi = async () => {
       date_request: "2071-09-24T15:16:22Z",
     };
     console.log(params);
-    // Отправка GET запроса с параметрами
-    const res = await axios.get("http://185.195.24.47:7001/api/list-time/", {
-      data: params,
+
+    // Указываем данные напрямую в теле запроса для корректного формата JSON
+    const res = await axios.post("http://185.195.24.47:7001/api/list-time/", params, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (res.status === 200) {
@@ -23,17 +26,14 @@ export const checkTimeApi = async () => {
   } catch (error) {
     // Проверка, что ошибка является AxiosError
     if (axios.isAxiosError(error)) {
-      // Сервер ответил с кодом ошибки
       console.error(
         "Ошибка при запросе доступного времени:",
         error.response?.data
       );
       console.error("Статус:", error.response?.status);
     } else if (error instanceof Error) {
-      // Ошибка при настройке запроса
       console.error("Ошибка при настройке запроса:", error.message);
     } else {
-      // Неизвестная ошибка
       console.error("Неизвестная ошибка:", error);
     }
     return [];

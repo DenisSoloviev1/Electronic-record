@@ -83,7 +83,7 @@ const Student = () => {
   useEffect(() => {
     if (divisionFilter?.id && typeOfRequestFilter?.id && startDate) {
       const date = new Date(startDate);
-      const formattedDate = date.toISOString().split("T")[0]; // "2071-09-24"
+      const formattedDate = date.toISOString().split("T")[0]; 
 
       setDepartment(10);
       setDivision(divisionFilter.id);

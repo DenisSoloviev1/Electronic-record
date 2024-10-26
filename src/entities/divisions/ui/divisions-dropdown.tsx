@@ -42,7 +42,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
     queryKey: [
       QueryReqName.getDivisions,
       { limit: 10, offset: 0, search: "", role },
-    ], // Передаем роль в запрос
+    ],
     queryFn: getDivisions,
     refetchOnWindowFocus: false,
   });
@@ -60,6 +60,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
     }
   };
 
+  // Фильтрация опций для исключения поля "Соискатель"
   let selectOptions: OptionStruct[] = [];
 
   if (isLoading) {
@@ -67,8 +68,11 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
   } else if (isError) {
     selectOptions = [{ id: -2, name: "Ошибка загрузки данных" }];
   } else if (divisions?.results) {
-    selectOptions = divisions.results;
+    selectOptions = divisions.results.filter(
+      (option) => option.name !== "Соискатель"
+    );
   }
+
   return (
     <SelectContainer>
       <Autocomplete
@@ -76,7 +80,9 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
         options={selectOptions}
         getOptionLabel={(option) => option.name}
         value={
-          selectOptions.find((option) => option.name === filter.name) || null
+          filter.name !== "Соискатель"
+            ? selectOptions.find((option) => option.name === filter.name) || null
+            : null
         }
         inputValue={inputValue}
         onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
@@ -93,7 +99,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
           <TextField
             {...params}
             label={
-              label && role === "Студент" ? (label = "Ваш факультет") : label
+              label && role === "Студент" ? "Ваш факультет" : label
             }
             variant="outlined"
             InputProps={{

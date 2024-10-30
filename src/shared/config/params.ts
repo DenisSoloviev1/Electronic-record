@@ -1,1 +1,1 @@
-export const basePath = 'http://185.195.24.47:7001';
+export const basePath = 'http://10.6.0.184:7001';

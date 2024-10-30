@@ -24,19 +24,19 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
     return <RouteComponent />;
   }
 
-  // // Проверка, авторизован ли пользователь
-  // if (!isAuth) {
-  //   return <Login />;
-  // }
+  // Проверка, авторизован ли пользователь
+  if (!isAuth) {
+    return <Login />;
+  }
 
-  // // Проверка роли "Соискатель"
-  // if (role === "APPLICANT") {
-  //   return (
-  //     <Layout>
-  //       <RouteComponent />
-  //     </Layout>
-  //   );
-  // }
+  // Проверка роли "Соискатель"
+  if (role === "APPLICANT") {
+    return (
+      <Layout>
+        <RouteComponent />
+      </Layout>
+    );
+  }
 
   // Проверка разрешенных ролей
   if (roles.includes(role as Roles)) {
@@ -51,9 +51,9 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
  
 
   return (
-    // <Login />
-    <Layout>
-      <RouteComponent />
-    </Layout>
+    <Login />
+    // <Layout>
+    //   <RouteComponent />
+    // </Layout>
   );
 };

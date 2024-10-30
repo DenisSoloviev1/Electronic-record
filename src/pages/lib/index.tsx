@@ -21,6 +21,14 @@ export const routes: IRoute[] = [
   },
   {
     id: 2,
+    path: Routes.CALLBACK,
+    component: lazy(() => import("../../entities/login/api/callback")),
+    isPublic: false,
+    roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
+    withLayout: false,
+  },
+  {
+    id: 3,
     path: Routes.MAIN,
     component: lazy(() => import("../ui/main")),
     isPublic: false,
@@ -28,7 +36,7 @@ export const routes: IRoute[] = [
     withLayout: true,
   },
   {
-    id: 3,
+    id: 4,
     path: Routes.EMPLOYEE,
     component: lazy(() => import("../ui/employee")),
     isPublic: false,
@@ -36,7 +44,7 @@ export const routes: IRoute[] = [
     withLayout: true,
   },
   {
-    id: 4,
+    id: 5,
     path: Routes.STUDENT,
     component: lazy(() => import("../ui/student")),
     isPublic: false,
@@ -44,7 +52,7 @@ export const routes: IRoute[] = [
     withLayout: true,
   },
   {
-    id: 5,
+    id: 6,
     path: Routes.APPLICANT,
     component: lazy(() => import("../ui/applicant")),
     isPublic: false,

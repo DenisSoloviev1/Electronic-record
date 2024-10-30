@@ -14,4 +14,5 @@ export enum Routes {
   STUDENT = "/student",
   APPLICANT = "/applicant",
   LOGIN = "/login",
+  CALLBACK = "/callback",
 }

@@ -1,4 +1,4 @@
-import { LazyExoticComponent, ReactNode } from 'react';
+import { LazyExoticComponent, ComponentType } from "react";
 
 type ValueOf<T> = T[keyof T];
 
@@ -18,7 +18,7 @@ export interface IRoute {
   id: number;
   path: string;
   isPublic: boolean;
-  component: LazyExoticComponent<() => ReactNode>;
+  component: LazyExoticComponent<ComponentType<any>>;
   roles: Roles[];
   withLayout: boolean;
 }

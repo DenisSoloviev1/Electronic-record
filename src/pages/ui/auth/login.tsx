@@ -2,21 +2,19 @@ import React from "react";
 // import { useLoginStore } from "../../../entities/login/model/store";
 import { useNavigate } from "react-router-dom";
 import { AuthSvg, LogoDSTU } from "@/shared/ui/Icon"; // Ваш SVG логотип
-import { Container, Text, Button, Wrapper } from "./style";
+import { Container, Info, Text, Button } from "@/pages/ui/auth/style";
 import { Link } from "@/pages/ui/main";
-import { handleLogin } from "@/entities/login";
-import Callback from "@/entities/login/api/callback";
+import { handleLogin } from "@/entities/auth";
+import Callback from "@/entities/auth/api/callback";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  // const {isLogin} = useLoginStore();
-  // console.log(isLogin)
-
+  
   return (
-    <Wrapper>
+    <Container>
       <AuthSvg />
 
-      <Container>
+      <Info>
         <Text>
           Пожалуйста, авторизируйтесь в системе с помощью вашей учетной записи
         </Text>
@@ -28,8 +26,8 @@ const Login: React.FC = () => {
         </Button>
         
         <Link onClick={() => navigate("/")}>на главную</Link>
-      </Container>
-    </Wrapper>
+      </Info>
+    </Container>
   );
 };
 

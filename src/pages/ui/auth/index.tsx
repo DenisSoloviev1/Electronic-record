@@ -2,7 +2,7 @@ import { Box, Stack, ThemeProvider, createTheme } from "@mui/material";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
-import { AuthModel } from "@/entities/auth";
+import { useAuthStore } from "@/entities/auth";
 import { Routes } from "@/shared/constants";
 import { isMobile } from "@/shared/lib";
 import { RolesDict } from "@/shared/types";
@@ -22,7 +22,7 @@ const Auth = () => {
     },
   });
 
-  const { setRole, resetAuth } = AuthModel.useAuthStore();
+  const { setRole, resetAuth } = useAuthStore();
   const navigate = useNavigate();
 
   const handleClick = (roleLabel: string) => {
@@ -54,7 +54,7 @@ const Auth = () => {
           justifyContent="center"
           sx={{
             marginTop: {
-              md: "4.3em",
+              md: "4em",
               sm: 0,
             },
           }}

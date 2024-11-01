@@ -7,14 +7,14 @@ import {
   PlainText,
   TextMessage,
 } from "@/widgets/navbar/style";
-import { AuthModel } from "@/entities/auth";
+import { useAuthStore } from "@/entities/auth";
 import { isMobile } from "@/shared/lib";
 import { Badge, GoBackBtn } from "@/shared/ui";
 import { menuItems, Menu } from "./constants";
 import { RolesDict } from "@/shared/types";
 
 export const NavBar = memo(() => {
-  const role = AuthModel.useAuthStore(
+  const role = useAuthStore(
     (state) => state.role
   ) as keyof typeof RolesDict;
 

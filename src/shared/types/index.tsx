@@ -5,9 +5,9 @@ type ValueOf<T> = T[keyof T];
 // roles
 
 export const RolesDict = {
-  EMPLOYEE: 'Работник',
-  STUDENT: 'Студент',
-  APPLICANT: 'Соискатель',
+  EMPLOYEE: "Работник",
+  STUDENT: "Студент",
+  APPLICANT: "Соискатель",
 } as const;
 
 export type Roles = ValueOf<typeof RolesDict>;
@@ -31,21 +31,16 @@ export interface IDepartment {
   executor: number;
 }
 
-// certificatioin
+// request
 
-export interface ICert {
+export interface IRequest {
   contact_name: string;
   email: string;
   phone: string;
-  date: Date | string;
+  date: string;
+  department: number;
   division: number;
   typeOfRequest: number;
-  type: number;
-}
-
-export interface CertType {
-  id: number;
-  name: string;
 }
 
 // calendar
@@ -54,4 +49,10 @@ export interface ICalendar {
   month: Date | string;
   day: Date | string;
   time: Date | string;
+}
+
+//user
+export interface IUser {
+  userName: string;
+  
 }

@@ -3,12 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Loader } from "@/shared/ui";
 import { RolesDict, Roles } from "../../../shared/types";
-import { useAuthStore } from "@/entities/auth/model/store/index";
+import { useAuthStore } from "@/entities/auth/model/store";
 import { Routes } from "@/shared/constants";
 import { baseUrl } from "@/shared/config";
 
 const Callback: React.FC = () => {
-  const { role, setRole } = useAuthStore();
+  const { role, setRole, setUser } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,18 +27,17 @@ const Callback: React.FC = () => {
             access_token,
             user: { firstName, lastName, middleName, userID },
           } = response.data;
-          console.log(response.data);
-          console.log("Имя:", firstName);
-          console.log("Фамилия:", lastName);
-          console.log("Отчество:", middleName);
-          console.log("ID пользователя:", userID);
 
-          if (Object.values(RolesDict).includes(role)) {
+          const computedRole = userID < 0 ? RolesDict.STUDENT : RolesDict.EMPLOYEE;
+          const user:string = `${lastName} ${firstName} ${middleName}`;
+
+          if (Object.values(RolesDict).includes(computedRole)) {
             localStorage.setItem("authToken", access_token);
-            setRole(role as Roles);
+            setRole(computedRole as Roles);
             setIsRoleSaved(true);
+            setUser(user)
           } else {
-            console.error("Неверная роль, полученная с сервера:", role);
+            console.error("Неверная роль, полученная с сервера:", computedRole);
           }
         })
         .catch((error) => {
@@ -51,13 +50,9 @@ const Callback: React.FC = () => {
 
   useEffect(() => {
     if (isRoleSaved) {
-      // console.log("Роль успешно сохранена в Zustand:", role);
-      // // Перенаправляем пользователя в зависимости от сохраненной роли
-      console.log(role);
-      // navigate(role === RolesDict.EMPLOYEE ? Routes.EMPLOYEE:  Routes.STUDENT);
-      navigate(Routes.MAIN);
+      navigate(role === RolesDict.EMPLOYEE ? Routes.EMPLOYEE : Routes.STUDENT);
     }
-  }, [isRoleSaved, role]);
+  }, [isRoleSaved, role, navigate]);
 
   if (loading) {
     return <Loader message={"Авторизация"} />;

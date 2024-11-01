@@ -1,33 +1,8 @@
-// import { QueryFunction } from 'react-query';
-// import { api, checkStatus } from '@/shared/config';
-// import { AuthDto } from '../model/types';
+export const handleLogin = () => {
+  const clientId = "535684";
+  const redirectUri = encodeURIComponent("https://localhost/callback");
+  const state = "Ert2q5Z";
+  const loginUrl = `https://edu.donstu.ru/WebApp/#/Authorize?client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
-// export enum QueryReqName {
-//   authByDSTU = 'auth',
-// }
-
-// type AuthByDSTUResponse = AuthDto;
-// type AuthByDSTUQueryKey = ['auth', AuthDto];
-
-// export const authByDSTU: QueryFunction<
-//   AuthByDSTUResponse,
-//   AuthByDSTUQueryKey
-// > = async ({ queryKey }) => {
-//   const { code } = queryKey[1];
-
-//   try {
-//     const res = await api.authApi.authCreate({ code });
-
-//     if (checkStatus(res.status)) {
-//       return res.data;
-//     }
-
-//     return {
-//       code: '',
-//     };
-//   } catch (e) {
-//     console.log(e);
-
-//     return { code: '' };
-//   }
-// };
+  window.open(loginUrl, "_blank", "width=500,height=600");
+};

@@ -1,8 +1,8 @@
 import { ComponentType, FC } from "react";
 import { Layout } from "@/widgets/layout";
-import { AuthModel } from "@/entities/auth";
+import { useAuthStore } from "@/entities/auth";
 import { Roles, RolesDict } from "@/shared/types";
-import Login from "@/pages/ui/login";
+import Login from "@/pages/ui/auth/login";
 
 interface IPrivateRoute {
   element: ComponentType;
@@ -14,23 +14,20 @@ interface IPrivateRoute {
 export const PrivateRoute: FC<IPrivateRoute> = ({
   element: RouteComponent,
   isPublic,
-  withLayout,
   roles,
 }) => {
-  const { isAuth, role } = AuthModel.useAuthStore((state) => state);
+  const { isAuth, role } = useAuthStore((state) => state);
 
   // Проверка, является ли страница публичной
   if (isPublic) {
     return <RouteComponent />;
-  } 
+  }
 
   // Проверка, авторизован ли пользователь
   if (!isAuth) {
     return <Login />;
   }
-  // console.log(role)
-  // console.log(role === RolesDict.APPLICANT)
-  console.log(RolesDict.APPLICANT)
+
   // Проверка роли "Соискатель"
   if (role === RolesDict.APPLICANT) {
     return (
@@ -39,23 +36,14 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
       </Layout>
     );
   }
-
-  // Проверка разрешенных ролей
-  if (roles.includes(role as Roles)) {
-    return withLayout ? (
-      <Layout>
-        <RouteComponent />
-      </Layout>
-    ) : (
-      <RouteComponent />
-    );
-  }
- 
-
+    // Если пользователь авторизован, но его роль не соответствует разрешённым ролям, показываем страницу "Not Found"
+    if (role && !roles.includes(role as Roles)) {
+      return <Login />;//add NotFound page
+    }
+  
   return (
-    <Login />
-    // <Layout>
-    //   <RouteComponent />
-    // </Layout>
+    <Layout>
+      <RouteComponent />
+    </Layout>
   );
 };

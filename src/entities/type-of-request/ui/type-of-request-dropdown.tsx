@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { getTypeOfRequests, QueryReqName } from "@/entities/type-of-request/api";
 import { TypeOfRequestsModel } from "..";
 import { OptionStruct } from "@/shared/ui/Select";
-import { AuthModel } from "@/entities/auth";
+import { useAuthStore } from "@/entities/auth";
 import { RolesDict } from '@/shared/types';
 
 interface TypeOfRequestDropdownParams {
@@ -30,7 +30,7 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   const { filter, setFilter, clearFilter } =
     TypeOfRequestsModel.useTypeOfRequestsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
-  const roleKey = AuthModel.useAuthStore((state) => state.role) as keyof typeof RolesDict;
+  const roleKey = useAuthStore((state) => state.role) as keyof typeof RolesDict;
   const role = RolesDict[roleKey]; 
 
   const {

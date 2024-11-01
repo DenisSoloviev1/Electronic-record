@@ -14,15 +14,15 @@ export const routes: IRoute[] = [
   {
     id: 1,
     path: Routes.LOGIN,
-    component: lazy(() => import("../ui/login")),
-    isPublic: false,
+    component: lazy(() => import("../ui/auth/login")),
+    isPublic: true,
     roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
     withLayout: false,
   },
   {
     id: 2,
     path: Routes.CALLBACK,
-    component: lazy(() => import("../../entities/login/api/callback")),
+    component: lazy(() => import("../../entities/auth/api/callback")),
     isPublic: true,
     roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
     withLayout: false,

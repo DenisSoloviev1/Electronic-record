@@ -9,9 +9,8 @@ import {
   TypeOfRequestsModel,
 } from "@/entities/type-of-request";
 import { isMobile } from "@/shared/lib";
-import { CertApi } from "@/entities/certification";
-import { ICert } from "@/shared/types";
-import { CertCreationDto } from "@/entities/certification/model/types.ts";
+import { RequestCreate } from "@/oapi/main";
+import { IRequest } from "@/shared/types";
 import { Flex, Modal, SubmitButton } from "@/shared/ui";
 import {
   createSchema,
@@ -33,25 +32,24 @@ const Applicant = () => {
     handleSubmit,
     reset,
     watch,
-  } = useForm<ICert>({
+  } = useForm<IRequest>({
     resolver: zodResolver(zodSchema),
     mode: "onSubmit",
   });
 
-  const { setDepartment, setDivision, setType, setDateRequest } = useChekTimeApiStore();
-  const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore(); // Для проверки даты и времени
+  const { setDepartment, setDivision, setType, setDateRequest } =
+    useChekTimeApiStore();
+  const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore();
   const { filter: typeOfRequestFilter, clearFilter: clearTypeOfRequest } =
-    TypeOfRequestsModel.useTypeOfRequestsStore(); // Для проверки типа обращения
+    TypeOfRequestsModel.useTypeOfRequestsStore();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // Получаем текущие значения полей формы
   const contactName = watch("contact_name");
   const email = watch("email");
   const phone = watch("phone");
 
-  // Проверка заполненности всех полей, включая выпадающие списки и календарь
   const validateForm = () => {
     if (!contactName || !email || !phone) {
       setErrorMessage("Пожалуйста, заполните все обязательные поля.");
@@ -74,62 +72,53 @@ const Applicant = () => {
   useEffect(() => {
     if (typeOfRequestFilter?.id && startDate) {
       const date = new Date(startDate);
+      // date.setDate(date.getDate() + 1);
       const formattedDate = date.toISOString().split("T")[0];
 
       setDepartment(11);
       setDivision(6);
       setType(typeOfRequestFilter.id);
       setDateRequest(formattedDate);
-
     }
   }, [typeOfRequestFilter, startDate]);
 
   const { isLoading: isPending, mutate } = useMutation({
-    mutationKey: [CertApi.QueryReqName.createCert],
-    mutationFn: CertApi.createCert,
+    mutationKey: ["createRequest"],
+    mutationFn: async (data: RequestCreate) => {
+      // указать API для создания заявки
+      return await fetch("/your-api-endpoint", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    },
   });
 
-  // Функция отправки данных на сервер
-  const onSubmit: SubmitHandler<ICert> = (vals: unknown) => {
-    if (!validateForm()) {
-      return; // Если форма невалидна, не продолжаем выполнение
-    }
+  const onSubmit: SubmitHandler<IRequest> = (vals) => {
+    if (!validateForm()) return;
 
-    const mutationValues = vals as CertCreationDto;
-    const dateTime = time.split(":");
-    const date = new Date(startDate);
-    const dateWithTime = new Date(
-      date.setHours(+dateTime[0], +dateTime[1]) - 60 * 60 * 1000
-    );
-
-    mutationValues["department"] = 11;
-    mutationValues["division"] = 6;    //для корректной работы соискателя
-    mutationValues["type"] = typeOfRequestFilter.id;
-    mutationValues["date"] = dateWithTime.toJSON();
+    const mutationValues: IRequest = {
+      ...vals,
+      department: 11,
+      division: 6,
+      typeOfRequest: typeOfRequestFilter.id,
+      date: new Date(
+        new Date(startDate).setHours(+time.split(":")[0], +time.split(":")[1]) -
+          60 * 60 * 1000
+      ).toJSON(),
+    };
 
     // Форматируем номер телефона
-    if (phone) {
-      // Удаляем все символы, кроме цифр
-      const cleanPhone = phone.replace(/\D/g, "");
-      // Если номер начинается с '7', заменяем на '8'
-      if (cleanPhone.startsWith("7")) {
-        mutationValues["phone"] = "8" + cleanPhone.slice(1);
-      } else if (cleanPhone.startsWith("8")) {
-        mutationValues["phone"] = cleanPhone; // Номер уже начинается с 8
-      } else {
-        mutationValues["phone"] = cleanPhone; // Номер не начинается с 7 или 8
-      }
+    const cleanPhone = phone.replace(/\D/g, "");
+    mutationValues.phone = cleanPhone.startsWith("7")
+      ? "8" + cleanPhone.slice(1)
+      : cleanPhone.startsWith("8")
+        ? cleanPhone
+        : cleanPhone;
 
-      // Проверяем длину номера
-      if (
-        mutationValues["phone"].length < 8 ||
-        mutationValues["phone"].length > 14
-      ) {
-        setErrorMessage("Телефон должен содержать от 8 до 14 цифр.");
-        return; // Возвращаемся, чтобы предотвратить отправку
-      }
-    } else {
-      mutationValues["phone"] = null;
+    if (mutationValues.phone.length < 8 || mutationValues.phone.length > 14) {
+      setErrorMessage("Телефон должен содержать от 8 до 14 цифр.");
+      return;
     }
 
     mutate(mutationValues, {
@@ -138,12 +127,7 @@ const Applicant = () => {
         setTimeout(() => setIsOpen(false), 3000);
         resetDateTime();
         clearTypeOfRequest();
-        reset({
-          contact_name: "",
-          phone: "",
-          email: "",
-          date: "",
-        });
+        reset({ contact_name: "", phone: "", email: "", date: "" });
         setErrorMessage("");
       },
     });
@@ -156,12 +140,12 @@ const Applicant = () => {
 
         <FormControl
           field={"contact_name" as FieldsKey}
-          error={errors["contact_name"]?.message || ""}
+          error={errors.contact_name?.message || ""}
           control={control}
           render={({ field }) => (
             <FormField
               fieldValue={"contact_name" as FieldsKey}
-              error={errors["contact_name"]?.message || ""}
+              error={errors.contact_name?.message || ""}
               field={field}
             />
           )}
@@ -175,12 +159,12 @@ const Applicant = () => {
         >
           <FormControl
             field={"email" as FieldsKey}
-            error={errors["email"]?.message || ""}
+            error={errors.email?.message || ""}
             control={control}
             render={({ field }) => (
               <FormField
                 fieldValue={"email" as FieldsKey}
-                error={errors["email"]?.message || ""}
+                error={errors.email?.message || ""}
                 field={field}
               />
             )}
@@ -188,12 +172,12 @@ const Applicant = () => {
 
           <FormControl
             field={"phone" as FieldsKey}
-            error={errors["phone"]?.message || ""}
+            error={errors.phone?.message || ""}
             control={control}
             render={({ field }) => (
               <FormField
                 fieldValue={"phone" as FieldsKey}
-                error={errors["phone"]?.message || ""}
+                error={errors.phone?.message || ""}
                 field={field}
               />
             )}

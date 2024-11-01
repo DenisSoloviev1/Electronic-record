@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getDivisions, QueryReqName } from "@/entities/divisions/api";
 import { DivisionsModel } from "..";
-import { AuthModel } from "@/entities/auth";
+import { useAuthStore } from "@/entities/auth";
 import { RolesDict } from "@/shared/types";
 import { OptionStruct } from "@/shared/ui/Select";
 
@@ -29,7 +29,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
 }) => {
   const { filter, setFilter, clearFilter } = DivisionsModel.useDivisionsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
-  const roleKey = AuthModel.useAuthStore(
+  const roleKey = useAuthStore(
     (state) => state.role
   ) as keyof typeof RolesDict;
   const role = RolesDict[roleKey];

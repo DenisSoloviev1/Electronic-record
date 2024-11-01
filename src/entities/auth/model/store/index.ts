@@ -3,14 +3,18 @@ import { Roles } from '@/shared/types';
 
 interface IAuthState {
   isAuth: boolean;
-  role: Roles | string;
-  login: (roleName: Roles) => void;
+  role: Roles;
+  setRole: (roleName: Roles) => void;
+  resetAuth: () => void; 
 }
 
 export const useAuthStore = create<IAuthState>((set) => ({
   isAuth: false,
   role: '' as Roles,
-  login: (roleName: Roles) => {
+  setRole: (roleName: Roles) => {
     set({ isAuth: true, role: roleName });
+  },
+  resetAuth: () => {
+    set({ isAuth: false, role: "" as Roles });
   },
 }));

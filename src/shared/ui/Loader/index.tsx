@@ -1,14 +1,43 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 
 interface LoaderProps {
   message?: string;
 }
 
-const Container = styled.div`
+const circleAnimation = keyframes`
+  0% {
+    top: 60px;
+    height: 5px;
+    border-radius: 50px 50px 25px 25px;
+    transform: scaleX(1.7);
+  }
+  40% {
+    height: 20px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0%;
+  }
+`;
+
+const shadowAnimation = keyframes`
+  0% {
+    transform: scaleX(1.5);
+  }
+  40% {
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0.4;
+  }
+`;
+
+const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,55 +45,79 @@ const Container = styled.div`
   gap: 30px;
 `;
 
-const pulseAnimation = keyframes`
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
+const Container = styled.div`
+  width: 200px;
+  height: 60px;
+  z-index: 1;
+  position: relative;
+`;
+
+const Circle = styled.div`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #11519c;
+  left: 15%;
+  transform-origin: 50%;
+  animation: ${circleAnimation} 0.5s alternate infinite ease;
+
+  &:nth-child(2) {
+    left: 45%;
+    animation-delay: 0.2s;
   }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
+
+  &:nth-child(3) {
+    left: auto;
+    right: 15%;
+    animation-delay: 0.3s;
   }
 `;
 
-const Pulse = styled.div`
-  position: relative;
-  width: 100px;
-  height: 100px;
+const Shadow = styled.div`
+  width: 20px;
+  height: 4px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.action};
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 62px;
+  transform-origin: 50%;
+  z-index: -1;
+  left: 15%;
+  filter: blur(1px);
+  animation: ${shadowAnimation} 0.5s alternate infinite ease;
 
-  &::after,
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    border: 2px solid ${({ theme }) => theme.colors.action};
-    opacity: 0;
-    border-radius: 50%;
-    animation: ${pulseAnimation} 1.5s linear infinite;
+  &:nth-child(4) {
+    left: 45%;
+    animation-delay: 0.2s;
   }
 
-  &::after {
-    animation-delay: 0.7s;
+  &:nth-child(5) {
+    left: auto;
+    right: 15%;
+    animation-delay: 0.3s;
   }
 `;
 
 const Message = styled.h2`
+  position: absolute;
+  top: 100px;
+  left: 5px;
   font-size: 30px;
+  font-weight: 500;
 `;
 
-export const Loader: React.FC<LoaderProps> = ({ message }) => {
-  return (
+// Пример использования в компоненте
+export const Loader: React.FC<LoaderProps> = ({ message }) => (
+  <Wrapper>
     <Container>
-      <Pulse />
+      <Circle />
+      <Circle />
+      <Circle />
+      <Shadow />
+      <Shadow />
+      <Shadow />
       <Message>{message}</Message>
     </Container>
-  );
-};
+  </Wrapper>
+);

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { baseUrl } from "@/shared/config";
 
 interface CheckTimeApiProps {
   department: number;
@@ -8,17 +9,12 @@ interface CheckTimeApiProps {
 }
 
 export const checkTimeApi = async (params: CheckTimeApiProps) => {
-
   try {
-    const res = await axios.post(
-      "http://185.195.24.47:7001/api/list-time/",
-      params,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.post(`${baseUrl}/api/list-time/`, params, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (res.status === 200) {
       return res.data; // Возвращаем доступное время

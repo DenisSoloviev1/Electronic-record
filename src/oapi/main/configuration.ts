@@ -18,7 +18,7 @@ export interface ConfigurationParameters {
     username?: string;
     password?: string;
     accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string) | ((name?: string, scopes?: string[]) => Promise<string>);
-    basePath?: string;
+    baseUrl?: string;
     serverIndex?: number;
     baseOptions?: any;
     formDataCtor?: new () => any;
@@ -58,7 +58,7 @@ export class Configuration {
      * @type {string}
      * @memberof Configuration
      */
-    basePath?: string;
+    baseUrl?: string;
     /**
      * override server index
      *
@@ -87,7 +87,7 @@ export class Configuration {
         this.username = param.username;
         this.password = param.password;
         this.accessToken = param.accessToken;
-        this.basePath = param.basePath;
+        this.baseUrl = param.baseUrl;
         this.serverIndex = param.serverIndex;
         this.baseOptions = param.baseOptions;
         this.formDataCtor = param.formDataCtor;

@@ -3,11 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Loader } from "@/shared/ui";
 import { RolesDict, Roles } from "../../../shared/types";
-import { useLoginStore } from "@/entities/login";
+import { useAuthStore } from "@/entities/auth/model/store/index";
 import { Routes } from "@/shared/constants";
+import { baseUrl } from "@/shared/config";
 
- const Callback: React.FC = () => {
-  const { role, setRole } = useLoginStore();
+const Callback: React.FC = () => {
+  const { role, setRole } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
@@ -15,16 +16,22 @@ import { Routes } from "@/shared/constants";
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
-    const baseUrl = "http://10.6.0.184:7001/";
     const code = query.get("code");
     const state = query.get("state");
 
     if (code) {
       axios
-        .post(`${baseUrl}/api/auth/oauth/token`, { code, state })
+        .post(`${baseUrl}/api/auth/`, { code, state })
         .then((response) => {
-          const { access_token, role } = response.data;
-          // console.log("Роль, полученная с сервера:", role);
+          const {
+            access_token,
+            user: { firstName, lastName, middleName, userID },
+          } = response.data;
+          console.log(response.data);
+          console.log("Имя:", firstName);
+          console.log("Фамилия:", lastName);
+          console.log("Отчество:", middleName);
+          console.log("ID пользователя:", userID);
 
           if (Object.values(RolesDict).includes(role)) {
             localStorage.setItem("authToken", access_token);
@@ -46,8 +53,9 @@ import { Routes } from "@/shared/constants";
     if (isRoleSaved) {
       // console.log("Роль успешно сохранена в Zustand:", role);
       // // Перенаправляем пользователя в зависимости от сохраненной роли
-      console.log(role)
-      // navigate(Routes.APPLICANT);
+      console.log(role);
+      // navigate(role === RolesDict.EMPLOYEE ? Routes.EMPLOYEE:  Routes.STUDENT);
+      navigate(Routes.MAIN);
     }
   }, [isRoleSaved, role]);
 

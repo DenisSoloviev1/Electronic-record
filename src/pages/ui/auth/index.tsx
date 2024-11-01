@@ -1,13 +1,13 @@
-import { Box, Stack, ThemeProvider, createTheme } from '@mui/material';
-import { IconChevronRight } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
+import { Box, Stack, ThemeProvider, createTheme } from "@mui/material";
+import { IconChevronRight } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
-import { AuthModel } from '@/entities/auth';
-import { Routes } from '@/shared/constants';
-import { isMobile } from '@/shared/lib';
-import { Roles, RolesDict } from '@/shared/types';
-import { Badge } from '@/shared/ui';
-import { Container, ContainerFluid, H1, H4, Image } from './style';
+import { AuthModel } from "@/entities/auth";
+import { Routes } from "@/shared/constants";
+import { isMobile } from "@/shared/lib";
+import { RolesDict } from "@/shared/types";
+import { Badge } from "@/shared/ui";
+import { Container, ContainerFluid, H1, H4, Image } from "./style";
 
 const Auth = () => {
   const theme = createTheme({
@@ -22,19 +22,24 @@ const Auth = () => {
     },
   });
 
-  const { login } = AuthModel.useAuthStore();
+  const { setRole, resetAuth } = AuthModel.useAuthStore();
   const navigate = useNavigate();
 
   const handleClick = (roleLabel: string) => {
-    const role = (Object.keys(RolesDict) as Array<keyof typeof RolesDict>).find(
-      (key) => RolesDict[key] === roleLabel
-    ) as Roles;
+    resetAuth();
+    const roleKey = (
+      Object.keys(RolesDict) as Array<keyof typeof RolesDict>
+    ).find((key) => RolesDict[key] === roleLabel);
 
-    if (role) {
-      login(role); 
-      navigate(Routes.MAIN); 
+    if (roleKey) {
+      if (roleLabel === "Соискатель") {
+        setRole(RolesDict[roleKey]);
+        navigate(Routes.MAIN);
+      } else {
+        navigate(Routes.LOGIN);
+      }
     } else {
-      console.error('Неизвестная роль:', roleLabel);
+      console.error("Неизвестная роль:", roleLabel);
     }
   };
 
@@ -49,7 +54,7 @@ const Auth = () => {
           justifyContent="center"
           sx={{
             marginTop: {
-              md: '4.3em',
+              md: "4.3em",
               sm: 0,
             },
           }}
@@ -58,12 +63,12 @@ const Auth = () => {
             <Box
               sx={{
                 width: {
-                  sm: '100%',
-                  md: '60%',
+                  sm: "100%",
+                  md: "60%",
                 },
                 padding: {
-                  sm: '0 3em',
-                  xs: '1em 3em',
+                  sm: "0 3em",
+                  xs: "1em 3em",
                   md: 0,
                 },
               }}
@@ -71,7 +76,7 @@ const Auth = () => {
               <H1>Заказ справок и принятие обращений ДГТУ</H1>
               <H4>Кто вы?</H4>
               <Badge
-                onClick={() => handleClick('Работник')}
+                onClick={() => handleClick("Работник")}
                 label="работник"
                 icon={
                   <IconChevronRight
@@ -83,7 +88,7 @@ const Auth = () => {
                 direction="rtl"
               />
               <Badge
-                onClick={() => handleClick('Студент')}
+                onClick={() => handleClick("Студент")}
                 label="студент"
                 icon={
                   <IconChevronRight
@@ -95,7 +100,7 @@ const Auth = () => {
                 direction="rtl"
               />
               <Badge
-                onClick={() => handleClick('Соискатель')}
+                onClick={() => handleClick("Соискатель")}
                 label="соискатель"
                 icon={
                   <IconChevronRight

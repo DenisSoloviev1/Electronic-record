@@ -7,7 +7,7 @@ import axios, {
 } from 'axios';
 
 import notification from '@/shared/config/error-notification.ts';
-import { basePath } from '@/shared/config/params.ts';
+import { baseUrl } from '@/shared/config/params.ts';
 
 import {
   AuthApi,
@@ -37,9 +37,9 @@ class Api {
   // requestsApi: RequestsApi;
   typesOfRequestsApi: TypesOfRequestsApi;
 
-  constructor(basePath: string) {
+  constructor(baseUrl: string) {
     this.instance = axios.create({
-      baseURL: basePath,
+      baseURL: baseUrl,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -48,20 +48,20 @@ class Api {
 
     this.typesOfRequestsApi = new TypesOfRequestsApi(
       undefined,
-      basePath,
+      baseUrl,
       this.instance,
     );
-    this.usersApi = new UsersApi(undefined, basePath, this.instance);
-    this.authApi = new AuthApi(undefined, basePath, this.instance);
-    // this.requestsApi = new RequestsApi(undefined, basePath, this.instance);
+    this.usersApi = new UsersApi(undefined, baseUrl, this.instance);
+    this.authApi = new AuthApi(undefined, baseUrl, this.instance);
+    // this.requestsApi = new RequestsApi(undefined, baseUrl, this.instance);
     this.departmentsApi = new DepartmentsApi(
       undefined,
-      basePath,
+      baseUrl,
       this.instance,
     );
     this.divisionsApi = new DivisionsApi(
       undefined,
-      basePath,
+      baseUrl,
       this.instance,
     );
   }
@@ -172,4 +172,4 @@ class Api {
   }
 }
 
-export const api = new Api(basePath);
+export const api = new Api(baseUrl);

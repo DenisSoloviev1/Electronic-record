@@ -12,18 +12,18 @@ export const menuItems: Menu[] = [
     id: 1,
     path: Routes.EMPLOYEE,
     label: 'Отдел кадров',
-    allowedRoles: ['EMPLOYEE']
+    allowedRoles: ['Работник']
   },
   {
     id: 2,
     path: Routes.STUDENT,
     label: 'Отдел по работе с обучающимися',
-    allowedRoles: ['STUDENT'] 
+    allowedRoles: ['Студент'] 
   },
   {
     id: 3,
     path: Routes.APPLICANT,
     label: 'Отдел по подбору персонала',
-    allowedRoles: ['APPLICANT']
+    allowedRoles: ['Соискатель']
   },
 ];

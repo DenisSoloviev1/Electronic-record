@@ -23,7 +23,7 @@ export const routes: IRoute[] = [
     id: 2,
     path: Routes.CALLBACK,
     component: lazy(() => import("../../entities/login/api/callback")),
-    isPublic: false,
+    isPublic: true,
     roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
     withLayout: false,
   },

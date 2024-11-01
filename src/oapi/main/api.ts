@@ -307,11 +307,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authCreate(authIn: AuthIn, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthIn>> {
+        async authCreate(authIn: AuthIn, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<AuthIn>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authCreate(authIn, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authCreate']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+            const localVarOperationServerbaseUrl = operationServerMap['AuthApi.authCreate']?.[localVarOperationServerIndex]?.url;
+            return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
         },
     }
 };
@@ -320,7 +320,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
  * AuthApi - factory interface
  * @export
  */
-export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const AuthApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
     const localVarFp = AuthApiFp(configuration)
     return {
         /**
@@ -330,7 +330,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         authCreate(authIn: AuthIn, options?: any): AxiosPromise<AuthIn> {
-            return localVarFp.authCreate(authIn, options).then((request) => request(axios, basePath));
+            return localVarFp.authCreate(authIn, options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -350,7 +350,7 @@ export class AuthApi extends BaseAPI {
      * @memberof AuthApi
      */
     public authCreate(authIn: AuthIn, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authCreate(authIn, options).then((request) => request(this.axios, this.basePath));
+        return AuthApiFp(this.configuration).authCreate(authIn, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 
@@ -430,11 +430,11 @@ export const DepartmentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async departmentsList(limit?: number, offset?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedDepartmentReadList>> {
+        async departmentsList(limit?: number, offset?: number, search?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedDepartmentReadList>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.departmentsList(limit, offset, search, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DepartmentsApi.departmentsList']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+            const localVarOperationServerbaseUrl = operationServerMap['DepartmentsApi.departmentsList']?.[localVarOperationServerIndex]?.url;
+            return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
         },
     }
 };
@@ -443,7 +443,7 @@ export const DepartmentsApiFp = function(configuration?: Configuration) {
  * DepartmentsApi - factory interface
  * @export
  */
-export const DepartmentsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const DepartmentsApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
     const localVarFp = DepartmentsApiFp(configuration)
     return {
         /**
@@ -455,7 +455,7 @@ export const DepartmentsApiFactory = function (configuration?: Configuration, ba
          * @throws {RequiredError}
          */
         departmentsList(limit?: number, offset?: number, search?: string, options?: any): AxiosPromise<PaginatedDepartmentReadList> {
-            return localVarFp.departmentsList(limit, offset, search, options).then((request) => request(axios, basePath));
+            return localVarFp.departmentsList(limit, offset, search, options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -477,7 +477,7 @@ export class DepartmentsApi extends BaseAPI {
      * @memberof DepartmentsApi
      */
     public departmentsList(limit?: number, offset?: number, search?: string, options?: RawAxiosRequestConfig) {
-        return DepartmentsApiFp(this.configuration).departmentsList(limit, offset, search, options).then((request) => request(this.axios, this.basePath));
+        return DepartmentsApiFp(this.configuration).departmentsList(limit, offset, search, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 
@@ -558,11 +558,11 @@ export const DivisionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async divisionsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedDivisionReadList>> {
+        async divisionsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedDivisionReadList>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.divisionsList(limit, offset, search, role, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DivisionsApi.divisionsList']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+            const localVarOperationServerbaseUrl = operationServerMap['DivisionsApi.divisionsList']?.[localVarOperationServerIndex]?.url;
+            return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
         },
     };
 };
@@ -571,7 +571,7 @@ export const DivisionsApiFp = function (configuration?: Configuration) {
  * DivisionsApi - factory interface
  * @export
  */
-export const DivisionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const DivisionsApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
     const localVarFp = DivisionsApiFp(configuration);
     return {
         /**
@@ -584,7 +584,7 @@ export const DivisionsApiFactory = function (configuration?: Configuration, base
          * @throws {RequiredError}
          */
         divisionsList(limit?: number, offset?: number, search?: string, role?: string, options?: any): AxiosPromise<PaginatedDivisionReadList> {
-            return localVarFp.divisionsList(limit, offset, search, role, options).then((request) => request(axios, basePath));
+            return localVarFp.divisionsList(limit, offset, search, role, options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -607,7 +607,7 @@ export class DivisionsApi extends BaseAPI {
      * @memberof DivisionsApi
      */
     public divisionsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig) {
-        return DivisionsApiFp(this.configuration).divisionsList(limit, offset, search, role, options).then((request) => request(this.axios, this.basePath));
+        return DivisionsApiFp(this.configuration).divisionsList(limit, offset, search, role, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 
@@ -710,11 +710,11 @@ export class DivisionsApi extends BaseAPI {
 //          * @param {*} [options] Override http request option.
 //          * @throws {RequiredError}
 //          */
-//         async requestsBusyRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RequestCreate>> {
+//         async requestsBusyRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<RequestCreate>> {
 //             const localVarAxiosArgs = await localVarAxiosParamCreator.requestsBusyRetrieve(options);
 //             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-//             const localVarOperationServerBasePath = operationServerMap['RequestsApi.requestsBusyRetrieve']?.[localVarOperationServerIndex]?.url;
-//             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+//             const localVarOperationServerbaseUrl = operationServerMap['RequestsApi.requestsBusyRetrieve']?.[localVarOperationServerIndex]?.url;
+//             return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
 //         },
 //         /**
 //          * 
@@ -722,11 +722,11 @@ export class DivisionsApi extends BaseAPI {
 //          * @param {*} [options] Override http request option.
 //          * @throws {RequiredError}
 //          */
-//         async requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RequestCreate>> {
+//         async requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<RequestCreate>> {
 //             const localVarAxiosArgs = await localVarAxiosParamCreator.requestsCreate(requestCreate, options);
 //             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-//             const localVarOperationServerBasePath = operationServerMap['RequestsApi.requestsCreate']?.[localVarOperationServerIndex]?.url;
-//             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+//             const localVarOperationServerbaseUrl = operationServerMap['RequestsApi.requestsCreate']?.[localVarOperationServerIndex]?.url;
+//             return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
 //         },
 //     }
 // };
@@ -735,7 +735,7 @@ export class DivisionsApi extends BaseAPI {
 //  * RequestsApi - factory interface
 //  * @export
 //  */
-// export const RequestsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+// export const RequestsApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
 //     const localVarFp = RequestsApiFp(configuration)
 //     return {
 //         /**
@@ -744,7 +744,7 @@ export class DivisionsApi extends BaseAPI {
 //          * @throws {RequiredError}
 //          */
 //         requestsBusyRetrieve(options?: any): AxiosPromise<RequestCreate> {
-//             return localVarFp.requestsBusyRetrieve(options).then((request) => request(axios, basePath));
+//             return localVarFp.requestsBusyRetrieve(options).then((request) => request(axios, baseUrl));
 //         },
 //         /**
 //          * 
@@ -753,7 +753,7 @@ export class DivisionsApi extends BaseAPI {
 //          * @throws {RequiredError}
 //          */
 //         requestsCreate(requestCreate: RequestCreate, options?: any): AxiosPromise<RequestCreate> {
-//             return localVarFp.requestsCreate(requestCreate, options).then((request) => request(axios, basePath));
+//             return localVarFp.requestsCreate(requestCreate, options).then((request) => request(axios, baseUrl));
 //         },
 //     };
 // };
@@ -772,7 +772,7 @@ export class DivisionsApi extends BaseAPI {
 //      * @memberof RequestsApi
 //      */
 //     public requestsBusyRetrieve(options?: RawAxiosRequestConfig) {
-//         return RequestsApiFp(this.configuration).requestsBusyRetrieve(options).then((request) => request(this.axios, this.basePath));
+//         return RequestsApiFp(this.configuration).requestsBusyRetrieve(options).then((request) => request(this.axios, this.baseUrl));
 //     }
 
 //     /**
@@ -783,7 +783,7 @@ export class DivisionsApi extends BaseAPI {
 //      * @memberof RequestsApi
 //      */
 //     public requestsCreate(requestCreate: RequestCreate, options?: RawAxiosRequestConfig) {
-//         return RequestsApiFp(this.configuration).requestsCreate(requestCreate, options).then((request) => request(this.axios, this.basePath));
+//         return RequestsApiFp(this.configuration).requestsCreate(requestCreate, options).then((request) => request(this.axios, this.baseUrl));
 //     }
 // }
 
@@ -857,11 +857,11 @@ export const SchemaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async schemaRetrieve(format?: SchemaRetrieveFormatEnum, lang?: SchemaRetrieveLangEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: any; }>> {
+        async schemaRetrieve(format?: SchemaRetrieveFormatEnum, lang?: SchemaRetrieveLangEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<{ [key: string]: any; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.schemaRetrieve(format, lang, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SchemaApi.schemaRetrieve']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+            const localVarOperationServerbaseUrl = operationServerMap['SchemaApi.schemaRetrieve']?.[localVarOperationServerIndex]?.url;
+            return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
         },
     }
 };
@@ -870,7 +870,7 @@ export const SchemaApiFp = function(configuration?: Configuration) {
  * SchemaApi - factory interface
  * @export
  */
-export const SchemaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const SchemaApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
     const localVarFp = SchemaApiFp(configuration)
     return {
         /**
@@ -881,7 +881,7 @@ export const SchemaApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         schemaRetrieve(format?: SchemaRetrieveFormatEnum, lang?: SchemaRetrieveLangEnum, options?: any): AxiosPromise<{ [key: string]: any; }> {
-            return localVarFp.schemaRetrieve(format, lang, options).then((request) => request(axios, basePath));
+            return localVarFp.schemaRetrieve(format, lang, options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -902,7 +902,7 @@ export class SchemaApi extends BaseAPI {
      * @memberof SchemaApi
      */
     public schemaRetrieve(format?: SchemaRetrieveFormatEnum, lang?: SchemaRetrieveLangEnum, options?: RawAxiosRequestConfig) {
-        return SchemaApiFp(this.configuration).schemaRetrieve(format, lang, options).then((request) => request(this.axios, this.basePath));
+        return SchemaApiFp(this.configuration).schemaRetrieve(format, lang, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 
@@ -1090,9 +1090,9 @@ export const TypesOfRequestsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedTypeOfRequestReadList>> {
+        async typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedTypeOfRequestReadList>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.typesOfRequestsList(limit, offset, search, role, options);
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, basePath);
+            return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, baseUrl);
         },
     };
 };
@@ -1101,7 +1101,7 @@ export const TypesOfRequestsApiFp = function (configuration?: Configuration) {
  * TypesOfRequestsApi - factory interface
  * @export
  */
-export const TypesOfRequestsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const TypesOfRequestsApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
     const localVarFp = TypesOfRequestsApiFp(configuration);
     return {
         /**
@@ -1114,7 +1114,7 @@ export const TypesOfRequestsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedTypeOfRequestReadList> {
-            return localVarFp.typesOfRequestsList(limit, offset, search, role, options).then((request) => request(axios, basePath));
+            return localVarFp.typesOfRequestsList(limit, offset, search, role, options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -1137,7 +1137,7 @@ export class TypesOfRequestsApi extends BaseAPI {
      * @memberof TypesOfRequestsApi
      */
     public typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig) {
-        return TypesOfRequestsApiFp(this.configuration).typesOfRequestsList(limit, offset, search, role, options).then((request) => request(this.axios, this.basePath));
+        return TypesOfRequestsApiFp(this.configuration).typesOfRequestsList(limit, offset, search, role, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 
@@ -1199,11 +1199,11 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async usersMeRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async usersMeRetrieve(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.usersMeRetrieve(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersApi.usersMeRetrieve']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+            const localVarOperationServerbaseUrl = operationServerMap['UsersApi.usersMeRetrieve']?.[localVarOperationServerIndex]?.url;
+            return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
         },
     }
 };
@@ -1212,7 +1212,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
  * UsersApi - factory interface
  * @export
  */
-export const UsersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const UsersApiFactory = function (configuration?: Configuration, baseUrl?: string, axios?: AxiosInstance) {
     const localVarFp = UsersApiFp(configuration)
     return {
         /**
@@ -1221,7 +1221,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @throws {RequiredError}
          */
         usersMeRetrieve(options?: any): AxiosPromise<void> {
-            return localVarFp.usersMeRetrieve(options).then((request) => request(axios, basePath));
+            return localVarFp.usersMeRetrieve(options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -1240,7 +1240,7 @@ export class UsersApi extends BaseAPI {
      * @memberof UsersApi
      */
     public usersMeRetrieve(options?: RawAxiosRequestConfig) {
-        return UsersApiFp(this.configuration).usersMeRetrieve(options).then((request) => request(this.axios, this.basePath));
+        return UsersApiFp(this.configuration).usersMeRetrieve(options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 

@@ -1,7 +1,7 @@
 import { ComponentType, FC } from "react";
 import { Layout } from "@/widgets/layout";
 import { AuthModel } from "@/entities/auth";
-import { Roles } from "@/shared/types";
+import { Roles, RolesDict } from "@/shared/types";
 import Login from "@/pages/ui/login";
 
 interface IPrivateRoute {
@@ -22,15 +22,17 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
   // Проверка, является ли страница публичной
   if (isPublic) {
     return <RouteComponent />;
-  }
+  } 
 
   // Проверка, авторизован ли пользователь
   if (!isAuth) {
     return <Login />;
   }
-
+  // console.log(role)
+  // console.log(role === RolesDict.APPLICANT)
+  console.log(RolesDict.APPLICANT)
   // Проверка роли "Соискатель"
-  if (role === "APPLICANT") {
+  if (role === RolesDict.APPLICANT) {
     return (
       <Layout>
         <RouteComponent />

@@ -30,7 +30,7 @@ const zodSchema = createSchema(fields);
 
 const Student = () => {
   const { userName } = useAuthStore();
-  console.log(userName)
+  console.log(userName);
 
   const {
     control,
@@ -42,27 +42,25 @@ const Student = () => {
     resolver: zodResolver(zodSchema),
     mode: "onSubmit",
     defaultValues: {
-      contact_name: userName
-    }
+      contact_name: userName,
+    },
   });
 
   const { setDepartment, setDivision, setType, setDateRequest } =
     useChekTimeApiStore();
-  const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore(); // Для проверки даты и времени
+  const { resetDateTime, time, startDate } = CalendarModel.useCalendarStore();
   const { filter: divisionFilter, clearFilter: clearDivision } =
-    DivisionsModel.useDivisionsStore(); // Для проверки подразделения
+    DivisionsModel.useDivisionsStore();
   const { filter: typeOfRequestFilter, clearFilter: clearTypeOfRequest } =
-    TypeOfRequestsModel.useTypeOfRequestsStore(); // Для проверки типа обращения
+    TypeOfRequestsModel.useTypeOfRequestsStore();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // Получаем текущие значения полей формы
   const contactName = watch("contact_name");
   const email = watch("email");
   const phone = watch("phone");
 
-  // Проверка заполненности всех полей, включая выпадающие списки и календарь
   const validateForm = () => {
     if (!contactName || !email || !phone) {
       setErrorMessage("Пожалуйста, заполните все обязательные поля.");
@@ -105,7 +103,10 @@ const Student = () => {
       // указать API для создания заявки
       return await fetch("/your-api-endpoint", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${localStorage.getItem("authToken")}`,
+        },
         body: JSON.stringify(data),
       });
     },

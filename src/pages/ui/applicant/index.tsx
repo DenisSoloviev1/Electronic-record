@@ -26,6 +26,7 @@ const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Applicant = () => {
+
   const {
     control,
     formState: { errors },
@@ -88,7 +89,10 @@ const Applicant = () => {
       // указать API для создания заявки
       return await fetch("/your-api-endpoint", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${localStorage.getItem("authToken")}`,
+        },
         body: JSON.stringify(data),
       });
     },

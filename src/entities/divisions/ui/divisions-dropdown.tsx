@@ -34,6 +34,8 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
   ) as keyof typeof RolesDict;
   const role = RolesDict[roleKey];
 
+  const authToken = localStorage.getItem("authToken") ?? "";
+
   const {
     data: divisions,
     isLoading,
@@ -41,7 +43,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
   } = useQuery({
     queryKey: [
       QueryReqName.getDivisions,
-      { limit: 10, offset: 0, search: "", role },
+      { limit: 10, offset: 0, search: "", role, authToken },
     ],
     queryFn: getDivisions,
     refetchOnWindowFocus: false,

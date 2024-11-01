@@ -8,16 +8,17 @@ interface CheckTimeApiProps {
   date_request: string;
 }
 
-export const checkTimeApi = async (params: CheckTimeApiProps) => {
+export const checkTimeApi = async (params: CheckTimeApiProps, authTicket:string) => {
   try {
     const res = await axios.post(`${baseUrl}/api/list-time/`, params, {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `${authTicket}`,
       },
     });
 
     if (res.status === 200) {
-      return res.data; // Возвращаем доступное время
+      return res.data; 
     } else {
       console.error("Неправильный статус ответа:", res.status);
       return [];

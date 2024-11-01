@@ -9,6 +9,7 @@ import { useChekTimeApiStore } from "../../model/index.ts";
 
 export const TimeRange = memo(() => {
   const { params } = useChekTimeApiStore();
+  const authToken = localStorage.getItem("authToken") ?? "";
 
   const { time, setTime } = CalendarModel.useCalendarStore((state) => state);
   const listRef = useRef<HTMLUListElement>(null);
@@ -30,7 +31,7 @@ export const TimeRange = memo(() => {
   // Вызов API при монтировании компонента
   useEffect(() => {
     const fetchAvailableTime = async () => {
-      const timeData = await checkTimeApi(params); // Ожидание ответа от API
+      const timeData = await checkTimeApi(params, authToken); // Ожидание ответа от API
       if (timeData) {
         setAvailableTime(timeData); // Установка данных времени в состояние
       }

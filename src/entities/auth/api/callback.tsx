@@ -50,7 +50,7 @@ const Callback: React.FC = () => {
 
   useEffect(() => {
     if (isRoleSaved) {
-      navigate(role === RolesDict.EMPLOYEE ? Routes.EMPLOYEE : Routes.STUDENT);
+      navigate(Routes.MAIN);
     }
   }, [isRoleSaved, role, navigate]);
 

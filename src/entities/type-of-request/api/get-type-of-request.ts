@@ -10,7 +10,8 @@ type GetTypeOfRequestsParams = {
   limit?: number;
   offset?: number;
   search?: string;
-  role: string;  // Роль передается в запрос как параметр
+  role: string;
+  authToken: string;
 };
 
 type GetTypeOfRequestsQueryKey = [
@@ -22,9 +23,9 @@ export const getTypeOfRequests: QueryFunction<
   TypeOfRequestsDto,
   GetTypeOfRequestsQueryKey
 > = async ({ queryKey }) => {
-  const { limit, offset, search, role } = queryKey[1]; // Получаем роль из параметров
+  const { limit, offset, search, role, authToken } = queryKey[1]; // Получаем роль из параметров
   try {
-    const res = await api.typesOfRequestsApi.typesOfRequestsList(limit, offset, search, role); // Передаем роль в API-запрос
+    const res = await api.typesOfRequestsApi.typesOfRequestsList(limit, offset, search, role, authToken); // Передаем роль в API-запрос
 
     if (checkStatus(res.status)) {
       return res.data as TypeOfRequestsDto;

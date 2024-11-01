@@ -498,7 +498,7 @@ export const DivisionsApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        divisionsList: async (limit?: number, offset?: number, search?: string, role?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        divisionsList: async (limit?: number, offset?: number, search?: string, role?: string, authToken?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/divisions/?roles=${encodeURIComponent(role ?? '')}`;
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -510,6 +510,10 @@ export const DivisionsApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            if (authToken) {
+                localVarHeaderParameter['Authorization'] = `Bearer ${authToken}`;
+            }
+        
             // authentication basicAuth required
             setBasicAuthToObject(localVarRequestOptions, configuration);
 
@@ -558,8 +562,8 @@ export const DivisionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async divisionsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedDivisionReadList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.divisionsList(limit, offset, search, role, options);
+        async divisionsList(limit?: number, offset?: number, search?: string, role?: string, authTocken?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedDivisionReadList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.divisionsList(limit, offset, search, role, authTocken, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerbaseUrl = operationServerMap['DivisionsApi.divisionsList']?.[localVarOperationServerIndex]?.url;
             return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerbaseUrl || baseUrl);
@@ -606,8 +610,8 @@ export class DivisionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DivisionsApi
      */
-    public divisionsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig) {
-        return DivisionsApiFp(this.configuration).divisionsList(limit, offset, search, role, options).then((request) => request(this.axios, this.baseUrl));
+    public divisionsList(limit?: number, offset?: number, search?: string, role?:string, authTocken?:string, options?: RawAxiosRequestConfig) {
+        return DivisionsApiFp(this.configuration).divisionsList(limit, offset, search, role, authTocken, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 
@@ -1035,7 +1039,7 @@ export const TypesOfRequestsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        typesOfRequestsList: async (limit?: number, offset?: number, search?: string, role?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        typesOfRequestsList: async (limit?: number, offset?: number, search?: string, role?: string, authToken?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/types-of-requests/?roles=${encodeURIComponent(role ?? '')}`;
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1046,6 +1050,10 @@ export const TypesOfRequestsApiAxiosParamCreator = function (configuration?: Con
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (authToken) {
+                localVarHeaderParameter['Authorization'] = `Bearer ${authToken}`;
+            }
 
             // Add basic auth if needed
             setBasicAuthToObject(localVarRequestOptions, configuration);
@@ -1090,8 +1098,8 @@ export const TypesOfRequestsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedTypeOfRequestReadList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.typesOfRequestsList(limit, offset, search, role, options);
+        async typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, authToken?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, baseUrl?: string) => AxiosPromise<PaginatedTypeOfRequestReadList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.typesOfRequestsList(limit, offset, search, role, authToken, options);
             return (axios, baseUrl) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, baseUrl);
         },
     };
@@ -1113,8 +1121,8 @@ export const TypesOfRequestsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedTypeOfRequestReadList> {
-            return localVarFp.typesOfRequestsList(limit, offset, search, role, options).then((request) => request(axios, baseUrl));
+        typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, authToken?: string, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedTypeOfRequestReadList> {
+            return localVarFp.typesOfRequestsList(limit, offset, search, role, authToken, options).then((request) => request(axios, baseUrl));
         },
     };
 };
@@ -1136,8 +1144,8 @@ export class TypesOfRequestsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TypesOfRequestsApi
      */
-    public typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, options?: RawAxiosRequestConfig) {
-        return TypesOfRequestsApiFp(this.configuration).typesOfRequestsList(limit, offset, search, role, options).then((request) => request(this.axios, this.baseUrl));
+    public typesOfRequestsList(limit?: number, offset?: number, search?: string, role?: string, authToken?: string, options?: RawAxiosRequestConfig) {
+        return TypesOfRequestsApiFp(this.configuration).typesOfRequestsList(limit, offset, search, role, authToken, options).then((request) => request(this.axios, this.baseUrl));
     }
 }
 

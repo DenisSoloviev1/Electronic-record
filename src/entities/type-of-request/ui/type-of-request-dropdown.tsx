@@ -33,12 +33,14 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   const roleKey = useAuthStore((state) => state.role) as keyof typeof RolesDict;
   const role = RolesDict[roleKey]; 
 
+  const authToken = localStorage.getItem("authToken") ?? "";
+
   const {
     data: typeOfRequest,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: [QueryReqName.getTypeOfRequest, { limit: 10, offset: 0, search: '', role }], // Передаем роль в запрос
+    queryKey: [QueryReqName.getTypeOfRequest, { limit: 10, offset: 0, search: '', role, authToken  }], // Передаем роль в запрос
     queryFn: getTypeOfRequests,
     refetchOnWindowFocus: false,
   });

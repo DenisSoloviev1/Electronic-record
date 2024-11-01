@@ -22,6 +22,7 @@ import {
   FormField,
 } from "@/shared/ui/Form";
 import { AssentP, Link } from "@/pages/ui/main";
+import { baseUrl } from "@/shared/config";
 
 const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
@@ -93,7 +94,7 @@ const Employee = () => {
     mutationKey: ["createRequest"],
     mutationFn: async (data: RequestCreate) => {
       // указать API для создания заявки
-      return await fetch("/your-api-endpoint", {
+      return await fetch(`${baseUrl}/api/requests/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -43,7 +43,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
   } = useQuery({
     queryKey: [
       QueryReqName.getDivisions,
-      { limit: 100, offset: 0, search: "", role, authToken }, // можно поставить лимит для количества поля
+      { limit: 600, offset: 0, search: "", role, authToken }, // можно поставить лимит для количества полей
     ],
     queryFn: getDivisions,
     refetchOnWindowFocus: false,

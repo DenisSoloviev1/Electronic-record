@@ -40,7 +40,7 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
     isLoading,
     isError,
   } = useQuery({
-    queryKey: [QueryReqName.getTypeOfRequest, { limit: 1000, offset: 0, search: '', role, authToken  }], // можно поставить лимит для количества поля
+    queryKey: [QueryReqName.getTypeOfRequest, { limit: 100, offset: 0, search: '', role, authToken  }], // можно поставить лимит для количества полей
     queryFn: getTypeOfRequests,
     refetchOnWindowFocus: false,
   });

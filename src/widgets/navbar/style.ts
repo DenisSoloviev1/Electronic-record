@@ -13,10 +13,12 @@ export const PlainText = styled.p`
 `;
 
 export const NavBarContainer = styled.div`
+width: 40vw;
   padding: 3.4em 3.4em 5em;
 
-  @media (max-width: 550px) {
-    padding: 1em;
+  @media (max-width: 900px) {
+  width: 100vw;
+    padding: 2em;
   }
 `;
 
@@ -58,7 +60,7 @@ export const TextMessage = styled.p`
   font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: -0.0125rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   @media (max-width: 550px) {
     font-size: 1.125rem;

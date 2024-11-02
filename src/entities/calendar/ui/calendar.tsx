@@ -47,7 +47,7 @@ export const Calendar = memo(({ onClick }: ICalendarProps) => {
 
   return (
     <CalendarBody>
-      <Flex $align="center" $justify="space-between">
+      <Flex $direction='row' $align="center" $justify="space-between" $gap={15}>
         <CalendarActions type="button" onClick={prevMonth}>
           <ArrowLeft />
         </CalendarActions>

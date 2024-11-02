@@ -15,7 +15,7 @@ export const Chip = styled.div<{
   align-items: center;
   border-radius: 1.8rem;
   background-color: ${(props) => (props.$disabled ? "#C4C4C4" : "#11519c")};
-  margin-top: ${(props) => !props.$primary && "1em"};
+  margin-top: ${(props) => !props.$primary && ".5rem"};
   transition: all 0.2s ease;
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
 

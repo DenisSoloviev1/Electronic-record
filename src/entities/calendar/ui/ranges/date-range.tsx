@@ -19,7 +19,7 @@ export const DateRange = memo(() => {
   }, [setStartDate, setIsShown]);
 
   return (
-    <div style={{ width: isMobile ? '100%' : 'auto' }} ref={rootRef}>
+    <div style={{ width: isMobile ? '100%' : 'auto', marginRight: "15px" }} ref={rootRef}>
       <Input
         onClick={() => setIsShown((prev) => !prev)} // Показать или скрыть календарь
         label="Дата приема"

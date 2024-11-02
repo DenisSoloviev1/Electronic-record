@@ -25,7 +25,7 @@ export const SubmitButton: FC<Props> = ({
       $disabled={disabled}
       disabled={disabled}
     >
-      <Flex $justify="space-between">
+      <Flex $justify="space-between" $direction='row'>
         <Text>{label}</Text>
         {!loading ? (
           <IconBtn>

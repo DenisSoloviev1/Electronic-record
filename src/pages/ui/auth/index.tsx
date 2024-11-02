@@ -1,4 +1,4 @@
-import { Box, Stack, ThemeProvider, createTheme } from "@mui/material";
+import { Box, ThemeProvider, createTheme } from "@mui/material";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
@@ -46,75 +46,61 @@ const Auth = () => {
   return (
     <ContainerFluid>
       <Container>
-        <Stack
-          width="100%"
-          gap="17em"
-          alignItems="flex-start"
-          direction="row"
-          justifyContent="center"
-          sx={{
-            marginTop: {
-              md: "4em",
-              sm: 0,
-            },
-          }}
-        >
-          <ThemeProvider theme={theme}>
-            <Box
-              sx={{
-                width: {
-                  sm: "100%",
-                  md: "60%",
-                },
-                padding: {
-                  sm: "0 3em",
-                  xs: "1em 3em",
-                  md: 0,
-                },
-              }}
-            >
-              <H1>Заказ справок и принятие обращений ДГТУ</H1>
-              <H4>Кто вы?</H4>
-              <Badge
-                onClick={() => handleClick("Работник")}
-                label="работник"
-                icon={
-                  <IconChevronRight
-                    color="#fff"
-                    width={isMobile ? 33 : 66}
-                    height={isMobile ? 33 : 66}
-                  />
-                }
-                direction="rtl"
-              />
-              <Badge
-                onClick={() => handleClick("Студент")}
-                label="студент"
-                icon={
-                  <IconChevronRight
-                    color="#fff"
-                    width={isMobile ? 33 : 66}
-                    height={isMobile ? 33 : 66}
-                  />
-                }
-                direction="rtl"
-              />
-              <Badge
-                onClick={() => handleClick("Соискатель")}
-                label="соискатель"
-                icon={
-                  <IconChevronRight
-                    color="#fff"
-                    width={isMobile ? 33 : 66}
-                    height={isMobile ? 33 : 66}
-                  />
-                }
-                direction="rtl"
-              />
-            </Box>
-          </ThemeProvider>
-          <Image src="/logo2.png" alt="logo" />
-        </Stack>
+        <ThemeProvider theme={theme}>
+          <Box
+            sx={{
+              width: {
+                sm: "100%",
+                md: "60%",
+              },
+              padding: {
+                xs: "1rem",
+                sm: "0 3rem 1rem",
+                md: "0",
+              },
+            }}
+          >
+            <H1>Заказ справок и принятие обращений ДГТУ</H1>
+            <H4>Кто вы?</H4>
+            <Badge
+              onClick={() => handleClick("Работник")}
+              label="работник"
+              icon={
+                <IconChevronRight
+                  color="#fff"
+                  width={isMobile ? 33 : 66}
+                  height={isMobile ? 33 : 66}
+                />
+              }
+              direction="rtl"
+            />
+            <Badge
+              onClick={() => handleClick("Студент")}
+              label="студент"
+              icon={
+                <IconChevronRight
+                  color="#fff"
+                  width={isMobile ? 33 : 66}
+                  height={isMobile ? 33 : 66}
+                />
+              }
+              direction="rtl"
+            />
+            <Badge
+              onClick={() => handleClick("Соискатель")}
+              label="соискатель"
+              icon={
+                <IconChevronRight
+                  color="#fff"
+                  width={isMobile ? 33 : 66}
+                  height={isMobile ? 33 : 66}
+                />
+              }
+              direction="rtl"
+            />
+          </Box>
+        </ThemeProvider>
+        <Image src="/logo2.png" alt="logo" />
       </Container>
     </ContainerFluid>
   );

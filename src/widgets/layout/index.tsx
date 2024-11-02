@@ -1,4 +1,3 @@
-import { Stack } from "@mui/material";
 import { ReactNode, memo } from "react";
 
 import { Aside, Box } from "@/widgets/layout/style";
@@ -12,10 +11,7 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
   const isMain = window.location.pathname === Routes.MAIN;
 
   return (
-    <Stack
-      direction={isMobile ? "column" : "row"}
-      justifyContent="space-between"
-    >
+    <Flex $direction={isMobile ? "column" : "row"} $justify="space-between" $align="start">
       {isMobile ? (
         <>
           {isMain && (
@@ -24,7 +20,7 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
             </Aside>
           )}
           {!isMain && (
-            <Flex $align="start">
+            <Flex $align="start" >
               <Aside>
                 <NavBar />
               </Aside>
@@ -49,6 +45,6 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
           <Box $bg={isMain ? "transparent" : "#fff"}>{children}</Box>
         </>
       )}
-    </Stack>
+    </Flex>
   );
 });

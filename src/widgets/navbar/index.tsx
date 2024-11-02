@@ -28,7 +28,7 @@ export const NavBar = memo(() => {
 
   return (
     <NavBarContainer>
-      <Stack spacing={3} mb={6} alignItems="center" direction="row">
+      <Stack spacing={3} mb={3} alignItems="center" direction="row">
         <GoBackBtn />
         <Badge
           not_style={true}

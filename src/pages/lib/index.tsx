@@ -5,14 +5,6 @@ import { IRoute, RolesDict } from "@/shared/types";
 export const routes: IRoute[] = [
   {
     id: 0,
-    path: "/",
-    component: lazy(() => import("../ui/auth")),
-    isPublic: true,
-    roles: [RolesDict.APPLICANT, RolesDict.EMPLOYEE, RolesDict.STUDENT],
-    withLayout: false,
-  },
-  {
-    id: 1,
     path: Routes.LOGIN,
     component: lazy(() => import("../ui/auth/login")),
     isPublic: true,
@@ -20,7 +12,7 @@ export const routes: IRoute[] = [
     withLayout: false,
   },
   {
-    id: 2,
+    id: 1,
     path: Routes.CALLBACK,
     component: lazy(() => import("../../entities/auth/api/callback")),
     isPublic: true,
@@ -28,7 +20,7 @@ export const routes: IRoute[] = [
     withLayout: false,
   },
   {
-    id: 3,
+    id: 2,
     path: Routes.MAIN,
     component: lazy(() => import("../ui/main")),
     isPublic: false,
@@ -36,7 +28,7 @@ export const routes: IRoute[] = [
     withLayout: true,
   },
   {
-    id: 4,
+    id: 3,
     path: Routes.EMPLOYEE,
     component: lazy(() => import("../ui/employee")),
     isPublic: false,
@@ -44,7 +36,7 @@ export const routes: IRoute[] = [
     withLayout: true,
   },
   {
-    id: 5,
+    id: 4,
     path: Routes.STUDENT,
     component: lazy(() => import("../ui/student")),
     isPublic: false,
@@ -52,7 +44,7 @@ export const routes: IRoute[] = [
     withLayout: true,
   },
   {
-    id: 6,
+    id: 5,
     path: Routes.APPLICANT,
     component: lazy(() => import("../ui/applicant")),
     isPublic: false,

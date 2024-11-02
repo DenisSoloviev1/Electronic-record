@@ -40,7 +40,7 @@ export interface IRequest {
   date: string;
   department: number;
   division: number;
-  typeOfRequest: number;
+  type: number;
 }
 
 // calendar

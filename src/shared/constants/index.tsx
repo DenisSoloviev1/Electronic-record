@@ -9,6 +9,7 @@ export const mainTitle: mainT = {
 };
 
 export enum Routes {
+  AUTH = "/",
   MAIN = "/main",
   EMPLOYEE = "/employee",
   STUDENT = "/student",

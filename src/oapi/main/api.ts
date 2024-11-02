@@ -216,12 +216,6 @@ export interface RequestCreate {
      * @type {number}
      * @memberof RequestCreate
      */
-    'typeOfRequest': number | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof RequestCreate
-     */
     'type'?: number | null;
 }
 /**

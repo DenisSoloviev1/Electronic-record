@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
 import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -88,7 +89,6 @@ const Student = () => {
   useEffect(() => {
     if (divisionFilter?.id && typeOfRequestFilter?.id && startDate) {
       const date = new Date(startDate);
-      // date.setDate(date.getDate() + 1);
       const formattedDate = date.toISOString().split("T")[0];
 
       setDepartment(10);
@@ -101,14 +101,11 @@ const Student = () => {
   const { isLoading: isPending, mutate } = useMutation({
     mutationKey: ["createRequest"],
     mutationFn: async (data: RequestCreate) => {
-      // указать API для создания заявки
-      return await fetch(`${baseUrl}/api/requests/`, {
-        method: "POST",
+      return await axios.post(`${baseUrl}/api/requests/`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `${localStorage.getItem("authToken")}`,
         },
-        body: JSON.stringify(data),
       });
     },
   });
@@ -116,15 +113,26 @@ const Student = () => {
   const onSubmit: SubmitHandler<IRequest> = (vals) => {
     if (!validateForm()) return;
 
+    const [hours, minutes] = time.split(":").map(Number);
+    const localDate = new Date(startDate);
+    localDate.setHours(hours, minutes, 0, 0);
+
+    // Форматируем дату и время в локальный формат, исключая временную зону
+    const formattedLocalDate = `${localDate.getFullYear()}-${String(
+      localDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(localDate.getDate()).padStart(
+      2,
+      "0"
+    )}T${String(localDate.getHours()).padStart(2, "0")}:${String(
+      localDate.getMinutes()
+    ).padStart(2, "0")}:${String(localDate.getSeconds()).padStart(2, "0")}`;
+
     const mutationValues: IRequest = {
       ...vals,
       department: 10,
       division: divisionFilter.id,
-      typeOfRequest: typeOfRequestFilter.id,
-      date: new Date(
-        new Date(startDate).setHours(+time.split(":")[0], +time.split(":")[1]) -
-          60 * 60 * 1000
-      ).toJSON(),
+      type: typeOfRequestFilter.id,
+      date: formattedLocalDate,
     };
 
     // Форматируем номер телефона
@@ -140,6 +148,8 @@ const Student = () => {
       return;
     }
 
+    console.log("Отправляемые данные:", mutationValues);
+
     mutate(mutationValues, {
       onSuccess: () => {
         setIsOpen(true);
@@ -154,6 +164,17 @@ const Student = () => {
           date: "",
         });
         setErrorMessage("");
+      },
+      onError: (error: unknown) => {
+        const axiosError = error as AxiosError<{ non_field_errors?: string[] }>;
+
+        const errorMessage = axiosError.response?.data?.non_field_errors?.[0];
+
+        setErrorMessage(
+          errorMessage
+            ? `Произошла ошибка при отправке. ${errorMessage}`
+            : "Произошла ошибка при отправке, попробуйте ещё раз."
+        );
       },
     });
   };

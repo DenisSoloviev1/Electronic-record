@@ -3,6 +3,7 @@ import { Layout } from "@/widgets/layout";
 import { useAuthStore } from "@/entities/auth";
 import { Roles, RolesDict } from "@/shared/types";
 import Login from "@/pages/ui/auth/login";
+import NotFound from "@/pages/ui/notFound";
 
 interface IPrivateRoute {
   element: ComponentType;
@@ -36,11 +37,11 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
       </Layout>
     );
   }
-    // Если пользователь авторизован, но его роль не соответствует разрешённым ролям, показываем страницу "Not Found"
-    if (role && !roles.includes(role as Roles)) {
-      return <Login />;//add NotFound page
-    }
-  
+  // Если пользователь авторизован, но его роль не соответствует разрешённым ролям, показываем страницу "Not Found"
+  if (role && !roles.includes(role as Roles)) {
+    return <NotFound />;
+  }
+
   return (
     <Layout>
       <RouteComponent />

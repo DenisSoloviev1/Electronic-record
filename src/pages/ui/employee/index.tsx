@@ -24,11 +24,14 @@ import {
 } from "@/shared/ui/Form";
 import { AssentP, Link } from "@/pages/ui/main";
 import { baseUrl } from "@/shared/config";
+import { useAuthStore } from "@/entities/auth";
 
 const fields = ["contact_name", "email", "phone", "date"] as FieldsKey[];
 const zodSchema = createSchema(fields);
 
 const Employee = () => {
+  const { userName } = useAuthStore();
+
   const {
     control,
     formState: { errors },
@@ -38,6 +41,9 @@ const Employee = () => {
   } = useForm<IRequest>({
     resolver: zodResolver(zodSchema),
     mode: "onSubmit",
+    defaultValues: {
+      contact_name: userName,
+    },
   });
 
   const { setDepartment, setDivision, setType, setDateRequest } =

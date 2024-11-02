@@ -32,7 +32,6 @@ const zodSchema = createSchema(fields);
 
 const Student = () => {
   const { userName } = useAuthStore();
-  console.log(userName);
 
   const {
     control,

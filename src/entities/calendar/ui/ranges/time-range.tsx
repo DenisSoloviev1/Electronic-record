@@ -11,6 +11,7 @@ export const TimeRange = memo(() => {
   const { params } = useChekTimeApiStore();
   const authToken = localStorage.getItem("authToken") ?? "";
 
+  const [isFirstRender, setIsFirstRender] = useState(true); // Состояние для отслеживания первого рендера
   const { time, setTime } = CalendarModel.useCalendarStore((state) => state);
   const listRef = useRef<HTMLUListElement>(null);
   const [availableTime, setAvailableTime] = useState<string[]>([]); // Хранение доступного времени
@@ -31,13 +32,18 @@ export const TimeRange = memo(() => {
   // Вызов API при монтировании компонента
   useEffect(() => {
     const fetchAvailableTime = async () => {
-      const timeData = await checkTimeApi(params, authToken); // Ожидание ответа от API
-      if (timeData) {
-        setAvailableTime(timeData); // Установка данных времени в состояние
+      if (Object.keys(params).length > 0) {
+        // Проверка, что params не пустой
+        const timeData = await checkTimeApi(params, authToken); // Ожидание ответа от API
+        if (timeData) {
+          setAvailableTime(timeData); // Установка данных времени в состояние
+        }
       }
     };
-    fetchAvailableTime();
-  }, [params]); // Пустой массив зависимостей для вызова только при монтировании
+
+    !isFirstRender ? fetchAvailableTime() : setIsFirstRender(false);
+    
+  }, [params]);
 
   return (
     <div style={{ width: isMobile ? "100%" : "auto" }} ref={rootRef}>

@@ -18,8 +18,6 @@ export const NavBar = memo(() => {
     (state) => state.role
   ) as keyof typeof RolesDict;
 
-  console.log("Текущая роль:", role);
-
   if (!role) {
     return (
       <NavBarContainer>

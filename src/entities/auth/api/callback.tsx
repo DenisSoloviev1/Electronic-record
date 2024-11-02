@@ -46,7 +46,7 @@ const Callback: React.FC = () => {
     } else {
       setLoading(false);
     }
-  }, [location, setRole]);
+  }, [location]);
 
   useEffect(() => {
     if (isRoleSaved) {

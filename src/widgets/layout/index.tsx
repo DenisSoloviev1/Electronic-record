@@ -9,9 +9,7 @@ import { Flex } from "@/shared/ui";
 import { NavBar } from "../navbar";
 
 export const Layout = memo(({ children }: { children: ReactNode }) => {
-
   const isMain = window.location.pathname === Routes.MAIN;
-  console.log(window.location.pathname === Routes.MAIN);
 
   return (
     <Stack

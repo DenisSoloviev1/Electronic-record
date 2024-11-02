@@ -133,8 +133,6 @@ const Applicant = () => {
       return;
     }
 
-    console.log("Отправляемые данные:", mutationValues);
-
     mutate(mutationValues, {
       onSuccess: () => {
         setIsOpen(true);

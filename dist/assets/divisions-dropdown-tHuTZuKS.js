@@ -1,4 +1,4 @@
-import{c as D,d as j,s as F,r as S,u as T,j as l,A as b,T as k,P as I,R as C}from"./index-Rd33IoH9.js";import{j as O,k as P}from"./constants-K0aoAq2B.js";var x=(t=>(t.getDivisions="divisions",t))(x||{});const R=async({queryKey:t})=>{const{limit:n,offset:o,search:u,role:c,authToken:d}=t[1];try{const s=await D.divisionsApi.divisionsList(n,o,u,c,d);return O(s.status)?s.data:{}}catch(s){return console.log(s),{}}},A={filter:{name:"",id:0}},E=j(t=>({...A,setFilter:n=>t(()=>({filter:n})),clearFilter:()=>t(()=>({filter:{id:0,name:""}}))})),q=F.div`
+import{c as D,d as j,s as F,r as S,u as T,j as l,A as b,T as k,P as I,R as C}from"./index-KMvAtgXu.js";import{j as O,k as P}from"./constants--uSdytdo.js";var x=(t=>(t.getDivisions="divisions",t))(x||{});const R=async({queryKey:t})=>{const{limit:n,offset:o,search:u,role:c,authToken:d}=t[1];try{const s=await D.divisionsApi.divisionsList(n,o,u,c,d);return O(s.status)?s.data:{}}catch(s){return console.log(s),{}}},A={filter:{name:"",id:0}},E=j(t=>({...A,setFilter:n=>t(()=>({filter:n})),clearFilter:()=>t(()=>({filter:{id:0,name:""}}))})),q=F.div`
   margin-bottom: 20px;
   border-radius: 16px;
   background-color: #f1f4f9;

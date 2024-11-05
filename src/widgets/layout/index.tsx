@@ -9,6 +9,7 @@ import { NavBar } from "../navbar";
 
 export const Layout = memo(({ children }: { children: ReactNode }) => {
   const isMain = window.location.pathname === Routes.MAIN;
+  console.log(`isMobile ${isMobile}`)
 
   return (
     <Flex $direction={isMobile ? "column" : "row"} $justify="space-between" $align="start">
@@ -25,14 +26,13 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
                 <NavBar />
               </Aside>
 
-              {/* <Box $bg="#fff">
+              <Box $bg="#fff">
                 <Flex
                   $justify="space-between"
                   $align="center"
-                  style={{ marginBottom: "2em" }}
                 ></Flex>
                 {children}
-              </Box> */}
+              </Box>
             </Flex>
           )}
         </>

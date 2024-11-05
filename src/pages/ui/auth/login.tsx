@@ -25,17 +25,18 @@ const Login: React.FC = () => {
         </ImgContainer>
 
         <Info>
-          <Text>
-            Пожалуйста, авторизируйтесь в системе с помощью вашей учетной записи
-          </Text>
+          <Text>Авторизируйтесь через edu.donstu.ru</Text>
 
           <Callback />
 
-          <Button onClick={handleLogin}>
-            перейти в ЭИОС <LogoDSTU />
-          </Button>
+          <Flex $gap={10}>
+            <Button onClick={handleLogin}>
+              <LogoDSTU /> начать
+            </Button>
 
-          <Link onClick={() => navigate("/")}>на главную</Link>
+            <Button onClick={() => navigate("/")}>вернуться</Button>
+          </Flex>
+
         </Info>
       </Flex>
     </Container>

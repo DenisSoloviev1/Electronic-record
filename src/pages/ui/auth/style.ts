@@ -13,7 +13,7 @@ export const Container = styled.div`
   max-width: 1340px;
   min-height: 100vh;
   margin: 0 auto;
-  padding: 35px 50px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,10 +47,6 @@ export const Info = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-
-   @media (max-width: 900px) {
-      gap: 5px;
-  }
 `;
 
 export const H1 = styled.h1`
@@ -106,36 +102,31 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 5px 0;
   width: 100%;
   max-width: 300px;
+  height: 60px;
   border-radius: 0.75rem;
-  border: 1px solid #38424f;
-  background: #fff;
-  padding: 0.5em 1.5em;
+  gap: 10px;
+  background: #11519c;
+  color: #fff;
 
-  color: #38424f;
+  padding: 0.5em 1.5em;
+  border: 0;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: -0.01125rem;
-  transition: all ease 0.5s;
+  transition: all ease 0.2s;
 
   svg {
-    transition: all ease 0.5s;
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
+    fill: #fff;
   }
 
   &:hover {
-    border: 1px solid #fff;
-    background: #11519c;
-    color: #fff;
+    background-color: #2169ba;
     cursor: pointer;
-
-    svg {
-      fill: #fff;
-    }
   }
 
   &.active {
@@ -143,14 +134,12 @@ export const Button = styled.button`
     color: #fff;
   }
 
-  @media (max-width: 550px) {
-    font-size: 0.8rem;
-  }
+  
 `;
 
 export const Text = styled.p`
   color: #38424f;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -0.01125rem;
 

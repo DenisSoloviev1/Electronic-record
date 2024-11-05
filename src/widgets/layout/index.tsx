@@ -25,14 +25,14 @@ export const Layout = memo(({ children }: { children: ReactNode }) => {
                 <NavBar />
               </Aside>
 
-              <Box $bg="#fff">
+              {/* <Box $bg="#fff">
                 <Flex
                   $justify="space-between"
                   $align="center"
                   style={{ marginBottom: "2em" }}
                 ></Flex>
                 {children}
-              </Box>
+              </Box> */}
             </Flex>
           )}
         </>

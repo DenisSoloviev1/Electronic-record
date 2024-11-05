@@ -9,9 +9,9 @@ const NotFound: React.FC = () => {
   return (
     <Wrapper>
       <NotFoundSvg />
-      <Flex $direction="column" $align="start" $gap={5}>
-        <h1>Ошибка 404: страница не найдена.</h1>
-        <p>Запрашиваемая страница была удалена или никогда не существовала.</p>
+      <Flex $direction="column" $align="start" $gap={10}>
+        <h2>Ошибка 404:<br/> <span>страница не найдена.</span></h2>
+
         <p>
           Вернуться на <NavLink to={Routes.AUTH}>главную</NavLink>.
         </p>

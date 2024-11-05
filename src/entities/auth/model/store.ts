@@ -1,17 +1,21 @@
-import { create } from 'zustand';
-import { Roles } from '@/shared/types';
+import { create } from "zustand";
+import { Roles, RolesDict } from "@/shared/types";
 
 interface IAuthState {
   isAuth: boolean;
   role: Roles;
-  userName:  string;
+  userName: string;
   setUser: (user: string) => void;
   setRole: (roleName: Roles) => void;
   setAuthStatus: (authStatus: boolean) => void;
-  resetAuth: () => void; 
+  resetAuth: () => void;
 }
 
-const initialAuth = localStorage.getItem("authToken") ? true : false;
+const initialAuth = localStorage.getItem("authToken")
+  ? true
+  : false || (localStorage.getItem("userRole") as Roles) === RolesDict.APPLICANT
+    ? true
+    : false;
 const initialRole = (localStorage.getItem("userRole") as Roles) || "";
 const initialUserName = (localStorage.getItem("userName") as Roles) || "";
 
@@ -20,11 +24,11 @@ export const useAuthStore = create<IAuthState>((set) => ({
   role: initialRole,
   userName: initialUserName,
   setUser: (newUserName: string) => {
-    localStorage.setItem("userName", newUserName); 
+    localStorage.setItem("userName", newUserName);
     set({ userName: newUserName });
   },
   setRole: (newRole: Roles) => {
-    localStorage.setItem("userRole", newRole); 
+    localStorage.setItem("userRole", newRole);
     set({ isAuth: true, role: newRole });
   },
   setAuthStatus: (authStatus: boolean) => set({ isAuth: authStatus }),

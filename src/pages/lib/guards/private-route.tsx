@@ -18,6 +18,7 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
   roles,
 }) => {
   const { isAuth, role } = useAuthStore((state) => state);
+  // const role: Roles = localStorage.getItem("userRole") as Roles;
 
   // Проверка, является ли страница публичной
   if (isPublic) {
@@ -28,7 +29,6 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
   if (!isAuth) {
     return <Login />;
   }
-
   // Проверка роли "Соискатель"
   if (role === RolesDict.APPLICANT) {
     return (

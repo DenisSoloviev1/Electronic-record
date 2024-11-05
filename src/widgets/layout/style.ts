@@ -24,7 +24,7 @@ export const Btn = styled.button`
 `;
 
 export const Aside = styled.aside`
-  width: 40%;
+  width: 50%;
 
   @media (max-width: 550px) {
     width: 100%;

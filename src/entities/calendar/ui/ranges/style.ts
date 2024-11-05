@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Time = styled.div`
   position: absolute;
-  top: 25%;
+  top: 50%;
   z-index: 10;
   max-width: 140px;
   width: 100%;

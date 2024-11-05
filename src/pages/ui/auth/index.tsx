@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/entities/auth";
 import { Routes } from "@/shared/constants";
 import { isMobile } from "@/shared/lib";
-import { RolesDict } from "@/shared/types";
+import { Roles, RolesDict } from "@/shared/types";
 import { Badge } from "@/shared/ui";
 import { Container, ContainerFluid, H1, H4, Image } from "./style";
 
@@ -27,13 +27,14 @@ const Auth = () => {
 
   const handleClick = (roleLabel: string) => {
     resetAuth();
-    const roleKey = (
-      Object.keys(RolesDict) as Array<keyof typeof RolesDict>
-    ).find((key) => RolesDict[key] === roleLabel);
+    const roleValue = Object.entries(RolesDict).find(
+      ([, value]) => value === roleLabel
+    )?.[1];
 
-    if (roleKey) {
+    if (roleValue) {
       if (roleLabel === "Соискатель") {
-        setRole(RolesDict[roleKey]);
+        setRole(roleValue as Roles);
+        console.log(roleValue);
         navigate(Routes.MAIN);
       } else {
         navigate(Routes.LOGIN);

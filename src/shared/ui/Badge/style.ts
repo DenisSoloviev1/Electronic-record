@@ -18,10 +18,11 @@ export const Chip = styled.div<{
   margin-top: ${(props) => !props.$primary && ".5rem"};
   transition: all 0.2s ease;
   cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
+  transition: all ease 0.2s;
 
   &:hover {
-    background-color: ${(props) => (props.$disabled ? "#C4C4C4" : "#1b59a0")};
-    background-color: ${(props) => (props.$not_style ? "#11519c" : "#1b59a0")};
+    background-color: ${(props) => (props.$disabled ? "#C4C4C4" : "#2169ba")};
+    background-color: ${(props) => (props.$not_style ? "#11519c" : "#2169ba")};
     cursor: ${(props) => (props.$not_style ? "default" : "pointer")};
   }
 
@@ -30,7 +31,9 @@ export const Chip = styled.div<{
   }
 `;
 
-export const ChipText = styled.span<{ $primary?: boolean;   $not_style?: boolean;
+export const ChipText = styled.span<{
+  $primary?: boolean;
+  $not_style?: boolean;
 }>`
   color: #f4f4f4;
   font-size: ${(props) => (props.$primary ? "1.6rem" : "2.25rem")};

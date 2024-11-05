@@ -9,7 +9,6 @@ import {
   Button,
   ImgContainer,
 } from "@/pages/ui/auth/style";
-import { Link } from "@/pages/ui/main";
 import { handleLogin } from "@/entities/auth";
 import Callback from "@/entities/auth/api/callback";
 import { Flex } from "@/shared/ui";

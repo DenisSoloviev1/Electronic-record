@@ -83,6 +83,7 @@ export const Image = styled.img`
   }
   @media (max-width: 900px) {
     width: 45%;
+    margin-top: 30px;
   }
 `;
 
@@ -133,8 +134,6 @@ export const Button = styled.button`
     background: #11519c;
     color: #fff;
   }
-
-  
 `;
 
 export const Text = styled.p`

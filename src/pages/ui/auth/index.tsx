@@ -8,6 +8,7 @@ import { isMobile } from "@/shared/lib";
 import { Roles, RolesDict } from "@/shared/types";
 import { Badge } from "@/shared/ui";
 import { Container, ContainerFluid, H1, H4, Image } from "./style";
+import { Link } from "../main";
 
 const Auth = () => {
   const theme = createTheme({
@@ -98,6 +99,12 @@ const Auth = () => {
               }
               direction="rtl"
             />
+            <Link
+              href="/public/Инструкция.pdf" target="_blanck"
+              style={{ position: "absolute", top: "20px", left: "20px", }}
+            >
+              Как пользоваться системой?
+            </Link>
           </Box>
         </ThemeProvider>
         <Image src="/logo2.png" alt="logo" />

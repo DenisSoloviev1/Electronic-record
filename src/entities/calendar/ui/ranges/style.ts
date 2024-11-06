@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Time = styled.div`
   position: absolute;
-  top: 50%;
+  top: 40%;
   z-index: 10;
   max-width: 140px;
   width: 100%;
@@ -16,6 +16,10 @@ export const Time = styled.div`
   padding: 0.8em 1.5em;
   background: #f1f4f9;
   box-shadow: 1px 2px 8.1px 0px rgba(174, 174, 174, 0.25);
+
+  @media screen and (max-width: 900px){
+    top: 60%;
+  }
 `;
 
 export const TimeAction = styled.button`

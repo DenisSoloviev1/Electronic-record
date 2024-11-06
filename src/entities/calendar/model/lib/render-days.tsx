@@ -5,15 +5,15 @@ import { formatDate } from "@/shared/lib";
 
 type RenderDaysPropsType = {
   date: Date;
-  firstDay: number; // День недели первого дня месяца (0 - воскресенье, 1 - понедельник, ..., 6 - суббота)
+  firstDay: number;
   days: Date[];
-  lastDay: number; // Последний день месяца
-  curr: number; // Текущий день
+  lastDay: number;
+  curr: number;
   handleClick: (day: Date) => void;
 };
 
 // Создаем объект holidays и указываем страну и регион
-const hd = new Holidays("RU", "RU-MOW"); // Россия, Ростов-на-Дону
+const hd = new Holidays("RU", "RU-MOW");
 
 const CalendarDayText = styled.span<{
   $selected?: boolean;
@@ -28,7 +28,7 @@ const CalendarDayText = styled.span<{
     props.$selected
       ? "#1370B9"
       : props.$isHoliday
-      ? "#FF4500" // Красный цвет для праздников
+      ? "#FF4500"
       : props.$isNonWorkingDay
       ? "#A9A9A9"
       : "#38424f"};
@@ -84,7 +84,6 @@ export const RenderDays = ({
 }: RenderDaysPropsType) => {
   const render = useCallback(() => {
     const blanks = [];
-    // Корректно добавляем пустые дни перед первым днем месяца
     const blankCount = firstDay === 0 ? 6 : firstDay - 1;
     for (let i = 0; i < blankCount; i++) {
       blanks.push(<BlankDay key={`blank-${i}`} />);
@@ -92,10 +91,10 @@ export const RenderDays = ({
 
     const monthDays: ReactNode[] = [];
     days.forEach((day: Date) => {
-      // Определяем выходные дни
       const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-      const isHoliday = !!hd.isHoliday(day); // Проверка, является ли день праздником
-      const isNonWorkingDay = isWeekend || isHoliday; // Суббота, воскресенье и праздники
+      const holidays = hd.isHoliday(day);
+      const isHoliday = Array.isArray(holidays) && holidays.some((holiday) => holiday.type === "public");
+      const isNonWorkingDay = isWeekend || isHoliday;
 
       monthDays.push(
         <CalendarDay
@@ -123,7 +122,6 @@ export const RenderDays = ({
     const totalDays = [...blanks, ...monthDays];
 
     const remainingBlanks = [];
-    // Добавляем пустые дни после последнего дня месяца
     for (let i = 0; i < 6 - lastDay; i++) {
       remainingBlanks.push(<BlankDay key={`remaining-blank-${i}`} />);
     }

@@ -176,7 +176,7 @@ const Applicant = () => {
 
         <Flex
           $direction={isMobile ? "column" : "row"}
-          $gap={15}
+          $gap={isMobile ? 0 : 15}
           $justify="space-between"
           $align="flex-start"
         >

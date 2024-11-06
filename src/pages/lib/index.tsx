@@ -3,14 +3,14 @@ import { Routes } from "@/shared/constants";
 import { IRoute, RolesDict } from "@/shared/types";
 
 export const routes: IRoute[] = [
-  {
-    id: 0,
-    path: Routes.LOGIN,
-    component: lazy(() => import("../ui/auth/login")),
-    isPublic: true,
-    roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
-    withLayout: false,
-  },
+  // {
+  //   id: 0,
+  //   path: Routes.LOGIN,
+  //   component: lazy(() => import("../ui/auth/login")),
+  //   isPublic: true,
+  //   roles: [RolesDict.EMPLOYEE, RolesDict.STUDENT],
+  //   withLayout: false,
+  // },
   {
     id: 1,
     path: Routes.CALLBACK,

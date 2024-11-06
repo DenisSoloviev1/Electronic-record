@@ -1,7 +1,7 @@
 import { ComponentType, FC } from "react";
 import { Layout } from "@/widgets/layout";
 import { useAuthStore } from "@/entities/auth";
-import { Roles, RolesDict } from "@/shared/types";
+import { Roles } from "@/shared/types";
 import Login from "@/pages/ui/auth/login";
 import NotFound from "@/pages/ui/notFound";
 
@@ -29,14 +29,7 @@ export const PrivateRoute: FC<IPrivateRoute> = ({
   if (!isAuth) {
     return <Login />;
   }
-  // Проверка роли "Соискатель"
-  if (role === RolesDict.APPLICANT) {
-    return (
-      <Layout>
-        <RouteComponent />
-      </Layout>
-    );
-  }
+  
   // Если пользователь авторизован, но его роль не соответствует разрешённым ролям, показываем страницу "Not Found"
   if (role && !roles.includes(role as Roles)) {
     return <NotFound />;

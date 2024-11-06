@@ -34,7 +34,6 @@ const Auth = () => {
     if (roleValue) {
       if (roleLabel === "Соискатель") {
         setRole(roleValue as Roles);
-        console.log(roleValue);
         navigate(Routes.MAIN);
       } else {
         navigate(Routes.LOGIN);

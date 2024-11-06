@@ -11,7 +11,6 @@ import { getTypeOfRequests, QueryReqName } from "@/entities/type-of-request/api"
 import { TypeOfRequestsModel } from "..";
 import { OptionStruct } from "@/shared/ui/Select";
 import { useAuthStore } from "@/entities/auth";
-import { RolesDict } from '@/shared/types';
 
 interface TypeOfRequestDropdownParams {
   label?: string;
@@ -30,8 +29,7 @@ export const TypeOfRequestDropdown: FC<TypeOfRequestDropdownParams> = ({
   const { filter, setFilter, clearFilter } =
     TypeOfRequestsModel.useTypeOfRequestsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
-  const roleKey = useAuthStore((state) => state.role) as keyof typeof RolesDict;
-  const role = RolesDict[roleKey]; 
+  const { role } = useAuthStore();
 
   const authToken = localStorage.getItem("authToken") ?? "";
 

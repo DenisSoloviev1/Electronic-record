@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CalendarBody = styled.div`
   position: absolute;
-  top: 25%;
+  top: 40%;
   z-index: 10;
   max-width: 350px;
   width: 100%;

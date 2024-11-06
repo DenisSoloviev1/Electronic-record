@@ -29,10 +29,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
 }) => {
   const { filter, setFilter, clearFilter } = DivisionsModel.useDivisionsStore();
   const [inputValue, setInputValue] = useState(filter.name || "");
-  const roleKey = useAuthStore(
-    (state) => state.role
-  ) as keyof typeof RolesDict;
-  const role = RolesDict[roleKey];
+  const { role } = useAuthStore();
 
   const authToken = localStorage.getItem("authToken") ?? "";
 
@@ -83,7 +80,8 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
         getOptionLabel={(option) => option.name}
         value={
           filter.name !== "Соискатель"
-            ? selectOptions.find((option) => option.name === filter.name) || null
+            ? selectOptions.find((option) => option.name === filter.name) ||
+              null
             : null
         }
         inputValue={inputValue}
@@ -101,7 +99,7 @@ export const DivisionsDropdown: FC<DivisionsDropdownParams> = ({
           <TextField
             {...params}
             label={
-              label && role === "Студент" ? "Ваш факультет" : label
+              label && role === RolesDict.STUDENT ? "Ваш факультет" : label
             }
             variant="outlined"
             InputProps={{

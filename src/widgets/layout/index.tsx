@@ -9,7 +9,6 @@ import { NavBar } from "../navbar";
 
 export const Layout = memo(({ children }: { children: ReactNode }) => {
   const isMain = window.location.pathname === Routes.MAIN;
-  console.log(`isMobile ${isMobile}`)
 
   return (
     <Flex $direction={isMobile ? "column" : "row"} $justify="space-between" $align="start">

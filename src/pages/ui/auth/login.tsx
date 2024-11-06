@@ -1,5 +1,4 @@
 import React from "react";
-// import { useLoginStore } from "../../../entities/login/model/store";
 import { useNavigate } from "react-router-dom";
 import { AuthSvg, LogoDSTU } from "@/shared/ui/Icon"; // Ваш SVG логотип
 import {
@@ -35,7 +34,6 @@ const Login: React.FC = () => {
 
             <Button onClick={() => navigate("/")}>вернуться</Button>
           </Flex>
-
         </Info>
       </Flex>
     </Container>

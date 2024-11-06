@@ -4,11 +4,11 @@ export const CalendarBody = styled.div`
   position: absolute;
   top: 40%;
   z-index: 10;
-  max-width: 350px;
+  max-width: 300px;
   width: 100%;
 
   border-radius: 1rem;
-  padding: 1.3em;
+  padding: .5em;
   background: #f1f4f9;
   box-shadow: 1px 2px 8.1px 0px rgba(174, 174, 174, 0.25);
 
@@ -61,3 +61,4 @@ export const Days = styled.ul`
   flex-wrap: wrap;
   width: 100%;
 `;
+

@@ -39,7 +39,7 @@ const CalendarDay = styled.div<{
   $curr?: number;
   $isNonWorkingDay?: boolean;
 }>`
-  max-width: 42px;
+  max-width: 40px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -66,7 +66,7 @@ const CalendarDay = styled.div<{
 `;
 
 const BlankDay = styled.div`
-  max-width: 42px;
+  max-width: 40px;
   width: 100%;
   display: flex;
   align-items: center;

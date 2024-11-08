@@ -35,6 +35,7 @@ export const TimeRange = memo(() => {
       if (Object.keys(params).length > 0) {
         // Проверка, что params не пустой
         const timeData = await checkTimeApi(params, authToken); // Ожидание ответа от API
+        console.log(params)
         if (timeData) {
           setAvailableTime(timeData); // Установка данных времени в состояние
         }

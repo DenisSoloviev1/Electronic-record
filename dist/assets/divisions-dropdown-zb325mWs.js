@@ -1,4 +1,4 @@
-import{c as D,d as T,s as S,r as j,u as y,j as l,e as F,T as b,R as k,P as I}from"./index-s_JnIysX.js";import{j as C,k as E}from"./constants-j52MZYRx.js";var x=(t=>(t.getDivisions="divisions",t))(x||{});const O=async({queryKey:t})=>{const{limit:n,offset:o,search:u,role:c,authToken:d}=t[1];try{const s=await D.divisionsApi.divisionsList(n,o,u,c,d);return C(s.status)?s.data:{}}catch(s){return console.log(s),{}}},P={filter:{name:"",id:0}},R=T(t=>({...P,setFilter:n=>t(()=>({filter:n})),clearFilter:()=>t(()=>({filter:{id:0,name:""}}))})),q=S.div`
+import{c as D,d as T,s as S,r as j,u as y,j as l,e as F,T as b,R as k,P as I}from"./index-mQKodnQH.js";import{j as C,k as E}from"./constants-YTisHSYM.js";var x=(t=>(t.getDivisions="divisions",t))(x||{});const O=async({queryKey:t})=>{const{limit:n,offset:o,search:u,role:c,authToken:d}=t[1];try{const s=await D.divisionsApi.divisionsList(n,o,u,c,d);return C(s.status)?s.data:{}}catch(s){return console.log(s),{}}},P={filter:{name:"",id:0}},R=T(t=>({...P,setFilter:n=>t(()=>({filter:n})),clearFilter:()=>t(()=>({filter:{id:0,name:""}}))})),q=S.div`
   margin-bottom: 20px;
   border-radius: 16px;
   background-color: #f1f4f9;

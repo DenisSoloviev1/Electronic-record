@@ -76,8 +76,8 @@ const Applicant = () => {
       const date = new Date(startDate);
       const formattedDate = date.toISOString().split("T")[0];
 
-      setDepartment(11);
-      setDivision(6);
+      setDepartment(11);//поменять если в админке изменится id
+      setDivision(1054);//оба нужны для корректной работы
       setType(typeOfRequestFilter.id);
       setDateRequest(formattedDate);
     }
@@ -114,8 +114,8 @@ const Applicant = () => {
 
     const mutationValues: IRequest = {
       ...vals,
-      department: 11,
-      division: 6,
+      department: 11,//поменять если в админке изменится id
+      division: 1054,//оба нужны для корректной работы
       type: typeOfRequestFilter.id,
       date: formattedLocalDate,
     };

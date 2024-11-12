@@ -89,18 +89,6 @@ export const Image = styled.img`
   }
 `;
 
-// export const Wrapper = styled.div`
-//   min-height: 100vh;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: center;
-
-//   svg{
-//   width: 30%}
-// `;
-
 export const Button = styled.button`
   display: flex;
   justify-content: center;
@@ -146,5 +134,29 @@ export const Text = styled.p`
 
   @media (max-width: 550px) {
     font-size: 1rem;
+  }
+`;
+
+export const Helper = styled.div`
+  position: relative;
+  color: #007bff;
+
+  .message {
+    color: #38424f;
+    display: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    p {
+      cursor: default;
+    }
+    text-decoration: underline;
+    .message {
+      position: absolute;
+      display: flex;
+      text-decoration: none;
+    }
   }
 `;

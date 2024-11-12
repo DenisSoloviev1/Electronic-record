@@ -7,10 +7,12 @@ import {
   Text,
   Button,
   ImgContainer,
+  Helper,
 } from "@/pages/ui/auth/style";
 import { handleLogin } from "@/entities/auth";
 import Callback from "@/entities/auth/api/callback";
 import { Flex } from "@/shared/ui";
+import { Link } from "../main";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -34,6 +36,19 @@ const Login: React.FC = () => {
 
             <Button onClick={() => navigate("/")}>вернуться</Button>
           </Flex>
+
+          {/* <Text>
+            Если у вас нет личного кабинета, <br /> обратитесь в 1-455a или
+            позвоните: <Link href="tel:88632738529">8 (863) 273-85-29</Link>
+          </Text> */}
+
+          <Helper>
+            Hет личного кабинета?
+            <div className="message">
+              <p>Обратитесь в 1-455a или позвоните:</p>&nbsp;
+              <Link href="tel:88632738529">8 (863) 273-85-29</Link>
+            </div>
+          </Helper>
         </Info>
       </Flex>
     </Container>

@@ -15,7 +15,7 @@ export const Link = styled.a`
   color: #007bff;
   text-decoration: none;
 
-  &:hover {
+  &:hover, &:active {
     cursor: pointer;
     text-decoration: underline;
   }

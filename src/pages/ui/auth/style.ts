@@ -39,6 +39,8 @@ export const ImgContainer = styled.div`
   @media (max-width: 900px) {
     width: 100%;
     height: 100%;
+    max-width: 500px;
+    margin-bottom: 10px;
   }
 `;
 export const Info = styled.div`
